@@ -17,5 +17,9 @@
     "CodeStudio"
   ],
   "author": "lycorisra",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.5.6",
+    "vue": "^1.0.24"
+  }
 }
