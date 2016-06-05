@@ -1,0 +1,21 @@
+{
+  "name": "CodeStudio",
+  "version": "1.0.0",
+  "description": "CodeStudio",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnodejs/nodeclub/"
+  },
+  "keywords": [
+    "CodeStudio"
+  ],
+  "author": "lycorisra",
+  "license": "MIT"
+}
