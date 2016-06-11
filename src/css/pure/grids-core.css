@@ -22,7 +22,7 @@
 
     * Helvetica, Arial, sans-serif: Common font stack on OS X and Windows.
     */
-    font-family: FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 
     /*
     Use flexbox when possible to avoid `letter-spacing` side-effects.
@@ -68,5 +68,5 @@ Resets the font family back to the OS/browser's default sans-serif font,
 this the same font stack that Normalize.css sets for the `body`.
 */
 .pure-g [class *= "pure-u"] {
-    font-family: sans-serif;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }

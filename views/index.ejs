@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>CodeStudio</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar-wrapper"></div>
+        <div class="page">
+            <div class="navbar">
+                <a class="toggle">汉堡菜单</a>
+                <h1 class=navbar-brand>
+                    <a class="brand" href="/dillinger">DILLINGER</a>
+                </h1>
+                <nav class="nav nav-right">
+                    <ul class="menu menu-utilities">
+                        <li class="menu-itemhas-dropdown">
+                            <a class="dropdown-toggle">Preview as <span class="caret"></span></a>
+                            <ul class="dropdown dropdown-menu ng-scope" role="menu">
+                                <li>
+                                    <a ng-click="export.asHTML()" class="export-html">HTML</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asStyledHTML()" class="export-styled_html">Styled HTML</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asMarkdown()" class="export-md">Markdown</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asPDF()" class="export-pdf">PDF</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="content">
+                <div class="editor-header">
+                    <h3 class="title">MARKDOWN</h3>
+                    <a class="enter-zen-mode">Toggle Zen Mode</a>
+                </div>
+                <div class="preview-header">
+                    <h3 class="title">Preview</h3>
+                </div>
+                <div class="split split-editor">
+                    <div id="editor"><textarea></textarea></div>
+                </div>
+                <div class="split split-preview">
+                    <div class="preview"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
