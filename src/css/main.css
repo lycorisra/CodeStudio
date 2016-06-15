@@ -1,0 +1,106 @@
+
+nav.pure-menu{
+    height: 50px;
+    line-height: 50px;
+	background-color: #373D49 !important;
+}
+nav.pure-menu li a{
+    color: #fff !important;
+}
+.pure-menu ul{
+    float: right;
+}
+/* try it styles */
+@media (min-width: 48em){
+    .split {
+        position: fixed;
+        top: 100px;
+        bottom: 20px;
+    }
+    .split-preview{
+        margin-left: 50%;
+    }
+}
+.split{
+    border: 1px solid #ddd;
+    border-left: none;
+}
+.action-bar{
+    position: fixed;
+    z-index: 2;
+    top: 50px;
+    width: 25px;
+    height: 100%;
+    background-color: #293955;
+}
+.action-bar .title-label{
+    display: inline-block;
+    width: 12px;
+    word-break: break-all;
+    margin-left: 5px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+}
+.action-bar .title-label:hover{
+    color: orange;
+}
+.title-document {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+}
+.explorer-viewlet {
+    position: absolute;
+    z-index: 10;
+    top: 50px;
+    left: 25px;
+    bottom: 20px;
+    min-width: 300px;
+    border: 2px solid #293955;
+    background-color: #fff;
+}
+.explorer-viewlet h3.explorer-title {
+    background-color: #FFF0D0;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 3px 5px;
+}
+.explorer-viewlet ul {
+    width: 100%;
+}
+.explorer-viewlet li:hover {
+    background-color: #ddd;
+}
+.explorer-viewlet li.pure-menu-selected {
+    background-color: #CCCEDB;
+}
+.explorer-viewlet li a {
+    display: inline-block;
+    color:#7B7979;
+}
+.title-document input {
+    font-size: 1.25rem;
+    margin-bottom: 0.89999rem;
+    padding-top: 0.10001rem;
+    font-weight: 400;
+    color: #373D49;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 80%;
+    min-width: 300px;
+    outline: 0;
+    border: none;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    text-indent: 25px;
+    color: #fff;
+    background-color: #293955;
+}

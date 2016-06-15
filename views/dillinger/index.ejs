@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" ng-strict-di>
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="<%= description %>">
+    <meta name="keywords" content="<%= keywords %>">
+    <meta name="author" content="<%= author %>">
 
-  <title><%= title %></title>
+    <title><%= title %></title>
 
-  <meta name="description" content="<%= description %>">
-  <meta name="keywords" content="<%= keywords %>">
-  <meta name="author" content="<%= author %>">
-
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!--
-
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!--
   Powered by:
 
   '||''''|
@@ -22,58 +21,131 @@
   .||.....|.|  ||. ||...'.||.    '|...'|'..|'|'..|'
                    ||
                    ||
-
   using node.js version <%= node_version %>
-
   -->
+    <!-- Spiders must use meta description -->
+    <meta name="robots" content="noodp, noydir">
+    <!-- Google Verfication -->
+    <meta name="google-site-verification" content="<%= googleWebmasterMeta %>" />
+    <!-- Viewport and mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="cleartype" content="on">
 
-  <!-- Spiders must use meta description -->
-  <meta name="robots" content="noodp, noydir">
-
-  <!-- Google Verfication -->
-  <meta name="google-site-verification" content="<%= googleWebmasterMeta %>" />
-
-  <!-- Viewport and mobile -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
-  <meta name="HandheldFriendly" content="true">
-  <meta name="MobileOptimized" content="320">
-  <meta http-equiv="cleartype" content="on">
-
-  <link href="/dillinger/css/app.css" rel="stylesheet">
-
-
-
+    <link href="/res/dillinger/css/app.css" rel="stylesheet">
 </head>
 <body ng-controller="Base" file-import-drop-target>
-
-  <input type="file" accept=".md,.markdown" file-import-choose-file />
-
-  <form method="POST" id="downloader">
-    <input type="hidden" name="name">
-    <input type="hidden" name="unmd">
-    <input type="hidden" name="formatting">
-    <input type="hidden" name="preview">
-  </form>
-
-  <%- include splashscreen %>
-
-  <%- include dropdowns/settings %>
-
-  <div class="wrapper">
-    <%- include sidebar %>
-    <%- include notification %>
-    <div class="page">
-      <%- include navbar %>
-      <%- include overlay %>
-      <%- include title %>
-      <div class="g mnone">
-        <%- include editor-headers %>
-        <%- include editor %>
-        <%- include preview %>
-      </div>
+    <input type="file" accept=".md,.markdown" file-import-choose-file />
+    <form method="POST" id="downloader">
+        <input type="hidden" name="name">
+        <input type="hidden" name="unmd">
+        <input type="hidden" name="formatting">
+        <input type="hidden" name="preview">
+    </form>
+    <%- include splashscreen %>
+    <%- include dropdowns/settings %>
+    <div class="wrapper">
+        <%- include sidebar %>
+        <%- include notification %>
+        <div class="page">
+            <div class="navbar">
+                <menu-toggle></menu-toggle>
+                <h1 class="navbar-brand">
+                    <a class="brand" href="/"><%- include icons/branding %></a>
+                </h1>
+                <nav class="nav nav-right">
+                    <ul class="menu menu-utilities">
+                        <li class="menu-item menu-item--export-as has-dropdown" dropdown>
+                            <a class="dropdown-toggle" dropdown-toggle>Preview as <span class="caret"></span></a>
+                            <!--<% var exportTarget = 'preview'; %>-->
+                            <ul class="dropdown dropdown-menu" role="menu" ng-controller="DocumentsExport as export" di-target="<%= exportTarget %>">
+                                <li>
+                                    <a ng-click="export.asHTML()" class="export-html">HTML</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asStyledHTML()" class="export-styled_html">Styled HTML</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asMarkdown()" class="export-md">Markdown</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asPDF()" class="export-pdf">PDF</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-item--export-as has-dropdown" dropdown>
+                            <a class="dropdown-toggle" dropdown-toggle>Export as <span class="caret"></span></a>
+                            <!--<% var exportTarget = '_top'; %>-->
+                            <ul class="dropdown dropdown-menu" role="menu" ng-controller="DocumentsExport as export" di-target="<%= exportTarget %>">
+                                <li>
+                                    <a ng-click="export.asHTML()" class="export-html">HTML</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asStyledHTML()" class="export-styled_html">Styled HTML</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asMarkdown()" class="export-md">Markdown</a>
+                                </li>
+                                <li>
+                                    <a ng-click="export.asPDF()" class="export-pdf">PDF</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-item--save-to has-dropdown" dropdown>
+                            <a class="dropdown-toggle" dropdown-toggle>Save to <span class="caret"></span></a>
+                            <ul class="dropdown dropdown-menu" role="menu">
+                                <%- include dropdowns/save_to %>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-item--import-from has-dropdown" dropdown>
+                            <a class="dropdown-toggle" dropdown-toggle>Import from <span class="caret"></span></a>
+                            <ul class="dropdown dropdown-menu" role="menu">
+                                <li ng-controller="ImportFile as importFile">
+                                    <a class="linked" ng-click="choose()">
+                                        <span>File on Disc</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-item-icon menu-item--preview">
+                            <a class="menu-link menu-link-preview" preview-toggle>
+                                <i class="icon icon-preview"><%- include icons/preview %></i>
+                                <span class="sr-only">Preview</span>
+                            </a>
+                        </li>
+                        <li class="menu-item menu-item-icon menu-item--settings">
+                            <a class="menu-link menu-link-settings" settings-toggle>
+                                <i class="icon icon-settings"><%- include icons/settings %></i>
+                                <span class="sr-only">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="overlay"></div>
+            <div class="header">
+                <h2 class="title">Document Name</h2>
+                <document-title></document-title>
+                <p ng-if="profile.enableWordsCount" class="words">Words: <span class="counter" ng-bind="words"></span></p>
+            </div>
+            <div class="g mnone">
+                <div class="editor-header editor-header--first">
+                    <h3 class="title">Markdown</h3>
+                    <toggle-zen-mode></toggle-zen-mode>
+                </div>
+                <div class="editor-header">
+                    <h3 class="title">Preview</h3>
+                </div>
+                <div class="g-b g-b--t1of2 split split-editor">
+                    <div id="editor"></div>
+                </div>
+                <div class="g-b g-b--t1of2 split split-preview">
+                    <div id="preview" preview debounce="150"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <%- include footer %>
+    <script src="/res/dillinger/dillinger.js"></script>
 </body>
 </html>

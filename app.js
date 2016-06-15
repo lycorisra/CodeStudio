@@ -24,19 +24,19 @@ app.set('view engine', 'ejs');
 
 // May not need to use serveStatic if using nginx for serving
 // static assets. Just comment it out below.
-app.use(serveStatic(__dirname + '/res'));
+app.use(serveStatic(__dirname + '/src'));
 console.log(config);
 app.locals.title = config.title || 'Dillinger.'
 app.locals.description = config.description || 'Dillinger, the last Markdown Editor, ever.'
 
 if (config.googleWebmasterMeta) {
-  app.locals.googleWebmasterMeta = config.googleWebmasterMeta
+	app.locals.googleWebmasterMeta = config.googleWebmasterMeta
 }
 if (config.keywords) {
-  app.locals.keywords = config.keywords
+	app.locals.keywords = config.keywords
 }
 if (config.author) {
-  app.locals.author = config.author
+	app.locals.author = config.author
 }
 app.locals.node_version = process.version.replace('v', '')
 app.locals.app_version = require('./package.json').version
@@ -48,9 +48,9 @@ app.locals.readme = fs.readFileSync(path.resolve(__dirname, './README.md'), 'utf
 
 app.get('/', routes.index);
 // app.get('/dillinger', routes.dillinger);
-app.get('/dillinger',function(req, res) {
-  var view ='./dillinger/index';
-  var indexConfig = {
+app.get('/dillinger', function (req, res) {
+	var view = './dillinger/index';
+	var indexConfig = {
         isDropboxAuth: false,
         isGithubAuth: false,
         isEvernoteAuth: false,
@@ -60,12 +60,16 @@ app.get('/dillinger',function(req, res) {
         isGithubConfigured: false,
         isGoogleDriveConfigured: false,
         isOneDriveConfigured: false
-  };
-  return res.render(view, indexConfig);
-})
+	};
+	return res.render(view, indexConfig);
+});
+app.get('/tryit', function (req, res) {
+	var view = 'tryit';
+	return res.render(view, {});
+});
 
 var port = 8088;
-app.listen(port, function() {
+app.listen(port, function () {
     console.log('Express server listening on port ' + port)
     console.log('\nhttp://' + app.get('bind-address') + ':' + port + '\n')
 })
