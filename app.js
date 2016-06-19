@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 // May not need to use serveStatic if using nginx for serving
 // static assets. Just comment it out below.
 app.use(serveStatic(__dirname + '/src'));
-console.log(config);
+//console.log(config);
 app.locals.title = config.title || 'Dillinger.'
 app.locals.description = config.description || 'Dillinger, the last Markdown Editor, ever.'
 
@@ -66,6 +66,10 @@ app.get('/dillinger', function (req, res) {
 app.get('/tryit', function (req, res) {
 	var view = 'tryit';
 	return res.render(view, {});
+});
+app.get('/document', function (req, res) {
+    var doc = require('./src/js/server/documents');
+    doc.readFile(req, res);
 });
 
 var port = 8088;

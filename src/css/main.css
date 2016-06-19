@@ -51,15 +51,21 @@ nav.pure-menu li a{
     line-height: 50px;
     padding-left: 30px;
 }
+.explorer-viewlet.show {
+    width: 300px;
+    border: 2px solid #293955;
+}
 .explorer-viewlet {
     position: absolute;
     z-index: 10;
     top: 50px;
     left: 25px;
     bottom: 20px;
-    min-width: 300px;
-    border: 2px solid #293955;
+    /*min-width: 300px;*/
+    width: 0;
     background-color: #fff;
+    overflow: auto;
+    transition:width 0.5s linear;
 }
 .explorer-viewlet h3.explorer-title {
     background-color: #FFF0D0;
@@ -70,6 +76,9 @@ nav.pure-menu li a{
 .explorer-viewlet ul {
     width: 100%;
 }
+    .explorer-viewlet li {
+    cursor: pointer;
+    }
 .explorer-viewlet li:hover {
     background-color: #ddd;
 }
@@ -92,6 +101,11 @@ nav.pure-menu li a{
     min-width: 300px;
     outline: 0;
     border: none;
+}
+.split-editor {
+    padding-left: 25px;
+    box-sizing: border-box;
+    overflow: auto;
 }
 footer {
     position: fixed;

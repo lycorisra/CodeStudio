@@ -12,7 +12,7 @@ width: 1px;\
 background: #e8e8e8;\
 }\
 .ace-chrome {\
-background-color: #FFFFFF;\
+background-color: #CCE8CF;\
 color: black;\
 }\
 .ace-chrome .ace_cursor {\
@@ -113,7 +113,7 @@ color: rgb(147, 15, 128);\
 color: rgb(255, 0, 0)\
 }\
 .ace-chrome .ace_string {\
-color: #1A1AA6;\
+color: #0000FF;\
 }\
 .ace-chrome .ace_entity.ace_other.ace_attribute-name {\
 color: #994409;\

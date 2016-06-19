@@ -72,19 +72,35 @@
     <Content Include="public\view\index.html" />
     <Content Include="ReadPath.aspx" />
     <Content Include="src\asset\about.txt" />
+    <Content Include="src\css\main.css" />
     <Content Include="src\css\normalize.css" />
+    <Content Include="src\css\pure\base-context.css" />
     <Content Include="src\css\pure\base.css" />
+    <Content Include="src\css\pure\buttons-core.css" />
     <Content Include="src\css\pure\buttons.css" />
+    <Content Include="src\css\pure\forms-nr.css" />
     <Content Include="src\css\pure\forms.css" />
     <Content Include="src\css\pure\grids-core.css" />
+    <Content Include="src\css\pure\grids-responsive-old-ie.css" />
+    <Content Include="src\css\pure\grids-responsive.css" />
+    <Content Include="src\css\pure\grids-units.css" />
+    <Content Include="src\css\pure\grids.css" />
     <Content Include="src\css\pure\menus-core.css" />
     <Content Include="src\css\pure\menus-dropdown.css" />
     <Content Include="src\css\pure\menus-horizontal.css" />
+    <Content Include="src\css\pure\menus-nr.css" />
+    <Content Include="src\css\pure\menus-paginator.css" />
     <Content Include="src\css\pure\menus-scrollable.css" />
     <Content Include="src\css\pure\menus-skin.css" />
+    <Content Include="src\css\pure\menus.css" />
+    <Content Include="src\css\pure\pure-nr.css" />
+    <Content Include="src\css\pure\pure.css" />
     <Content Include="src\css\pure\tables.css" />
     <Content Include="src\img\favicon.ico" />
+    <Content Include="src\js\controllers\editor.js" />
+    <Content Include="src\js\server\documents.js" />
     <Content Include="src\js\controllers\explorer.js" />
+    <Content Include="src\js\explorer\document.js" />
     <Content Include="src\js\lib\ace\src\ace.js" />
     <Content Include="src\js\lib\ace\src\ext-beautify.js" />
     <Content Include="src\js\lib\ace\src\ext-chromevox.js" />
@@ -559,31 +575,6 @@
     <Content Include="src\res\dillinger\scss\vendor\bootstrap-sass-3.2.0\test\dummy_rails\public\500.html" />
     <Content Include="src\res\dillinger\scss\vendor\bootstrap-sass-3.2.0\test\dummy_rails\public\favicon.ico" />
     <Content Include="src\res\dillinger\webpack.config.js" />
-    <Content Include="src\res\requirejs-plugins\.gitmodules" />
-    <Content Include="src\res\requirejs-plugins\examples\async.html" />
-    <Content Include="src\res\requirejs-plugins\examples\font.html" />
-    <Content Include="src\res\requirejs-plugins\examples\goog.html" />
-    <Content Include="src\res\requirejs-plugins\examples\image.html" />
-    <Content Include="src\res\requirejs-plugins\examples\img\bike.jpg" />
-    <Content Include="src\res\requirejs-plugins\examples\img\lol_cat.jpg" />
-    <Content Include="src\res\requirejs-plugins\examples\img\relativePath.js" />
-    <Content Include="src\res\requirejs-plugins\examples\img\software_engineer.png" />
-    <Content Include="src\res\requirejs-plugins\examples\json.html" />
-    <Content Include="src\res\requirejs-plugins\examples\mdown.html" />
-    <Content Include="src\res\requirejs-plugins\examples\noext.html" />
-    <Content Include="src\res\requirejs-plugins\lib\Markdown.Converter.js" />
-    <Content Include="src\res\requirejs-plugins\lib\require.js" />
-    <Content Include="src\res\requirejs-plugins\lib\text.js" />
-    <Content Include="src\res\requirejs-plugins\LICENSE.txt" />
-    <Content Include="src\res\requirejs-plugins\src\async.js" />
-    <Content Include="src\res\requirejs-plugins\src\depend.js" />
-    <Content Include="src\res\requirejs-plugins\src\font.js" />
-    <Content Include="src\res\requirejs-plugins\src\goog.js" />
-    <Content Include="src\res\requirejs-plugins\src\image.js" />
-    <Content Include="src\res\requirejs-plugins\src\json.js" />
-    <Content Include="src\res\requirejs-plugins\src\mdown.js" />
-    <Content Include="src\res\requirejs-plugins\src\noext.js" />
-    <Content Include="src\res\requirejs-plugins\src\propertyParser.js" />
     <Content Include="src\routes\index.js" />
     <Content Include="views\index.html" />
   </ItemGroup>
@@ -629,8 +620,6 @@
     <Folder Include="Properties\" />
     <Folder Include="public\tpl\" />
     <Folder Include="src\asset\tpl\" />
-    <Folder Include="src\js\explorer\" />
-    <Folder Include="src\js\lib\requirejs-plugins\.git\objects\info\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\res\dillinger\dillinger.js.map" />
@@ -899,33 +888,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\data\CodeStudio.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="src\res\requirejs-plugins\bower.json" />
-    <Content Include="src\res\requirejs-plugins\examples\data\bar.json" />
-    <Content Include="src\res\requirejs-plugins\examples\data\bar.md" />
-    <Content Include="src\res\requirejs-plugins\examples\data\foo.json" />
-    <Content Include="src\res\requirejs-plugins\examples\data\foo.md" />
-    <Content Include="src\res\requirejs-plugins\examples\js\foo" />
-    <Content Include="src\res\requirejs-plugins\examples\js\foo.bar" />
-    <Content Include="src\res\requirejs-plugins\README.mdown" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\applypatch-msg.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\commit-msg.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\post-update.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\pre-applypatch.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\pre-commit.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\pre-push.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\pre-rebase.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\prepare-commit-msg.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\hooks\update.sample" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\info\exclude" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\logs\HEAD" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\logs\refs\heads\master" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\logs\refs\remotes\origin\HEAD" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\objects\pack\pack-53360cfdf1b8ec084f9df6baf2f2d2baabdbe992.idx" />
-    <Content Include="src\js\lib\requirejs-plugins\.git\objects\pack\pack-53360cfdf1b8ec084f9df6baf2f2d2baabdbe992.pack" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="views\tryit.ejs" />
