@@ -65,7 +65,7 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     vertical-align: middle;
 }
 
-.pure-menu li a { padding: 5px 20px; }
+.pure-menu li a { padding: 5px 0; }
 
 .pure-menu-can-have-children > .pure-menu-label:after {
     content: '\25B8';

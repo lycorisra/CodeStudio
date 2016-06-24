@@ -5,38 +5,46 @@ require.config({
         angular: 'js/lib/angular',
         ace: 'js/lib/ace/src/',
         text: 'js/lib/requirejs-plugins/text',
-        json: 'js/lib/requirejs-plugins/json'
+        json: 'js/lib/requirejs-plugins/json',
+
+        documents: 'js/controllers/documents'
     },
     shim: {
         'angular': { exports: 'angular' }
     }
 });
 
-define(['json!data/CodeStudio.json', 'angular', 'ace/ace', 'jquery'], function (data, angular, ace, jquery) {
-    angular.module('CodeStudio', []).controller('explorer', function ($scope, $http) {
-        $scope.explorer = data;
-        $scope.path = data.path;
-        $scope.items = data.pathtree;
+//define(['json!data/CodeStudio.json', 'angular', 'ace/ace', 'jquery'], function (data, angular, ace, jquery) {
+//    angular.module('CodeStudio', []).controller('explorer', function ($scope, $http) {
+//        $scope.explorer = data;
+//        $scope.path = data.path;
+//        $scope.items = data.pathtree;
+//        $scope.title = 'editor.ejs';
 
-        var file = '';
-        $http.get('/document?file=' + file).success(function (data) {
-            $scope.sourcecode = data;
+//        var file = '';
+//        $http.get('/document?file=' + file).success(function (data) {
+//            $scope.sourcecode = data;
 
-            var editor = ace.edit('editor'),
-                session = editor.getSession();
+//            var editor = ace.edit('editor'),
+//                session = editor.getSession();
 
-            session.setMode('ace/mode/html');
-            editor.setTheme('ace/theme/chrome');
-            session.setUseWrapMode(true);
-            editor.setShowPrintMargin(false);
-            session.setValue(data);
-            editor.setOption('minLines', 50);
-            editor.setOption('maxLines', 90000);
-        });
+//            session.setMode('ace/mode/html');
+//            editor.setTheme('ace/theme/chrome');
+//            session.setUseWrapMode(true);
+//            editor.setShowPrintMargin(false);
+//            session.setValue(data);
+//            editor.setOption('minLines', 50);
+//            editor.setOption('maxLines', 90000);
+//        });
 
-    });
+//    });
+    
+//});
+
+require(['documents'], function () {
     // run
     angular.bootstrap(document, ['CodeStudio']);
 });
+
 
 //https://ide.coding.net/ws/ocuxkk

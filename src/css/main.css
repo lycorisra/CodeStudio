@@ -1,4 +1,4 @@
-
+       
 nav.pure-menu{
     height: 50px;
     line-height: 50px;
@@ -12,16 +12,13 @@ nav.pure-menu li a{
 }
 /* try it styles */
 @media (min-width: 48em){
-    .split {
+    .editor {
         position: fixed;
-        top: 100px;
+        top: 50px;
         bottom: 20px;
     }
-    .split-preview{
-        margin-left: 50%;
-    }
 }
-.split{
+.editor{
     border: 1px solid #ddd;
     border-left: none;
 }
@@ -65,7 +62,7 @@ nav.pure-menu li a{
     width: 0;
     background-color: #fff;
     overflow: auto;
-    transition:width 0.5s linear;
+    transition:width 0.25s linear;
 }
 .explorer-viewlet h3.explorer-title {
     background-color: #FFF0D0;
@@ -89,26 +86,65 @@ nav.pure-menu li a{
     display: inline-block;
     color:#7B7979;
 }
-.title-document input {
-    font-size: 1.25rem;
-    margin-bottom: 0.89999rem;
-    padding-top: 0.10001rem;
-    font-weight: 400;
-    color: #373D49;
-    padding-left: 16px;
-    padding-right: 16px;
-    width: 80%;
-    min-width: 300px;
-    outline: 0;
-    border: none;
+        .explorer-viewlet li i {
+            vertical-align: sub;
+        }
+        .explorer-viewlet li i.txt::after {
+            content:'\e604';
+        }
+        .explorer-viewlet li i.html::after {
+            content:'\e603';
+        }
+            .explorer-viewlet li i.js::after {
+                content: '\e606';
+                color: #FB7407;
+            }
+        .explorer-viewlet li i.css::after {
+            content:'\e608';
+        }
+            .explorer-viewlet li i.directory::after {
+                font-size: 18px;
+                content: '\e60a';
+                color: #DAB92C;
+            }
+        .explorer-viewlet li i.empty::after {
+            content:'\e60b';
+        }
+.document-title {
+    position: absolute;
+    top: 26px;
+    left: 25px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #FFF0D0;
 }
-.split-editor {
+.editor {
+    width: 100%;
     padding-left: 25px;
     box-sizing: border-box;
     overflow: auto;
 }
+.editor.split-editor {
+    float: left;
+    width: 50%;
+}
+.split-preview {
+    display:none;
+    width: 50%;
+    /*padding-left: 50%;*/
+    float: right;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.split-preview #preview{
+    position: absolute;
+    top: 50px;
+    bottom: 20px;
+    width: 50%;
+}
 footer {
     position: fixed;
+    z-index: 10;
     bottom: 0;
     width: 100%;
     height: 20px;

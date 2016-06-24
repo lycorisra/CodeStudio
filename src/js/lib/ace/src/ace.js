@@ -14928,7 +14928,6 @@ position: absolute;\
 -webkit-box-sizing: border-box;\
 box-sizing: border-box;\
 border-left: 2px solid;\
-transform: translatez(0);\
 }\
 .ace_slim-cursors .ace_cursor {\
 border-left-width: 1px;\
