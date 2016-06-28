@@ -15,6 +15,8 @@ nav.pure-menu li a{
     .editor {
         position: fixed;
         top: 50px;
+        left: 0;
+        right: 25px;
         bottom: 20px;
     }
 }
@@ -26,6 +28,7 @@ nav.pure-menu li a{
     position: fixed;
     z-index: 2;
     top: 50px;
+    right:0;
     width: 25px;
     height: 100%;
     background-color: #293955;
@@ -56,7 +59,7 @@ nav.pure-menu li a{
     position: absolute;
     z-index: 10;
     top: 50px;
-    left: 25px;
+    right: 25px;
     bottom: 20px;
     /*min-width: 300px;*/
     width: 0;
@@ -74,7 +77,12 @@ nav.pure-menu li a{
     width: 100%;
 }
     .explorer-viewlet li {
-    cursor: pointer;
+        /*display:none;*/
+        text-indent: 5px;
+        cursor: pointer;
+    }
+    .explorer-viewlet li.group1 {
+        display:block;
     }
 .explorer-viewlet li:hover {
     background-color: #ddd;
@@ -119,8 +127,8 @@ nav.pure-menu li a{
     background-color: #FFF0D0;
 }
 .editor {
-    width: 100%;
-    padding-left: 25px;
+    /*width: 100%;*/
+    /*padding-right: 25px;*/
     box-sizing: border-box;
     overflow: auto;
 }

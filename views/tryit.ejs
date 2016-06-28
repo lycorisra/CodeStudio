@@ -9,6 +9,8 @@
         <link type="text/css" href="/css/pure/base.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/menus.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/grids-responsive.css" rel="stylesheet">
+        <link type="text/css" href="/res/angular-tree-control/tree-control-attribute.css" rel="stylesheet">
+		
     </head>
     <body ng-controller="documents">
         <div class="wrapper">
@@ -38,11 +40,14 @@
                 <div class="explorer-viewlet" ng-class="{'show':showSolution}">
                     <div class="pure-menu pure-menu-open">
                         <h3 class="explorer-title">解决资源管理器</h3>
+						<div treecontrol class="tree-classic" tree-model="treedata" on-selection="showSelected(node)">
+							{{node.name}}({{node.name}})
+						</div>
                         <ul>
-                            <li ng-repeat="item in items" ng-class="{
+                            <li ng-repeat="item in items" class="group{{item.level}}" ng-class="{
                                     'active': currentDocument.id === document.id,
                                     'octocat': document.isGithubFile
-                                    }" ng-click="open($event)">
+                                    }" ng-click="open(item)">
                                 <i class="iconfont {{item.icon}}"></i>
 								<a href="#">{{item.name}}</a>
                             </li>
@@ -53,7 +58,7 @@
             <div class="pure-g">
                 <span class="document-title">{{title}}</span>
                 <div class="editor split-editor1">
-                    <div id="editor"></div>
+                    <div id="editor" ng-click="hideSolution()"></div>
                 </div>
                 <div class="preview split-preview">
                     <div id="preview">
@@ -62,7 +67,7 @@
                 </div>
             </div>
             <footer>
-                <span class="path">F:\webfrontend\CodeStudio\views\dillinger\sidebar.ejs</span>
+                <span class="path">{{path}}</span>
             </footer>
         </div>
 		<script type="text/javascript" src="/js/lib/require.js" data-main="main"></script>

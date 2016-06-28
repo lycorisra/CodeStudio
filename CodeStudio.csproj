@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -20,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,6 +98,7 @@
     <Content Include="src\css\pure\pure-nr.css" />
     <Content Include="src\css\pure\pure.css" />
     <Content Include="src\css\pure\tables.css" />
+    <None Include="src\data\CodeStudio1.json" />
     <Content Include="src\font\iconfont.css" />
     <Content Include="src\img\favicon.ico" />
     <Content Include="src\js\controllers\editor.js" />
@@ -455,6 +458,9 @@
     <Content Include="src\main.js" />
     <Content Include="src\js\models\about.txt" />
     <Content Include="src\js\proxy\about.txt" />
+    <Content Include="src\res\angular-tree-control\angular-tree-control.js" />
+    <Content Include="src\res\angular-tree-control\tree-control-attribute.css" />
+    <Content Include="src\res\angular-tree-control\tree-control.css" />
     <Content Include="src\res\dillinger\css\app.css" />
     <Content Include="src\res\dillinger\dillinger.js" />
     <Content Include="src\res\dillinger\favicon.ico" />
@@ -577,6 +583,13 @@
     <Content Include="src\res\dillinger\webpack.config.js" />
     <Content Include="src\routes\index.js" />
     <Content Include="views\index.html" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReadPath.aspx.cs">
@@ -892,11 +905,18 @@
   <ItemGroup>
     <Content Include="views\tryit.ejs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\js\lib\ace\modemap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
