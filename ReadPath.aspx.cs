@@ -15,7 +15,7 @@ namespace CodeStudio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string path = @"F:\CodeStudio";
+            string path = @"F:\webfrontend\CodeStudio";
             var rootPath = new DirectoryInfo(path);
             var root = new Document() {
                 name = rootPath.Name,

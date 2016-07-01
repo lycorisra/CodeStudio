@@ -9,7 +9,6 @@
         <link type="text/css" href="/css/pure/base.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/menus.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/grids-responsive.css" rel="stylesheet">
-        <link type="text/css" href="/res/angular-tree-control/tree-control-attribute.css" rel="stylesheet">
 		
     </head>
     <body ng-controller="documents">
@@ -40,8 +39,12 @@
                 <div class="explorer-viewlet" ng-class="{'show':showSolution}">
                     <div class="pure-menu pure-menu-open">
                         <h3 class="explorer-title">解决资源管理器</h3>
-						<div treecontrol class="tree-classic" tree-model="treedata" on-selection="showSelected(node)">
-							{{node.name}}({{node.name}})
+						<div treecontrol class="tree-classic"
+						     tree-model="dataForTheTree"
+						     options="treeOptions"
+						     on-selection="showSelected(node)"
+						     selected-node="node1">
+						     {{node.name}}
 						</div>
                         <ul>
                             <li ng-repeat="item in items" class="group{{item.level}}" ng-class="{
