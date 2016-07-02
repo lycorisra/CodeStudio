@@ -1,20 +1,28 @@
-﻿define(['angular', 'ace/ace', 'modemap', 'tree-control'], function (angular, ace, mode, tree) {
+﻿define(['angular', 'ace/ace', 'tree-control', 'json!data/CodeStudio.json'], function (angular, ace, tree,data) {
 
-    angular.module('CodeStudio', []).controller('documents', function ($rootScope, $scope, $http) {
+    angular.module('CodeStudio', ['treeControl']).controller('documents', function ($rootScope, $scope, $http) {
         var list = [];
         $scope.showSolution = false; // 默认隐藏解决方案管理器
 
-        $scope.init = function () {
-            require(['json!data/CodeStudio1.json'], function (data) {
-                //$scope.baseurl = data.path;
-                //$scope.nodes = data.documents;
-                //$scope.items = data.documents.children;
 
-                $scope.treedata = data.documents;
-                $scope.showSelected = function (sel) {
-                    $scope.selectedNode = sel;
-                };
-            });
+        $scope.treeOptions = {
+            nodeChildren: "children",
+            dirSelectable: true,
+            injectClasses: {
+                ul: "a1",
+                li: "a2",
+                liSelected: "a7",
+                iExpanded: "a3",
+                iCollapsed: "a4",
+                iLeaf: "a5",
+                label: "a6",
+                labelSelected: "a8"
+            }
+        }
+        $scope.dataForTheTree = data.pathtree.children;
+        $scope.treedata = data.documents;
+        $scope.showSelected = function (sel) {
+            $scope.selectedNode = sel;
         };
         // 显示/隐藏解决方案管理器
         $scope.toggleSolution = function () {
@@ -49,6 +57,8 @@
             });
         };
 
-        $scope.init();
+
+
+        //$scope.init();
     });
 });
