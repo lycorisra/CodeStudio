@@ -1,5 +1,0 @@
-F:\webfrontend\CodeStudio\bin\CodeStudio.dll
-F:\webfrontend\CodeStudio\bin\CodeStudio.pdb
-F:\webfrontend\CodeStudio\obj\Debug\CodeStudio.dll
-F:\webfrontend\CodeStudio\obj\Debug\CodeStudio.pdb
-F:\webfrontend\CodeStudio\obj\Debug\CodeStudio.csprojResolveAssemblyReference.cache
