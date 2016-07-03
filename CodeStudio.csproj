@@ -583,6 +583,13 @@
     <Content Include="src\res\dillinger\webpack.config.js" />
     <Content Include="src\routes\index.js" />
     <Content Include="views\index.html" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReadPath.aspx.cs">

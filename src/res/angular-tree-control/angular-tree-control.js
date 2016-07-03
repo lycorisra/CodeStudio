@@ -161,12 +161,16 @@ define(['angular'], function (angular) {
                         else
                             return classIfDefined($scope.options.injectClasses.iCollapsed);
                     };
+                    $scope.icon = function (node) {
+                        return node.icon;
+                    };
 
                     $scope.nodeExpanded = function () {
                         return !!$scope.expandedNodesMap[this.$id];
                     };
 
-                    $scope.selectNodeHead = function () {
+                    $scope.selectNodeHead = function (node) {
+                        $scope.curPath = node.path;
                         var transcludedScope = this;
                         var expanding = $scope.expandedNodesMap[transcludedScope.$id] === undefined;
                         $scope.expandedNodesMap[transcludedScope.$id] = (expanding ? transcludedScope.node : undefined);
@@ -196,6 +200,14 @@ define(['angular'], function (angular) {
                     };
 
                     $scope.selectNodeLabel = function (selectedNode) {
+                        var hasChild = !!selectedNode.path; // 是否包含子节点
+                        if (hasChild)
+                        {
+                            $scope.selectNodeHead(selectedNode);
+                            return;
+                        }
+                        var file = $scope.curPath + '/' + selectedNode.name;
+                        console.log(file);
                         var transcludedScope = this;
                         if (!$scope.options.isLeaf(selectedNode, $scope) && (!$scope.options.dirSelectable || !$scope.options.isSelectable(selectedNode))) {
                             // Branch node is not selectable, expand
@@ -280,6 +292,7 @@ define(['angular'], function (angular) {
                         liClass: classIfDefined($scope.options.injectClasses.li, true),
                         iLeafClass: classIfDefined($scope.options.injectClasses.iLeaf, false),
                         labelClass: classIfDefined($scope.options.injectClasses.label, false)
+                        //icon: $scope.icon()
                     };
 
                     var template;
@@ -292,10 +305,10 @@ define(['angular'], function (angular) {
                     if (!template) {
                         template =
                             '<ul {{options.ulClass}} >' +
-                            '<li ng-repeat="node in node.{{options.nodeChildren}} | filter:filterExpression:filterComparator {{options.orderBy}}" ng-class="headClass(node)" {{options.liClass}}' +
+                            '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" {{options.liClass}}' +
                             'set-node-to-data>' +
-                            '<i class="tree-branch-head" ng-class="iBranchClass()" ng-click="selectNodeHead(node)"></i>' +
-                            '<i class="tree-leaf-head {{options.iLeafClass}}"></i>' +
+                            '<i class="tree-branch-head iconfont" ng-class="[iBranchClass(),icon(node)]" ng-click="selectNodeHead(node,options)"></i>' +
+                            '<i class="tree-leaf-head {{options.iLeafClass}} iconfont" ng-class="[icon(node)]"></i>' +
                             '<div class="tree-label {{options.labelClass}}" ng-class="[selectedClass(), unselectableClass()]" ng-click="selectNodeLabel(node)" tree-transclude></div>' +
                             '<treeitem ng-if="nodeExpanded()"></treeitem>' +
                             '</li>' +

@@ -9,6 +9,7 @@
         <link type="text/css" href="/css/pure/base.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/menus.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/grids-responsive.css" rel="stylesheet">
+        <link type="text/css" href="/res/angular-tree-control/tree-control-attribute.css" rel="stylesheet">
 		
     </head>
     <body ng-controller="documents">
@@ -37,7 +38,7 @@
                     <a class="title-label" ng-click="toggleSolution()">解决资源管理器</a>
                 </div>
                 <div class="explorer-viewlet" ng-class="{'show':showSolution}">
-                    <div class="pure-menu pure-menu-open">
+                    <div>
                         <h3 class="explorer-title">解决资源管理器</h3>
 						<div treecontrol class="tree-classic"
 						     tree-model="dataForTheTree"
@@ -46,15 +47,6 @@
 						     selected-node="node1">
 						     {{node.name}}
 						</div>
-                        <ul>
-                            <li ng-repeat="item in items" class="group{{item.level}}" ng-class="{
-                                    'active': currentDocument.id === document.id,
-                                    'octocat': document.isGithubFile
-                                    }" ng-click="open(item)">
-                                <i class="iconfont {{item.icon}}"></i>
-								<a href="#">{{item.name}}</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>

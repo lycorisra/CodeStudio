@@ -9,13 +9,13 @@ namespace CodeStudio
     public partial class ReadPath : System.Web.UI.Page
     {
         List<Document> list = new List<Document>();
-        
+
+        private string path = @"F:\CodeStudio";
         private string[] ignorePaths = new string[] { ".git", ".vs", ".vscode", "bin", "obj", "Properties", "node_modules" };
         private string[] ignoreFiles = new string[] { ".csproj", ".user", ".sln", ".suo", ".gitignore" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string path = @"F:\webfrontend\CodeStudio";
             var rootPath = new DirectoryInfo(path);
             var root = new Document() {
                 name = rootPath.Name,
@@ -34,19 +34,20 @@ namespace CodeStudio
         private void ReadDirectory(string directory, ref Document root,int level)
         {
             DirectoryInfo di = new DirectoryInfo(directory);
-            foreach (var path in di.GetDirectories())
+            foreach (var d in di.GetDirectories())
             {
-                if (ignorePaths.Contains(path.Name))
+                if (ignorePaths.Contains(d.Name))
                     continue;
 
                 var doc = new Document()
                 {
-                    name = path.Name,
+                    name = d.Name,
                     level = level,
+                    fullname = d.FullName.Replace(path, ""),
                     icon = "directory",
                 };
 
-                this.ReadDirectory(path.FullName, ref doc, level + 1);
+                this.ReadDirectory(d.FullName, ref doc, level + 1);
 
                 root.children.Add(doc);
             }
@@ -69,7 +70,7 @@ namespace CodeStudio
     public class Document
     {
         public string name { get; set; }
-        //public string fullname { get; set; }
+        public string fullname { get; set; }
         //public string parent { get; set; }
         public int level { get; set; }
         public string icon { get; set; }

@@ -113,7 +113,7 @@ nav.pure-menu li a{
             .explorer-viewlet li i.directory::after {
                 font-size: 18px;
                 content: '\e60a';
-                color: #DAB92C;
+                color: #F9A825;
             }
         .explorer-viewlet li i.empty::after {
             content:'\e60b';

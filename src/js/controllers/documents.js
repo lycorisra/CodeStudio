@@ -2,7 +2,7 @@
 
     angular.module('CodeStudio', ['treeControl']).controller('documents', function ($rootScope, $scope, $http) {
         var list = [];
-        $scope.showSolution = false; // 默认隐藏解决方案管理器
+        $scope.showSolution = true; // 默认隐藏解决方案管理器
 
 
         $scope.treeOptions = {
