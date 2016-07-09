@@ -32,7 +32,8 @@ define(['angular'], function (angular) {
             for (var i = 0; i < src.length; i++) {
                 dst[i] = src[i];
             }
-        } else if (angular.isObject(src)) {
+        }
+        else if (angular.isObject(src)) {
             dst = dst || {};
 
             for (var key in src) {
@@ -87,14 +88,11 @@ define(['angular'], function (angular) {
              * @param addClassProperty - should we wrap the class name with class=""
              */
             function classIfDefined(cssClass, addClassProperty) {
+                var css = '';
                 if (cssClass) {
-                    if (addClassProperty)
-                        return 'class="' + cssClass + '"';
-                    else
-                        return cssClass;
+                    css = addClassProperty ? 'class="' + cssClass + '"' : cssClass;
                 }
-                else
-                    return "";
+                return css;
             }
 
             return {
@@ -128,7 +126,6 @@ define(['angular'], function (angular) {
                     }
                     $scope.parentScopeOfTree = $scope.$parent;
 
-
                     function isSelectedNode(node) {
                         if (!$scope.options.multiSelection && ($scope.options.equality(node, $scope.selectedNode, $scope)))
                             return true;
@@ -161,6 +158,7 @@ define(['angular'], function (angular) {
                         else
                             return classIfDefined($scope.options.injectClasses.iCollapsed);
                     };
+
                     $scope.icon = function (node) {
                         return node.icon;
                     };
@@ -283,7 +281,6 @@ define(['angular'], function (angular) {
                     $scope.orderByFunc = function () {
                         return $scope.orderBy;
                     };
-                    //                    return "" + $scope.orderBy;
 
                     var templateOptions = {
                         orderBy: $scope.orderBy ? " | orderBy:orderByFunc():isReverse()" : '',
@@ -366,10 +363,6 @@ define(['angular'], function (angular) {
                             });
                             scope.expandedNodesMap = newExpandedNodesMap;
                         });
-
-                        //                        scope.$watch('expandedNodesMap', function(newValue) {
-                        //
-                        //                        });
 
                         //Rendering template for a root node
                         treemodelCntr.template(scope, function (clone) {
