@@ -4,7 +4,6 @@
         var list = [];
         $scope.showSolution = true; // 默认隐藏解决方案管理器
 
-
         $scope.treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,

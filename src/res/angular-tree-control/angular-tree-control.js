@@ -77,7 +77,6 @@ define(['angular'], function (angular) {
         ensureDefault($scope.options, "allowDeselect", true);
         ensureDefault($scope.options, "isSelectable", defaultIsSelectable);
     }
-
     angular.module('treeControl', [])
         .constant('treeConfig', {
             templateUrl: null
@@ -97,15 +96,16 @@ define(['angular'], function (angular) {
 
             return {
                 restrict: 'EA',
-                require: "treecontrol",
+                //require: "treecontrol",
                 transclude: true,
                 scope: {
                     treeModel: "=",
                     selectedNode: "=?",
                     selectedNodes: "=?",
                     expandedNodes: "=?",
-                    onSelection: "&",
+                    //onSelection: "&",
                     onNodeToggle: "&",
+                    onTest:'&',
                     options: "=?",
                     orderBy: "=?",
                     reverseOrder: "@",
@@ -193,7 +193,6 @@ define(['angular'], function (angular) {
                                 $index: transcludedScope.$index, $first: transcludedScope.$first, $middle: transcludedScope.$middle,
                                 $last: transcludedScope.$last, $odd: transcludedScope.$odd, $even: transcludedScope.$even, expanded: expanding
                             });
-
                         }
                     };
 
@@ -300,12 +299,19 @@ define(['angular'], function (angular) {
                     }
 
                     if (!template) {
+                        //template =
+                        //    '<ul {{options.ulClass}} >' +
+                        //    '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data>' +
+                        //    '<i class="tree-branch-head iconfont" ng-class="[iBranchClass(),icon(node)]" ng-click="selectNodeHead(node,options)"></i>' +
+                        //    '<i class="tree-leaf-head {{options.iLeafClass}} iconfont" ng-class="[icon(node)]"></i>' +
+                        //    '<div class="tree-label {{options.labelClass}}" ng-class="[selectedClass(), unselectableClass()]" ng-click="selectNodeLabel(node)" tree-transclude></div>' +
+                        //    '<treeitem ng-if="nodeExpanded()"></treeitem>' +
+                        //    '</li>' +
+                        //    '</ul>';
                         template =
                             '<ul {{options.ulClass}} >' +
-                            '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" {{options.liClass}}' +
-                            'set-node-to-data>' +
-                            '<i class="tree-branch-head iconfont" ng-class="[iBranchClass(),icon(node)]" ng-click="selectNodeHead(node,options)"></i>' +
-                            '<i class="tree-leaf-head {{options.iLeafClass}} iconfont" ng-class="[icon(node)]"></i>' +
+                            '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data ng-click="selectNodeHead(node,options)">' +
+                            '<i class="tree-branch-head iconfont" ng-class="[iBranchClass(),icon(node)]"></i>' +
                             '<div class="tree-label {{options.labelClass}}" ng-class="[selectedClass(), unselectableClass()]" ng-click="selectNodeLabel(node)" tree-transclude></div>' +
                             '<treeitem ng-if="nodeExpanded()"></treeitem>' +
                             '</li>' +
@@ -393,6 +399,7 @@ define(['angular'], function (angular) {
                     // Rendering template for the current node
                     treemodelCntr.template(scope, function (clone) {
                         element.html('').append(clone);
+                        console.log(clone);
                     });
                 }
             };
