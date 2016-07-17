@@ -43,10 +43,7 @@
 						<div treecontrol class="tree-classic"
 						     tree-model="dataForTheTree"
 						     options="treeOptions"
-						     on-selection="showSelected(node)"
-						     selected-node="node1">
-						     {{node.name}}
-						</div>
+						     on-select="afterSelect(node)">{{node.name}}</div>
                     </div>
                 </div>
             </div>
@@ -62,7 +59,7 @@
                 </div>
             </div>
             <footer>
-                <span class="path">{{path}}</span>
+                <span class="path">{{curPath}}</span>
             </footer>
         </div>
 		<script type="text/javascript" src="/js/lib/require.js" data-main="main"></script>

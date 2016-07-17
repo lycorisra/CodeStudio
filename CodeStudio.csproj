@@ -98,7 +98,6 @@
     <Content Include="src\css\pure\pure-nr.css" />
     <Content Include="src\css\pure\pure.css" />
     <Content Include="src\css\pure\tables.css" />
-    <None Include="src\data\CodeStudio1.json" />
     <Content Include="src\font\iconfont.css" />
     <Content Include="src\img\favicon.ico" />
     <Content Include="src\js\controllers\editor.js" />
