@@ -8,7 +8,6 @@ exports.readFile = function (req, res) {
     fs.exists(filename, function (exists) {
         if (exists) {
             fs.readFile(filename, { flag: 'r+', encoding: 'utf8' }, function (err, data) {
-                //console.log(data);
                 if (!err) {
                     res.write(data);
                     res.end();
@@ -16,6 +15,4 @@ exports.readFile = function (req, res) {
             });
         }
     });
-    
-    //return res.render('index', {});
 };

@@ -1,4 +1,4 @@
-define(['angular'], function (angular) {
+锘縟efine(['angular'], function (angular) {
     'use strict';
 
     function createPath(startScope) {
@@ -103,9 +103,8 @@ define(['angular'], function (angular) {
                     selectedNode: "=?",
                     selectedNodes: "=?",
                     expandedNodes: "=?",
-                    //onSelection: "&",
+                    onSelect: "&",
                     onNodeToggle: "&",
-                    onTest:'&',
                     options: "=?",
                     orderBy: "=?",
                     reverseOrder: "@",
@@ -167,93 +166,40 @@ define(['angular'], function (angular) {
                         return !!$scope.expandedNodesMap[this.$id];
                     };
 
-                    $scope.selectNodeHead = function (node) {
-                        $scope.curPath = node.path;
-                        var transcludedScope = this;
-                        var expanding = $scope.expandedNodesMap[transcludedScope.$id] === undefined;
-                        $scope.expandedNodesMap[transcludedScope.$id] = (expanding ? transcludedScope.node : undefined);
-                        if (expanding) {
-                            $scope.expandedNodes.push(transcludedScope.node);
-                        }
-                        else {
-                            var index;
-                            for (var i = 0; (i < $scope.expandedNodes.length) && !index; i++) {
-                                if ($scope.options.equality($scope.expandedNodes[i], transcludedScope.node, $scope)) {
-                                    index = i;
-                                }
-                            }
-                            if (index !== undefined)
-                                $scope.expandedNodes.splice(index, 1);
-                        }
-                        if ($scope.onNodeToggle) {
-                            var parentNode = (transcludedScope.$parent.node === transcludedScope.synteticRoot) ? null : transcludedScope.$parent.node;
-                            var path = createPath(transcludedScope);
-                            $scope.onNodeToggle({
-                                node: transcludedScope.node, $parentNode: parentNode, $path: path,
-                                $index: transcludedScope.$index, $first: transcludedScope.$first, $middle: transcludedScope.$middle,
-                                $last: transcludedScope.$last, $odd: transcludedScope.$odd, $even: transcludedScope.$even, expanded: expanding
-                            });
-                        }
-                    };
+                    $scope.selectNode = function (node, $event) {
+                        if (!node.path && node.level == 1)
+                            $scope.curPath = '';
+                        else
+                            $scope.curPath = node.path || $scope.curPath || '';
+                        var isLeaf = !node.path,         // 鏄惁鏄彾瀛愯妭鐐癸紝鍙跺瓙鑺傜偣鐨刾ath灞炴�т负null
+                            transcludedScope = this,
+                            expandedNodes = $scope.expandedNodes,
+                            nodes = [],
+                            expanding = $scope.expandedNodesMap[transcludedScope.$id] === undefined;
 
-                    $scope.selectNodeLabel = function (selectedNode) {
-                        var hasChild = !!selectedNode.path; // 是否包含子节点
-                        if (hasChild)
-                        {
-                            $scope.selectNodeHead(selectedNode);
-                            return;
-                        }
-                        var file = $scope.curPath + '/' + selectedNode.name;
-                        console.log(file);
-                        var transcludedScope = this;
-                        if (!$scope.options.isLeaf(selectedNode, $scope) && (!$scope.options.dirSelectable || !$scope.options.isSelectable(selectedNode))) {
-                            // Branch node is not selectable, expand
-                            this.selectNodeHead();
-                        }
-                        else if ($scope.options.isLeaf(selectedNode, $scope) && (!$scope.options.isSelectable(selectedNode))) {
-                            // Leaf node is not selectable
-                            return;
+                        if (isLeaf) {
+                            $scope.selectedNode = node;
+                            //$scope.curPath += '/' + node.name;
                         }
                         else {
-                            var selected = false;
-                            if ($scope.options.multiSelection) {
-                                var pos = -1;
-                                for (var i = 0; i < $scope.selectedNodes.length; i++) {
-                                    if ($scope.options.equality(selectedNode, $scope.selectedNodes[i], $scope)) {
-                                        pos = i;
-                                        break;
+                            $scope.expandedNodesMap[transcludedScope.$id] = (expanding ? transcludedScope.node : undefined);
+                            if (expanding) {
+                                var nodeName = '';
+                                for (var i = 0; i < expandedNodes.length; i++) {
+                                    if ($scope.curPath.indexOf(expandedNodes[i].path) == 0 && nodeName != expandedNodes[i].name) {
+                                        nodes.push(expandedNodes[i]);
+                                        nodeName = expandedNodes[i].name;
                                     }
                                 }
-                                if (pos === -1) {
-                                    $scope.selectedNodes.push(selectedNode);
-                                    selected = true;
-                                } else {
-                                    $scope.selectedNodes.splice(pos, 1);
-                                }
-                            } else {
-                                if (!$scope.options.equality(selectedNode, $scope.selectedNode, $scope)) {
-                                    $scope.selectedNode = selectedNode;
-                                    selected = true;
-                                }
-                                else {
-                                    if ($scope.options.allowDeselect) {
-                                        $scope.selectedNode = undefined;
-                                    } else {
-                                        $scope.selectedNode = selectedNode;
-                                        selected = true;
-                                    }
-                                }
+                                expandedNodes = nodes;
+                                expandedNodes.push(transcludedScope.node);
                             }
-                            if ($scope.onSelection) {
-                                var parentNode = (transcludedScope.$parent.node === transcludedScope.synteticRoot) ? null : transcludedScope.$parent.node;
-                                var path = createPath(transcludedScope)
-                                $scope.onSelection({
-                                    node: selectedNode, selected: selected, $parentNode: parentNode, $path: path,
-                                    $index: transcludedScope.$index, $first: transcludedScope.$first, $middle: transcludedScope.$middle,
-                                    $last: transcludedScope.$last, $odd: transcludedScope.$odd, $even: transcludedScope.$even
-                                });
-                            }
+                            $scope.expandedNodes = expandedNodes;
                         }
+                        node.curPath = $scope.curPath;
+                        $scope.onSelect && $scope.onSelect({ node: node});
+                        // 闃绘浜嬩欢鍐掓场
+                        $event.stopPropagation();
                     };
 
                     $scope.selectedClass = function () {
@@ -299,20 +245,12 @@ define(['angular'], function (angular) {
                     }
 
                     if (!template) {
-                        //template =
-                        //    '<ul {{options.ulClass}} >' +
-                        //    '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data>' +
-                        //    '<i class="tree-branch-head iconfont" ng-class="[iBranchClass(),icon(node)]" ng-click="selectNodeHead(node,options)"></i>' +
-                        //    '<i class="tree-leaf-head {{options.iLeafClass}} iconfont" ng-class="[icon(node)]"></i>' +
-                        //    '<div class="tree-label {{options.labelClass}}" ng-class="[selectedClass(), unselectableClass()]" ng-click="selectNodeLabel(node)" tree-transclude></div>' +
-                        //    '<treeitem ng-if="nodeExpanded()"></treeitem>' +
-                        //    '</li>' +
-                        //    '</ul>';
                         template =
                             '<ul {{options.ulClass}} >' +
-                            '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data ng-click="selectNodeHead(node,options)">' +
-                            '<i class="tree-branch-head iconfont" ng-class="[iBranchClass(),icon(node)]"></i>' +
-                            '<div class="tree-label {{options.labelClass}}" ng-class="[selectedClass(), unselectableClass()]" ng-click="selectNodeLabel(node)" tree-transclude></div>' +
+                            '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data ng-click="selectNode(node,$event)">' +
+                            '<i class="iconfont" ng-class="[icon(node)]"></i>' +
+                            '<div class="tree-label" ng-class="[selectedClass(), unselectableClass()]" tree-transclude>' +
+                            '</div>' +
                             '<treeitem ng-if="nodeExpanded()"></treeitem>' +
                             '</li>' +
                             '</ul>';
@@ -369,7 +307,6 @@ define(['angular'], function (angular) {
                             });
                             scope.expandedNodesMap = newExpandedNodesMap;
                         });
-
                         //Rendering template for a root node
                         treemodelCntr.template(scope, function (clone) {
                             element.html('').append(clone);
@@ -406,31 +343,12 @@ define(['angular'], function (angular) {
         })
         .directive("treeTransclude", function () {
             return {
+                restrict: 'EA',
                 controller: ['$scope', function ($scope) {
                     ensureAllDefaultOptions($scope);
                 }],
 
                 link: function (scope, element, attrs, controller) {
-                    if (!scope.options.isLeaf(scope.node, scope)) {
-                        angular.forEach(scope.expandedNodesMap, function (node, id) {
-                            if (scope.options.equality(node, scope.node, scope)) {
-                                scope.expandedNodesMap[scope.$id] = scope.node;
-                                scope.expandedNodesMap[id] = undefined;
-                            }
-                        });
-                    }
-                    if (!scope.options.multiSelection && scope.options.equality(scope.node, scope.selectedNode, scope)) {
-                        scope.selectedNode = scope.node;
-                    } else if (scope.options.multiSelection) {
-                        var newSelectedNodes = [];
-                        for (var i = 0; (i < scope.selectedNodes.length) ; i++) {
-                            if (scope.options.equality(scope.node, scope.selectedNodes[i], scope)) {
-                                newSelectedNodes.push(scope.node);
-                            }
-                        }
-                        scope.selectedNodes = newSelectedNodes;
-                    }
-
                     // create a scope for the transclusion, whos parent is the parent of the tree control
                     scope.transcludeScope = scope.parentScopeOfTree.$new();
                     scope.transcludeScope.node = scope.node;
@@ -445,7 +363,6 @@ define(['angular'], function (angular) {
                     scope.$on('$destroy', function () {
                         scope.transcludeScope.$destroy();
                     });
-
                     scope.$treeTransclude(scope.transcludeScope, function (clone) {
                         element.empty();
                         element.append(clone);

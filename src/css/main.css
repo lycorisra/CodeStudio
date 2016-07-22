@@ -81,10 +81,7 @@ nav.pure-menu li a{
         text-indent: 5px;
         cursor: pointer;
     }
-    .explorer-viewlet li.group1 {
-        display:block;
-    }
-.explorer-viewlet li:hover {
+.explorer-viewlet .tree-label:hover {
     background-color: #ddd;
 }
 .explorer-viewlet li.pure-menu-selected {

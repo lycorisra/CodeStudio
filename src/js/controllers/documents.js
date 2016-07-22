@@ -1,4 +1,12 @@
-﻿define(['angular', 'ace/ace', 'tree-control', 'json!data/CodeStudio.json'], function (angular, ace, tree,data) {
+﻿define(['angular', 'ace/ace', 'tree-control', 'json!data/CodeStudio.json', 'modemap'], function (angular, ace, tree, data,mode) {
+    var editor = ace.edit('editor'),
+        session = editor.getSession();
+
+    editor.setTheme('ace/theme/chrome');
+    session.setUseWrapMode(true);
+    editor.setShowPrintMargin(false);
+    editor.setOption('minLines', 50);
+    editor.setOption('maxLines', 90000);
 
     angular.module('CodeStudio', ['treeControl']).controller('documents', function ($rootScope, $scope, $http) {
         var list = [];
@@ -20,12 +28,21 @@
         }
         $scope.dataForTheTree = data.pathtree.children;
         $scope.treedata = data.documents;
-        $scope.showSelected = function (sel) {
-            $scope.selectedNode = sel;
+        $scope.afterSelect = function (node) {
+            $scope.title = node.name;
+            $scope.path = node.name;
+            if (!node.path) {
+                var doc = data.path + '/' + node.curPath + '/' + node.name;
+                $http.get('/document?doc=' + doc).success(function (data) {
+                    session.setMode(mode[node.icon]);
+                    session.setValue(data);
+                });
+            }
         };
         // 显示/隐藏解决方案管理器
         $scope.toggleSolution = function () {
             $scope.showSolution = !$scope.showSolution;
+            $scope.curPath = 'test';
         };
         // 点击编辑器，隐藏解决方案管理器
         $scope.hideSolution = function () {

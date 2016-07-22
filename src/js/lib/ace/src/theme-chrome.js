@@ -45,14 +45,14 @@ color: rgb(6, 150, 14);\
 .ace-chrome .ace_support.ace_type,\
 .ace-chrome .ace_support.ace_class\
 .ace-chrome .ace_support.ace_other {\
-color: rgb(109, 121, 222);\
+color: #FF0000;\
 }\
 .ace-chrome .ace_variable.ace_parameter {\
 font-style:italic;\
 color:#FD971F;\
 }\
 .ace-chrome .ace_keyword.ace_operator {\
-color: rgb(104, 118, 135);\
+color: #0000F8;\
 }\
 .ace-chrome .ace_comment {\
 color: #236e24;\
@@ -67,7 +67,7 @@ color: #236e24;\
 color: rgb(0, 0, 205);\
 }\
 .ace-chrome .ace_variable {\
-color: rgb(49, 132, 149);\
+color: #8D0051;\
 }\
 .ace-chrome .ace_xml-pe {\
 color: rgb(104, 104, 91);\
