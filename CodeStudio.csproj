@@ -73,6 +73,13 @@
     <Content Include="public\lib\jquery-2.1.3.js" />
     <Content Include="public\view\index.html" />
     <Content Include="ReadPath.aspx" />
+    <Content Include="sample\webapp\assets\css\demos.css" />
+    <Content Include="sample\webapp\assets\img\apple-touch-icon-114x114.png" />
+    <Content Include="sample\webapp\assets\js\config.js" />
+    <Content Include="sample\webapp\assets\js\demos.js" />
+    <Content Include="sample\webapp\assets\js\sm-city-picker.js" />
+    <Content Include="sample\webapp\Hello SUI Mobile.html" />
+    <Content Include="sample\webapp\index.html" />
     <Content Include="src\asset\about.txt" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\normalize.css" />
