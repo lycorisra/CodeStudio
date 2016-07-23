@@ -10,7 +10,7 @@ namespace CodeStudio
     {
         List<Document> list = new List<Document>();
 
-        private string path = @"F:\CodeStudio";
+        private string path = @"F:\webfrontend\CodeStudio";
         private string[] ignorePaths = new string[] { ".git", ".vs", ".vscode", "bin", "obj", "Properties", "node_modules" };
         private string[] ignoreFiles = new string[] { ".csproj", ".user", ".sln", ".suo", ".gitignore" };
 
