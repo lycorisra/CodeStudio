@@ -98,25 +98,25 @@ nav.pure-menu li a{
         cursor: pointer;
     }
     .explorer-viewlet .level1 {
-        padding-left:20px;
+        padding-left:0px;
     }
     .explorer-viewlet .level2 {
-        padding-left:40px;
+        padding-left:20px;
     }
     .explorer-viewlet .level3 {
-        padding-left:60px;
+        padding-left:40px;
     }
     .explorer-viewlet .level4 {
-        padding-left:80px;
+        padding-left:60px;
     }
     .explorer-viewlet .level5 {
-        padding-left:100px;
+        padding-left:80px;
     }
     .explorer-viewlet .level6 {
-        padding-left:120px;
+        padding-left:100px;
     }
     .explorer-viewlet .level7 {
-        padding-left:140px;
+        padding-left:120px;
     }
 .explorer-viewlet .tree-label:hover {
     background-color: #ddd;

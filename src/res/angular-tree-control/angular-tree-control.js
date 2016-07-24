@@ -139,9 +139,8 @@
                     }
 
                     $scope.headClass = function (node) {
-                        var level = ' level' + node.level;
                         var liSelectionClass = classIfDefined($scope.options.injectClasses.liSelected, false);
-                        var injectSelectionClass = level;
+                        var injectSelectionClass = '';
                         if (liSelectionClass && isSelectedNode(node))
                             injectSelectionClass += " " + liSelectionClass;
                         if ($scope.options.isLeaf(node, $scope))
@@ -205,13 +204,14 @@
                     };
 
                     $scope.selectedClass = function () {
+                        var level = 'level' + this.node.level;
                         var isThisNodeSelected = isSelectedNode(this.node);
                         var labelSelectionClass = classIfDefined($scope.options.injectClasses.labelSelected, false);
-                        var injectSelectionClass = "";
+                        var injectSelectionClass = " ";
                         if (labelSelectionClass && isThisNodeSelected)
                             injectSelectionClass = " " + labelSelectionClass;
 
-                        return isThisNodeSelected ? "tree-selected" + injectSelectionClass : "";
+                        return level + (isThisNodeSelected ? " tree-selected" + injectSelectionClass : "");
                     };
 
                     $scope.unselectableClass = function () {
@@ -268,9 +268,8 @@
                         template =
                             '<ul {{options.ulClass}} >' +
                             '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data ng-click="selectNode(node,$event)">' +
-                            '<i class="iconfont" ng-class="[icon(node)]"></i>' +
                             '<div class="tree-label" ng-class="[selectedClass(), unselectableClass()]" tree-transclude>' +
-                            '<i>s</i>',
+                            '<i class="iconfont" ng-class="[icon(node)]"></i>' +
                             '</div>' +
                             '<treeitem ng-if="nodeExpanded()"></treeitem>' +
                             '</li>' +
@@ -385,7 +384,7 @@
                         scope.transcludeScope.$destroy();
                     });
                     scope.$treeTransclude(scope.transcludeScope, function (clone) {
-                        element.empty();
+                        //element.empty();
                         element.append(clone);
                     });
                 }
