@@ -1,4 +1,4 @@
-﻿define(['angular'], function (angular) {
+﻿define(['jquery','angular', 'contextmenu'], function ($,angular, contextmenu) {
     'use strict';
 
     function createPath(startScope) {
@@ -139,10 +139,11 @@
                     }
 
                     $scope.headClass = function (node) {
+                        var level = ' level' + node.level;
                         var liSelectionClass = classIfDefined($scope.options.injectClasses.liSelected, false);
-                        var injectSelectionClass = "";
+                        var injectSelectionClass = level;
                         if (liSelectionClass && isSelectedNode(node))
-                            injectSelectionClass = " " + liSelectionClass;
+                            injectSelectionClass += " " + liSelectionClass;
                         if ($scope.options.isLeaf(node, $scope))
                             return "tree-leaf" + injectSelectionClass;
                         if ($scope.expandedNodesMap[this.$id])
@@ -200,6 +201,7 @@
                         $scope.onSelect && $scope.onSelect({ node: node});
                         // 阻止事件冒泡
                         $event.stopPropagation();
+                        //$scope.rightClick();
                     };
 
                     $scope.selectedClass = function () {
@@ -217,6 +219,24 @@
                         var labelUnselectableClass = classIfDefined($scope.options.injectClasses.labelUnselectable, false);
                         return isThisNodeUnselectable ? "tree-unselectable " + labelUnselectableClass : "";
                     };
+
+                    $scope.rightClick = function (el) {
+
+                        $.contextMenu({
+                            selector: '.tree-label',
+                            callback: function (key, options,a,b,c) {
+                                var m = "clicked: " + key + " on " + $(this).text();
+                                console.log(m);
+                            },
+                            items: {
+                                "open": { name: "在资源管理器中打开文件夹(O)", icon: "open" },
+                                "preview": { name: "在浏览器中查看", icon: "paste" },
+                                "copy": { name: "复制路径(O)", icon: "copy" },
+                                "delete": { name: "删除(D)", icon: "delete" },
+                                "rename": { name: "重命名(C)", icon: "copy" }
+                            }
+                        });
+                    }
 
                     //tree template
                     $scope.isReverse = function () {
@@ -250,6 +270,7 @@
                             '<li ng-repeat="node in node.{{options.nodeChildren}}" ng-class="headClass(node)" set-node-to-data ng-click="selectNode(node,$event)">' +
                             '<i class="iconfont" ng-class="[icon(node)]"></i>' +
                             '<div class="tree-label" ng-class="[selectedClass(), unselectableClass()]" tree-transclude>' +
+                            '<i>s</i>',
                             '</div>' +
                             '<treeitem ng-if="nodeExpanded()"></treeitem>' +
                             '</li>' +

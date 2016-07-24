@@ -7,6 +7,7 @@ require.config({
         text: 'js/lib/requirejs-plugins/text',
         json: 'js/lib/requirejs-plugins/json',
         'tree-control': 'res/angular-tree-control/angular-tree-control',
+        contextmenu: 'js/lib/contextmenu/jquery.contextMenu',
 
         modemap: 'js/lib/ace/modemap',
         documents: 'js/controllers/documents'

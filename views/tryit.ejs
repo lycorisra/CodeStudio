@@ -10,25 +10,12 @@
         <link type="text/css" href="/css/pure/menus.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/grids-responsive.css" rel="stylesheet">
         <link type="text/css" href="/res/angular-tree-control/tree-control-attribute.css" rel="stylesheet">
-		
+        <link href="../js/lib/contextmenu/jquery.contextMenu.css" rel="stylesheet" />
     </head>
     <body ng-controller="documents">
         <div class="wrapper">
             <nav class="pure-menu pure-menu-open pure-menu-horizontal">
                 <ul>
-                    <li><a>Home</a></li>
-                    <li class="pure-menu-selected"><a href="#">Flickr</a></li>
-                    <li><a href="#">Messenger</a></li>
-                    <li><a href="#">Sports</a></li>
-                    <li>
-                        <a href="#">Even More</a>
-                        <ul>
-                            <li><a href="#">Horoscopes</a></li>
-                            <li><a href="#">Games</a></li>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">OMG</a></li>
-                        </ul>
-                    </li>
                     <li><a href="#" class="iconfont">&#xe600;</a></li>
                     <li><a href="#" class="iconfont">&#xe601;</a></li>
                 </ul>
@@ -40,6 +27,11 @@
                 <div class="explorer-viewlet" ng-class="{'show':showSolution}">
                     <div>
                         <h3 class="explorer-title">解决资源管理器</h3>
+                        <header class="explorer-bar">
+                            <i class="iconfont addfile" title="新建文件">&#xe612;</i>
+                            <i class="iconfont addfold" title="新建文件夹">&#xe610;</i>
+                            <i class="iconfont refresh" title="重新加载">&#xe611;</i>
+                        </header>
 						<div treecontrol class="tree-classic"
 						     tree-model="dataForTheTree"
 						     options="treeOptions"
@@ -63,6 +55,6 @@
             </footer>
         </div>
 		<script type="text/javascript" src="/js/lib/require.js" data-main="main"></script>
-		
+        <!--<script src="../js/lib/contextmenu/jquery.contextMenu.js"></script>-->
     </body>
 </html>

@@ -72,7 +72,15 @@
     <Content Include="public\lib\angular.js" />
     <Content Include="public\lib\jquery-2.1.3.js" />
     <Content Include="public\view\index.html" />
+    <Content Include="readme.txt" />
     <Content Include="ReadPath.aspx" />
+    <Content Include="sample\webapp\assets\css\demos.css" />
+    <Content Include="sample\webapp\assets\img\apple-touch-icon-114x114.png" />
+    <Content Include="sample\webapp\assets\js\config.js" />
+    <Content Include="sample\webapp\assets\js\demos.js" />
+    <Content Include="sample\webapp\assets\js\sm-city-picker.js" />
+    <Content Include="sample\webapp\Hello SUI Mobile.html" />
+    <Content Include="sample\webapp\index.html" />
     <Content Include="src\asset\about.txt" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\normalize.css" />
@@ -101,6 +109,10 @@
     <Content Include="src\font\iconfont.css" />
     <Content Include="src\img\favicon.ico" />
     <Content Include="src\js\controllers\editor.js" />
+    <Content Include="src\js\lib\BootstrapMenu.js" />
+    <Content Include="src\js\lib\contextmenu\jquery.contextMenu.css" />
+    <Content Include="src\js\lib\contextmenu\jquery.contextMenu.js" />
+    <Content Include="src\js\lib\contextmenu\jquery.ui.position.js" />
     <Content Include="src\js\server\documents.js" />
     <Content Include="src\js\controllers\documents.js" />
     <Content Include="src\js\explorer\document.js" />
@@ -583,6 +595,10 @@
     <Content Include="src\routes\index.js" />
     <Content Include="views\index.html" />
     <Content Include="web.config" />
+    <Content Include="src\js\lib\contextmenu\font\context-menu-icons.eot" />
+    <Content Include="src\js\lib\contextmenu\font\context-menu-icons.ttf" />
+    <Content Include="src\js\lib\contextmenu\font\context-menu-icons.woff" />
+    <Content Include="src\js\lib\contextmenu\font\context-menu-icons.woff2" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -902,7 +918,7 @@
     <Content Include="src\data\CodeStudio.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="views\tryit.ejs" />
+    <None Include="views\tryit.ejs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\js\lib\ace\modemap.js" />
