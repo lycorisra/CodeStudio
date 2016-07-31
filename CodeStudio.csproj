@@ -74,6 +74,8 @@
     <Content Include="public\view\index.html" />
     <Content Include="readme.txt" />
     <Content Include="ReadPath.aspx" />
+    <Content Include="sample\timeline\css\style.css" />
+    <Content Include="sample\timeline\index.html" />
     <Content Include="sample\webapp\assets\css\demos.css" />
     <Content Include="sample\webapp\assets\img\apple-touch-icon-114x114.png" />
     <Content Include="sample\webapp\assets\js\config.js" />
