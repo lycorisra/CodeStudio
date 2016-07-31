@@ -34,8 +34,9 @@
 
 [treecontrol] li i {
     cursor: pointer;
-    position:absolute;
-    left:0;
+    margin-right: 3px;
+    /*position:absolute;
+    left:0;*/
 }
 
 [treecontrol] li .tree-label {
