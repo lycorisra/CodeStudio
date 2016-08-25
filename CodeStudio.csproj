@@ -601,12 +601,6 @@
     <Content Include="src\js\lib\contextmenu\font\context-menu-icons.ttf" />
     <Content Include="src\js\lib\contextmenu\font\context-menu-icons.woff" />
     <Content Include="src\js\lib\contextmenu\font\context-menu-icons.woff2" />
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReadPath.aspx.cs">

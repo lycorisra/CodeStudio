@@ -1874,7 +1874,7 @@ body {
   font-size: 1rem;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-weight: 400;
-  line-height: 2rem;
+  /*line-height: 2rem;*/
   height: 100%; }
   @media screen and (min-width: 27.5em) {
     body {

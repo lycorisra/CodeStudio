@@ -2,6 +2,11 @@
     var editor = ace.edit('editor'),
         session = editor.getSession();
 
+    var items = data.pathtree.children;
+    //for (var i = 0; i < items.length; i++) {
+    //    items[i].name
+    //}
+
     editor.setTheme('ace/theme/chrome');
     session.setUseWrapMode(true);
     editor.setShowPrintMargin(false);

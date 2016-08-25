@@ -45,6 +45,7 @@ namespace CodeStudio
                     level = level,
                     fullname = d.FullName.Replace(path, ""),
                     icon = "directory",
+                    //route = d.GetDirectories()
                 };
 
                 this.ReadDirectory(d.FullName, ref doc, level + 1);
@@ -75,6 +76,7 @@ namespace CodeStudio
         public int level { get; set; }
         public string icon { get; set; }
         public List<Document> children { get; set; }
+        public string route { get; set; }
 
         public Document()
         {
