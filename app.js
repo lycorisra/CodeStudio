@@ -42,8 +42,14 @@ app.locals.node_version = process.version.replace('v', '');
 app.locals.app_version = require('./package.json').version;
 app.locals.env = process.env.NODE_ENV;
 
+function _getFullHtml(name, str, style) {
+    return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>'
+      + name + '</title><style>'
+      + ((style) ? style : '') + '</style></head><body id="preview">\n'
+      + md.render(str) + '\n</body></html>';
+}
 var fetchHtml = function (req, res) {
-    var unmd = req.body.unmd
+    var unmd = req.query.unmd
       , json_response =
       {
           data: ''
