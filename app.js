@@ -42,6 +42,33 @@ app.locals.node_version = process.version.replace('v', '');
 app.locals.app_version = require('./package.json').version;
 app.locals.env = process.env.NODE_ENV;
 
+var fetchHtml = function (req, res) {
+    var unmd = req.body.unmd
+      , json_response =
+      {
+          data: ''
+      , error: false
+      }
+
+    // For formatted HTML or not...
+    var format = req.query.formatting ? _getFormat() : "";
+
+    var html = _getFullHtml(req.query.name, unmd, format);
+
+    var name = req.query.name.trim() + '.html'
+
+    var filename = path.resolve(__dirname, '../../downloads/files/html/' + name)
+
+    if (req.query.preview === 'false') {
+        res.attachment(name);
+    } else {
+        res.type('html');
+        res.set('Content-Disposition', 'inline; filename="${name}"');
+    }
+
+    res.end(html);
+}
+app.post('/factory/fetch_html', fetchHtml)
 // At startup time so sync is ok.
 app.locals.readme = fs.readFileSync(path.resolve(__dirname, './README.md'), 'utf-8');
 
