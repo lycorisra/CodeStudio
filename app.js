@@ -1,17 +1,16 @@
-/**
- * Main Application File for Dillinger.
- */
-
 'use strict'
 
 var cfg = require('./config'),
     config = cfg.config(),
     express = require('express'),
     app = express(),
+    bodyParser = require('body-parser'),
     serveStatic = require('serve-static'),
     fs = require('fs'),
+    md = require('./src/res/dillinger/js/plugins/core/markdown-it.js').md,
     path = require('path'),
     routes = require('./src/routes');
+
 
 app.set('port', process.env.PORT || 8088);
 app.set('bind-address', process.env.BIND_ADDRESS || 'localhost');
@@ -24,6 +23,8 @@ app.set('view engine', 'ejs');
 
 // May not need to use serveStatic if using nginx for serving
 // static assets. Just comment it out below.
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(serveStatic(__dirname + '/src'));
 //console.log(config);
 app.locals.title = config.title || 'Dillinger.';
@@ -43,31 +44,37 @@ app.locals.app_version = require('./package.json').version;
 app.locals.env = process.env.NODE_ENV;
 
 function _getFullHtml(name, str, style) {
-    return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>'
-      + name + '</title><style>'
-      + ((style) ? style : '') + '</style></head><body id="preview">\n'
-      + md.render(str) + '\n</body></html>';
+    var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + name + '</title><style>' + ((style) ? style : '');
+    html += '</style></head><body id="preview">\n';
+    html += md.render(str) + '\n</body></html>';
+    return html;
 }
 var fetchHtml = function (req, res) {
-    var unmd = req.query.unmd
-      , json_response =
-      {
-          data: ''
-      , error: false
-      }
+    //req.on('data', function (data) {
+    //    console.log("服务器接收到的数据：　" + decodeURIComponent(data));
+    //});
+    //req.on("end", function () {
+    //    console.log('客户端请求数据全部接收完毕');
+    //});
+    var unmd = req.body.unmd,
+        json_response ={
+              data: '',
+              error: false
+          };
 
     // For formatted HTML or not...
-    var format = req.query.formatting ? _getFormat() : "";
+    var format = req.body.formatting ? _getFormat() : "";
 
-    var html = _getFullHtml(req.query.name, unmd, format);
-
-    var name = req.query.name.trim() + '.html'
+    var html = _getFullHtml(req.body.name, unmd, format);
+    
+    var name = req.body.name.trim() + '.html'
 
     var filename = path.resolve(__dirname, '../../downloads/files/html/' + name)
 
-    if (req.query.preview === 'false') {
+    if (req.body.preview === 'false') {
         res.attachment(name);
-    } else {
+    }
+    else {
         res.type('html');
         res.set('Content-Disposition', 'inline; filename="${name}"');
     }

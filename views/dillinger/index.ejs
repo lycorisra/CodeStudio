@@ -37,7 +37,7 @@
 </head>
 <body ng-controller="Base" file-import-drop-target>
     <input type="file" accept=".md,.markdown" file-import-choose-file />
-    <form method="POST" id="downloader">
+    <form method="POST" id="downloader" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="name">
         <input type="hidden" name="unmd">
         <input type="hidden" name="formatting">

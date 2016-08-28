@@ -1,19 +1,20 @@
 'use strict';
 
 
-var hljs = require('highlight.js')
-  , katex = require('katex')
-  , md = require('markdown-it')({
+var hljs = require('highlight.js'),
+    katex = require('katex'),
+    md = require('markdown-it')({
       linkify: true,
       typographer: true,
       highlight: function (str, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-          return hljs.highlight(lang, str).value;
-        } else {
-          return str.value;
-        }
+          if (lang && hljs.getLanguage(lang)) {
+              return hljs.highlight(lang, str).value;
+          }
+          else {
+              return str.value;
+          }
       }
-    });
+  });
 
 /*
   change to Katex for math rendering
@@ -46,11 +47,11 @@ md
   .use(require('markdown-it-abbr'))
   .use(require('markdown-it-checkbox'));
 
-md.renderer.rules.table_open = function(tokens, idx, options, env, self) {
-  var token = tokens[idx];
-  token.attrPush([ 'class', 'table table-striped table-bordered' ]);
+md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
+    var token = tokens[idx];
+    token.attrPush(['class', 'table table-striped table-bordered']);
 
-  return self.renderToken(tokens, idx, options);
+    return self.renderToken(tokens, idx, options);
 };
 
 exports.md = md

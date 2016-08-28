@@ -6,108 +6,108 @@ module.exports =
   .module('plugins.github.modal', [
     'plugins.github.service'
   ])
-  .controller('GithubModal', function($modalInstance, githubService) {
+  .controller('GithubModal', function ($modalInstance, githubService) {
 
-  var vm = this;
+      var vm = this;
 
-  vm.title = 'Organizations';
-  vm.orgs  = githubService.config.orgs;
-  vm.step  = 1;
+      vm.title = 'Organizations';
+      vm.orgs = githubService.config.orgs;
+      vm.step = 1;
 
-  vm.fetchRepos     = fetchRepos;
-  vm.fetchBranches  = fetchBranches;
-  vm.fetchTreeFiles = fetchTreeFiles;
-  vm.fetchFile      = fetchFile;
-  vm.close          = closeModal;
+      vm.fetchRepos = fetchRepos;
+      vm.fetchBranches = fetchBranches;
+      vm.fetchTreeFiles = fetchTreeFiles;
+      vm.fetchFile = fetchFile;
+      vm.close = closeModal;
 
-  vm.itemsPerPage   = 10;
-  vm.currentPage    = 1;
-  vm.repos          = [];
-  vm.org_name       = null;
+      vm.itemsPerPage = 10;
+      vm.currentPage = 1;
+      vm.repos = [];
+      vm.org_name = null;
 
-  //////////////////////////////
+      //////////////////////////////
 
-  function setFile() {
-    return $modalInstance.close();
-  }
-
-  function closeModal() {
-    return $modalInstance.dismiss('cancel');
-  }
-
-  function setRepos() {
-    vm.title = 'Repositories';
-    vm.step  = 2;
-    vm.pagination = githubService.config.pagination;
-    if (!vm.totalItems) {
-      vm.totalItems = vm.pagination.last.page * vm.itemsPerPage;
-    }
-    vm.repos = githubService.config.repos.sort(function(a, b) {
-      if (a.name < b.name) {
-        return -1;
-      } else if (a.name > b.name) {
-        return 1;
-      } else {
-        return 0;
+      function setFile() {
+          return $modalInstance.close();
       }
-    });
 
-    return vm.repos;
-  }
+      function closeModal() {
+          return $modalInstance.dismiss('cancel');
+      }
 
-  function fetchRepos(name) {
-    if (name) {
-      vm.org_name = name
-    }
+      function setRepos() {
+          vm.title = 'Repositories';
+          vm.step = 2;
+          vm.pagination = githubService.config.pagination;
+          if (!vm.totalItems) {
+              vm.totalItems = vm.pagination.last.page * vm.itemsPerPage;
+          }
+          vm.repos = githubService.config.repos.sort(function (a, b) {
+              if (a.name < b.name) {
+                  return -1;
+              } else if (a.name > b.name) {
+                  return 1;
+              } else {
+                  return 0;
+              }
+          });
 
-    githubService.fetchRepos(
-      vm.org_name, vm.currentPage, vm.itemsPerPage
-    ).then(setRepos);
+          return vm.repos;
+      }
 
-    return false;
-  }
+      function fetchRepos(name) {
+          if (name) {
+              vm.org_name = name
+          }
 
-  function fetchFile(url, path) {
-    githubService.config.current.fileName = path.split('/').pop();
-    githubService.config.current.path = path;
-    githubService.fetchFile(url).then(setFile);
+          githubService.fetchRepos(
+            vm.org_name, vm.currentPage, vm.itemsPerPage
+          ).then(setRepos);
 
-    return false;
-  }
+          return false;
+      }
 
-  function setBranches() {
-    vm.title = 'Branches';
-    vm.step = 3;
-    vm.branches = githubService.config.branches;
+      function fetchFile(url, path) {
+          githubService.config.current.fileName = path.split('/').pop();
+          githubService.config.current.path = path;
+          githubService.fetchFile(url).then(setFile);
 
-    return vm.branches;
-  }
+          return false;
+      }
 
-  function fetchBranches(name) {
-    githubService.config.current.repo = name;
-    githubService.fetchBranches(name).then(setBranches);
+      function setBranches() {
+          vm.title = 'Branches';
+          vm.step = 3;
+          vm.branches = githubService.config.branches;
 
-    return false;
-  }
+          return vm.branches;
+      }
 
-  function setTreeFiles() {
-    vm.title = 'Files';
-    vm.step  = 4;
-    vm.files = githubService.config.current.tree;
+      function fetchBranches(name) {
+          githubService.config.current.repo = name;
+          githubService.fetchBranches(name).then(setBranches);
 
-    return vm.files;
-  }
+          return false;
+      }
 
-  function fetchTreeFiles(sha, branch) {
-    githubService.config.current.sha    = sha;
-    githubService.config.current.branch = branch;
-    githubService.fetchTreeFiles(sha).then(setTreeFiles);
+      function setTreeFiles() {
+          vm.title = 'Files';
+          vm.step = 4;
+          vm.files = githubService.config.current.tree;
 
-    return false;
-  }
+          return vm.files;
+      }
 
-  vm.onPageChange = function() {
-    vm.fetchRepos(null, vm.currentPage);
-  }
+      function fetchTreeFiles(sha, branch) {
+          githubService.config.current.sha = sha;
+          githubService.config.current.branch = branch;
+          githubService.fetchTreeFiles(sha).then(setTreeFiles);
 
-});
+          return false;
+      }
+
+      vm.onPageChange = function () {
+          vm.fetchRepos(null, vm.currentPage);
+      }
+
+  });
