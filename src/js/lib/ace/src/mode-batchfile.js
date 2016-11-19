@@ -8,24 +8,24 @@ var BatchFileHighlightRules = function() {
 
     this.$rules = { start: 
        [ { token: 'keyword.command.dosbatch',
-           regex: '\\b(?:append|assoc|at|attrib|break|cacls|cd|chcp|chdir|chkdsk|chkntfs|cls|cmd|color|comp|compact|convert|copy|date|del|dir|diskcomp|diskcopy|doskey|echo|endlocal|erase|fc|find|findstr|format|ftype|graftabl|help|keyb|label|md|mkdir|mode|more|move|path|pause|popd|print|prompt|pushd|rd|recover|ren|rename|replace|restore|rmdir|set|setlocal|shift|sort|start|subst|time|title|tree|type|ver|verify|vol|xcopy)\\b',
+           regex: '/b(?:append|assoc|at|attrib|break|cacls|cd|chcp|chdir|chkdsk|chkntfs|cls|cmd|color|comp|compact|convert|copy|date|del|dir|diskcomp|diskcopy|doskey|echo|endlocal|erase|fc|find|findstr|format|ftype|graftabl|help|keyb|label|md|mkdir|mode|more|move|path|pause|popd|print|prompt|pushd|rd|recover|ren|rename|replace|restore|rmdir|set|setlocal|shift|sort|start|subst|time|title|tree|type|ver|verify|vol|xcopy)/b',
            caseInsensitive: true },
          { token: 'keyword.control.statement.dosbatch',
-           regex: '\\b(?:goto|call|exit)\\b',
+           regex: '/b(?:goto|call|exit)/b',
            caseInsensitive: true },
          { token: 'keyword.control.conditional.if.dosbatch',
-           regex: '\\bif\\s+not\\s+(?:exist|defined|errorlevel|cmdextversion)\\b',
+           regex: '/bif/s+not/s+(?:exist|defined|errorlevel|cmdextversion)/b',
            caseInsensitive: true },
          { token: 'keyword.control.conditional.dosbatch',
-           regex: '\\b(?:if|else)\\b',
+           regex: '/b(?:if|else)/b',
            caseInsensitive: true },
          { token: 'keyword.control.repeat.dosbatch',
-           regex: '\\bfor\\b',
+           regex: '/bfor/b',
            caseInsensitive: true },
          { token: 'keyword.operator.dosbatch',
-           regex: '\\b(?:EQU|NEQ|LSS|LEQ|GTR|GEQ)\\b' },
+           regex: '/b(?:EQU|NEQ|LSS|LEQ|GTR|GEQ)/b' },
          { token: ['doc.comment', 'comment'],
-           regex: '(?:^|\\b)(rem)($|\\s.*$)',
+           regex: '(?:^|/b)(rem)($|/s.*$)',
            caseInsensitive: true },
          { token: 'comment.line.colons.dosbatch',
            regex: '::.*$' },
@@ -38,12 +38,12 @@ var BatchFileHighlightRules = function() {
               { defaultToken: 'string.quoted.double.dosbatch' } ] },
          { token: 'keyword.operator.pipe.dosbatch', regex: '[|]' },
          { token: 'keyword.operator.redirect.shell',
-           regex: '&>|\\d*>&\\d*|\\d*(?:>>|>|<)|\\d*<&|\\d*<>' } ],
+           regex: '&>|/d*>&/d*|/d*(?:>>|>|<)|/d*<&|/d*<>' } ],
         variable: [
-         { token: 'constant.numeric', regex: '%%\\w+|%[*\\d]|%\\w+%'},
-         { token: 'constant.numeric', regex: '%~\\d+'},
+         { token: 'constant.numeric', regex: '%%/w+|%[*/d]|%/w+%'},
+         { token: 'constant.numeric', regex: '%~/d+'},
          { token: ['markup.list', 'constant.other', 'markup.list'],
-            regex: '(%)(\\w+)(%?)' }]}
+            regex: '(%)(/w+)(%?)' }]}
     
     this.normalizeRules();
 };

@@ -25,7 +25,7 @@ var SnippetManager = function() {
             return [{text: str}];
         }
         function escape(ch) {
-            return "(?:[^\\\\" + ch + "]|\\\\.)";
+            return "(?:[^//" + ch + "]|//.)";
         }
         SnippetManager.$tokenizer = new Tokenizer({
             start: [
@@ -37,11 +37,11 @@ var SnippetManager = function() {
                     }
                     return ":";
                 }},
-                {regex: /\\./, onMatch: function(val, state, stack) {
+                {regex: //./, onMatch: function(val, state, stack) {
                     var ch = val[1];
                     if (ch == "}" && stack.length) {
                         val = ch;
-                    }else if ("`$\\".indexOf(ch) != -1) {
+                    }else if ("`$/".indexOf(ch) != -1) {
                         val = ch;
                     } else if (stack.inFormatString) {
                         if (ch == "n")
@@ -67,10 +67,10 @@ var SnippetManager = function() {
                 {regex: /\n/, token: "newline", merge: false}
             ],
             snippetVar: [
-                {regex: "\\|" + escape("\\|") + "*\\|", onMatch: function(val, state, stack) {
+                {regex: "/|" + escape("/|") + "*/|", onMatch: function(val, state, stack) {
                     stack[0].choices = val.slice(1, -1).split(",");
                 }, next: "start"},
-                {regex: "/(" + escape("/") + "+)/(?:(" + escape("/") + "*)/)(\\w*):?",
+                {regex: "/(" + escape("/") + "+)/(?:(" + escape("/") + "*)/)(/w*):?",
                  onMatch: function(val, state, stack) {
                     var ts = stack[0];
                     ts.fmtString = val;
@@ -85,11 +85,11 @@ var SnippetManager = function() {
                     stack[0].code = val.splice(1, -1);
                     return "";
                 }, next: "start"},
-                {regex: "\\?", onMatch: function(val, state, stack) {
+                {regex: "/?", onMatch: function(val, state, stack) {
                     if (stack[0])
                         stack[0].expectIf = true;
                 }, next: "start"},
-                {regex: "([^:}\\\\]|\\\\.)*:?", token: "", next: "start"}
+                {regex: "([^:}//]|//.)*:?", token: "", next: "start"}
             ],
             formatString: [
                 {regex: "/(" + escape("/") + "+)/", token: "regex"},
@@ -459,7 +459,7 @@ var SnippetManager = function() {
             snippets = [];
         
         function wrapRegexp(src) {
-            if (src && !/^\^?\(.*\)\$?$|^\\b$/.test(src))
+            if (src && !/^\^?\(.*\)\$?$|^/b$/.test(src))
                 src = "(?:" + src + ")";
 
             return src || "";
@@ -499,7 +499,7 @@ var SnippetManager = function() {
 
             if (s.tabTrigger && !s.trigger) {
                 if (!s.guard && /^\w/.test(s.tabTrigger))
-                    s.guard = "\\b";
+                    s.guard = "/b";
                 s.trigger = lang.escapeRegExp(s.tabTrigger);
             }
             
@@ -557,7 +557,7 @@ var SnippetManager = function() {
             } else {
                 var key = m[2], val = m[3];
                 if (key == "regex") {
-                    var guardRe = /\/((?:[^\/\\]|\\.)*)|$/g;
+                    var guardRe = /\/((?:[^\//]|/.)*)|$/g;
                     snippet.guard = guardRe.exec(val)[1];
                     snippet.trigger = guardRe.exec(val)[1];
                     snippet.endTrigger = guardRe.exec(val)[1];
@@ -1053,8 +1053,8 @@ AceEmmetEditor.prototype = {
                 return result;
             },
             escape: function(ch) {
-                if (ch == '$') return '\\$';
-                if (ch == '\\') return '\\\\';
+                if (ch == '$') return '/$';
+                if (ch == '/') return '//';
                 return ch;
             }
         };

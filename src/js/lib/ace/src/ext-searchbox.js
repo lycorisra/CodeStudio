@@ -167,7 +167,7 @@ var html = '<div class="ace_search right">\
     <div class="ace_search_options">\
         <span action="toggleRegexpMode" class="ace_button" title="RegExp Search">.*</span>\
         <span action="toggleCaseSensitive" class="ace_button" title="CaseSensitive Search">Aa</span>\
-        <span action="toggleWholeWords" class="ace_button" title="Whole Word Search">\\b</span>\
+        <span action="toggleWholeWords" class="ace_button" title="Whole Word Search">/b</span>\
     </div>\
 </div>'.replace(/>\s+/g, ">");
 

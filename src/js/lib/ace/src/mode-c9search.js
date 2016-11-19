@@ -58,7 +58,7 @@ var C9SearchHighlightRules = function() {
                 }
             },
             {
-                regex : "^Searching for [^\\r\\n]*$",
+                regex : "^Searching for [^/r/n]*$",
                 onMatch: function(val, state, stack) {
                     var parts = val.split("\x01");
                     if (parts.length < 3)
@@ -117,7 +117,7 @@ var C9SearchHighlightRules = function() {
                         if (!/regex/.test(options))
                             search = lang.escapeRegExp(search);
                         if (/whole/.test(options))
-                            search = "\\b" + search + "\\b";
+                            search = "/b" + search + "/b";
                     }
                     
                     var regex = search && safeCreateRegexp(
@@ -133,18 +133,18 @@ var C9SearchHighlightRules = function() {
                 }
             },
             {
-                regex : "^(?=Found \\d+ matches)",
+                regex : "^(?=Found /d+ matches)",
                 token : "text",
                 next : "numbers"
             },
             {
                 token : "string", // single line
-                regex : "^\\S:?[^:]+",
+                regex : "^/S:?[^:]+",
                 next : "numbers"
             }
         ],
         numbers:[{
-            regex : "\\d+",
+            regex : "/d+",
             token : "constant.numeric"
         }, {
             regex : "$",

@@ -27,7 +27,7 @@ exports.$detectIndentation = function(lines, fallback) {
             }
             prevSpaces = spaces;
         }
-        while (i < max && line[line.length - 1] == "\\")
+        while (i < max && line[line.length - 1] == "/")
             line = lines[i++];
     }
     

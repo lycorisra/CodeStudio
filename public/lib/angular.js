@@ -715,8 +715,8 @@ var trim = function(value) {
 // http://docs.closure-library.googlecode.com/git/local_closure_goog_string_string.js.source.html#line1021
 // Prereq: s is a string.
 var escapeForRegexp = function(s) {
-  return s.replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').
-           replace(/\x08/g, '\\x08');
+  return s.replace(/([-()\[\]{}+?*.$\^|,:#<!/])/g, '/$1').
+           replace(/\x08/g, '/x08');
 };
 
 
@@ -1064,7 +1064,7 @@ var jq = function() {
   var i, ii = ngAttrPrefixes.length, prefix, name;
   for (i = 0; i < ii; ++i) {
     prefix = ngAttrPrefixes[i];
-    if (el = document.querySelector('[' + prefix.replace(':', '\\:') + 'jq]')) {
+    if (el = document.querySelector('[' + prefix.replace(':', '/:') + 'jq]')) {
       name = el.getAttribute(prefix + 'jq');
       break;
     }
@@ -1484,7 +1484,7 @@ function angularInit(element, bootstrap) {
     var name = prefix + 'app';
     var candidate;
 
-    if (!appElement && (candidate = element.querySelector('[' + name.replace(':', '\\:') + ']'))) {
+    if (!appElement && (candidate = element.querySelector('[' + name.replace(':', '/:') + ']'))) {
       appElement = candidate;
       module = candidate.getAttribute(name);
     }
@@ -10363,7 +10363,7 @@ function $InterpolateProvider() {
         escapedEndRegexp = new RegExp(endSymbol.replace(/./g, escape), 'g');
 
     function escape(ch) {
-      return '\\\\\\' + ch;
+      return '///' + ch;
     }
 
     function unescapeText(text) {
@@ -12264,7 +12264,7 @@ Lexer.prototype = {
         if (ch === 'u') {
           var hex = this.text.substring(this.index + 1, this.index + 5);
           if (!hex.match(/[\da-f]{4}/i)) {
-            this.throwError('Invalid unicode escape [\\u' + hex + ']');
+            this.throwError('Invalid unicode escape [/u' + hex + ']');
           }
           this.index += 4;
           string += String.fromCharCode(parseInt(hex, 16));
@@ -12273,7 +12273,7 @@ Lexer.prototype = {
           string = string + (rep || ch);
         }
         escape = false;
-      } else if (ch === '\\') {
+      } else if (ch === '/') {
         escape = true;
       } else if (ch === quote) {
         this.index++;
@@ -13207,7 +13207,7 @@ ASTCompiler.prototype = {
   stringEscapeRegex: /[^ a-zA-Z0-9]/g,
 
   stringEscapeFn: function(c) {
-    return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
+    return '/u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
   },
 
   escape: function(value) {
@@ -15977,8 +15977,8 @@ function adjustMatcher(matcher) {
           'Illegal sequence *** in string matcher.  String: {0}', matcher);
     }
     matcher = escapeForRegexp(matcher).
-                  replace('\\*\\*', '.*').
-                  replace('\\*', '[^:/.?&;]*');
+                  replace('/*/*', '.*').
+                  replace('/*', '[^:/.?&;]*');
     return new RegExp('^' + matcher + '$');
   } else if (isRegExp(matcher)) {
     // The only other type of matcher allowed is a Regexp.
@@ -17181,7 +17181,7 @@ function $$TestabilityProvider() {
         if (dataBinding) {
           forEach(dataBinding, function(bindingName) {
             if (opt_exactMatch) {
-              var matcher = new RegExp('(^|\\s)' + escapeForRegexp(expression) + '(\\s|\\||$)');
+              var matcher = new RegExp('(^|/s)' + escapeForRegexp(expression) + '(/s|/||$)');
               if (matcher.test(bindingName)) {
                 matches.push(binding);
               }
@@ -17209,7 +17209,7 @@ function $$TestabilityProvider() {
      *     for the expression.
      */
     testability.findModels = function(element, expression, opt_exactMatch) {
-      var prefixes = ['ng-', 'data-ng-', 'ng\\:'];
+      var prefixes = ['ng-', 'data-ng-', 'ng/:'];
       for (var p = 0; p < prefixes.length; ++p) {
         var attributeEquals = opt_exactMatch ? '=' : '*=';
         var selector = '[' + prefixes[p] + 'model' + attributeEquals + '"' + expression + '"]';
@@ -27671,4 +27671,4 @@ var minlengthDirective = function() {
 
 })(window, document);
 
-!window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-animate-anchor{position:absolute;}</style>');
+!window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng/:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng/:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-animate-anchor{position:absolute;}</style>');

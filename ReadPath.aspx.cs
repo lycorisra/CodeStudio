@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
 namespace CodeStudio
@@ -10,9 +11,9 @@ namespace CodeStudio
     {
         List<Document> list = new List<Document>();
 
-        private string path = @"F:\webfrontend\CodeStudio";
-        private string[] ignorePaths = new string[] { ".git", ".vs", ".vscode", "bin", "obj", "Properties", "node_modules" };
-        private string[] ignoreFiles = new string[] { ".csproj", ".user", ".sln", ".suo", ".gitignore" };
+        private string path = @"F:\resource\CSS3\图解CSS3核心技术与案例实战源码\code";
+        private string[] ignorePaths = new string[] { "font", "images",".git", ".vs", ".vscode", "bin", "obj", "Properties", "node_modules" };
+        private string[] ignoreFiles = new string[] { ".DS_Store", ".png", ".jpg", ".gif", ".csproj", ".user", ".sln", ".suo", ".gitignore" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,7 +35,8 @@ namespace CodeStudio
         private void ReadDirectory(string directory, ref Document root,int level)
         {
             DirectoryInfo di = new DirectoryInfo(directory);
-            foreach (var d in di.GetDirectories())
+            var list = di.GetDirectories().OrderBy(c => this.ToASCII(c.Name)).ToList();
+            foreach (var d in list)
             {
                 if (ignorePaths.Contains(d.Name))
                     continue;
@@ -43,7 +45,8 @@ namespace CodeStudio
                 {
                     name = d.Name,
                     level = level,
-                    fullname = d.FullName.Replace(path, ""),
+                    path = d.FullName.Replace(path, ""),
+                    //fullname = d.FullName.Replace(path, ""),
                     icon = "directory",
                     //route = d.GetDirectories()
                 };
@@ -52,12 +55,13 @@ namespace CodeStudio
 
                 root.children.Add(doc);
             }
-            foreach (var file in di.GetFiles())
+            var files = di.GetFiles().ToList();
+            files.RemoveAll(c => ignoreFiles.Contains(c.Extension));
+            files = files.OrderBy(c => this.ToASCII(c.Name)).ToList();
+
+            foreach (var file in files)
             {
                 string ext = file.Extension;
-                if (ignoreFiles.Contains(ext))
-                    continue;
-
                 root.children.Add(new Document()
                 {
                     name = file.Name,
@@ -66,12 +70,21 @@ namespace CodeStudio
                 });
             }
         }
-
+        private int ToASCII(string text)
+        {
+            var number = 0;
+            var value = Regex.Replace(text, @"[^\d]*", "");
+            int.TryParse(value, out number);
+            //var encoding = new System.Text.ASCIIEncoding();
+            //var bytes = encoding.GetBytes(text);
+            //text = string.Join("-", bytes);
+            return number;
+        }
     }
     public class Document
     {
         public string name { get; set; }
-        public string fullname { get; set; }
+        public string path { get; set; }
         //public string parent { get; set; }
         public int level { get; set; }
         public string icon { get; set; }

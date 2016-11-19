@@ -98,40 +98,40 @@ var ClojureHighlightRules = function() {
                 regex : ";.*$"
             }, {
                 token : "keyword", //parens
-                regex : "[\\(|\\)]"
+                regex : "[/(|/)]"
             }, {
                 token : "keyword", //lists
-                regex : "[\\'\\(]"
+                regex : "[/'/(]"
             }, {
                 token : "keyword", //vectors
-                regex : "[\\[|\\]]"
+                regex : "[/[|/]]"
             }, {
                 token : "keyword", //sets and maps
-                regex : "[\\{|\\}|\\#\\{|\\#\\}]"
+                regex : "[/{|/}|/#/{|/#/}]"
             }, {
                     token : "keyword", // ampersands
-                    regex : '[\\&]'
+                    regex : '[/&]'
             }, {
                     token : "keyword", // metadata
-                    regex : '[\\#\\^\\{]'
+                    regex : '[/#/^/{]'
             }, {
                     token : "keyword", // anonymous fn syntactic sugar
-                    regex : '[\\%]'
+                    regex : '[/%]'
             }, {
                     token : "keyword", // deref reader macro
                     regex : '[@]'
             }, {
                 token : "constant.numeric", // hex
-                regex : "0[xX][0-9a-fA-F]+\\b"
+                regex : "0[xX][0-9a-fA-F]+/b"
             }, {
                 token : "constant.numeric", // float
-                regex : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?\\b"
+                regex : "[+-]?/d+(?:(?:/./d*)?(?:[eE][+-]?/d+)?)?/b"
             }, {
                 token : "constant.language",
-                regex : '[!|\\$|%|&|\\*|\\-\\-|\\-|\\+\\+|\\+||=|!=|<=|>=|<>|<|>|!|&&]'
+                regex : '[!|/$|%|&|/*|/-/-|/-|/+/+|/+||=|!=|<=|>=|<>|<|>|!|&&]'
             }, {
                 token : keywordMapper,
-                regex : "[a-zA-Z_$][a-zA-Z0-9_$\\-]*\\b"
+                regex : "[a-zA-Z_$][a-zA-Z0-9_$/-]*/b"
             }, {
                 token : "string", // single line
                 regex : '"',
@@ -141,17 +141,17 @@ var ClojureHighlightRules = function() {
                 regex : /:[^()\[\]{}'"\^%`,;\s]+/
             }, {
                 token : "string.regexp", //Regular Expressions
-                regex : '/#"(?:\\.|(?:\\\")|[^\""\n])*"/g'
+                regex : '/#"(?:/.|(?:/\")|[^\""\n])*"/g'
             }
 
         ],
         "string" : [
             {
                 token : "constant.language.escape",                
-                regex : "\\\\.|\\\\$"
+                regex : "//.|//$"
             }, {
                 token : "string",                
-                regex : '[^"\\\\]+'
+                regex : '[^"//]+'
             }, {
                 token : "string",
                 regex : '"',

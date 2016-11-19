@@ -229,7 +229,7 @@ const packageMainCache = {};
               const code = from.charCodeAt(i);
                 if (code === 92/*\*/ || code === 47/*/*/) {
                     if (p !== nmLen)
-                        paths.push(from.slice(0, last) + '\\node_modules');
+                        paths.push(from.slice(0, last) + '/node_modules');
                     last = i;
                     p = 0;
                 } else if (p !== -1 && p < nmLen) {

@@ -1095,15 +1095,15 @@ var Document = function(textOrLines) {
         return lines;
     };
     this.insertLines = function(row, lines) {
-        console.warn("Use of document.insertLines is deprecated. Use the insertFullLines method instead.");
+        //console.warn("Use of document.insertLines is deprecated. Use the insertFullLines method instead.");
         return this.insertFullLines(row, lines);
     };
     this.removeLines = function(firstRow, lastRow) {
-        console.warn("Use of document.removeLines is deprecated. Use the removeFullLines method instead.");
+        //console.warn("Use of document.removeLines is deprecated. Use the removeFullLines method instead.");
         return this.removeFullLines(firstRow, lastRow);
     };
     this.insertNewLine = function(position) {
-        console.warn("Use of document.insertNewLine is deprecated. Use insertMergedLines(position, [\'\', \'\']) instead.");
+        //console.warn("Use of document.insertNewLine is deprecated. Use insertMergedLines(position, [\'\', \'\']) instead.");
         return this.insertMergedLines(position, ["", ""]);
     };
     this.insert = function(position, text) {

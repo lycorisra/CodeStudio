@@ -1927,7 +1927,7 @@ dom.importCssString(".normal-mode .ace_cursor{\
             var query = cm.getLine(word.start.line).substring(word.start.ch,
                 word.end.ch);
             if (isKeyword && wholeWordOnly) {
-                query = '\\b' + query + '\\b';
+                query = '/b' + query + '/b';
             } else {
               query = escapeRegex(query);
             }
@@ -3248,7 +3248,7 @@ dom.importCssString(".normal-mode .ace_cursor{\
       return s.replace(/^\s+|\s+$/g, '');
     }
     function escapeRegex(s) {
-      return s.replace(/([.?*+$\[\]\/\\(){}|\-])/g, '\\$1');
+      return s.replace(/([.?*+$\[\]\//(){}|\-])/g, '/$1');
     }
     function extendLineToColumn(cm, lineNum, column) {
       var endCh = lineLength(cm, lineNum);
@@ -4009,7 +4009,7 @@ dom.importCssString(".normal-mode .ace_cursor{\
         if (!escapeNextChar && c == '/') {
           slashes.push(i);
         }
-        escapeNextChar = !escapeNextChar && (c == '\\');
+        escapeNextChar = !escapeNextChar && (c == '/');
       }
       return slashes;
     }
@@ -4023,30 +4023,30 @@ dom.importCssString(".normal-mode .ace_cursor{\
         var n = str.charAt(i+1) || '';
         var specialComesNext = (n && specials.indexOf(n) != -1);
         if (escapeNextChar) {
-          if (c !== '\\' || !specialComesNext) {
+          if (c !== '/' || !specialComesNext) {
             out.push(c);
           }
           escapeNextChar = false;
         } else {
-          if (c === '\\') {
+          if (c === '/') {
             escapeNextChar = true;
             if (n && unescape.indexOf(n) != -1) {
               specialComesNext = true;
             }
-            if (!specialComesNext || n === '\\') {
+            if (!specialComesNext || n === '/') {
               out.push(c);
             }
           } else {
             out.push(c);
-            if (specialComesNext && n !== '\\') {
-              out.push('\\');
+            if (specialComesNext && n !== '/') {
+              out.push('/');
             }
           }
         }
       }
       return out.join('');
     }
-    var charUnescapes = {'\\n': '\n', '\\r': '\r', '\\t': '\t'};
+    var charUnescapes = {'/n': '\n', '/r': '\r', '/t': '\t'};
     function translateRegexReplace(str) {
       var escapeNextChar = false;
       var out = [];
@@ -4060,12 +4060,12 @@ dom.importCssString(".normal-mode .ace_cursor{\
           out.push(c);
           escapeNextChar = false;
         } else {
-          if (c === '\\') {
+          if (c === '/') {
             escapeNextChar = true;
             if ((isNumber(n) || n === '$')) {
               out.push('$');
-            } else if (n !== '/' && n !== '\\') {
-              out.push('\\');
+            } else if (n !== '/' && n !== '/') {
+              out.push('/');
             }
           } else {
             if (c === '$') {
@@ -4073,19 +4073,19 @@ dom.importCssString(".normal-mode .ace_cursor{\
             }
             out.push(c);
             if (n === '/') {
-              out.push('\\');
+              out.push('/');
             }
           }
         }
       }
       return out.join('');
     }
-    var unescapes = {'\\/': '/', '\\\\': '\\', '\\n': '\n', '\\r': '\r', '\\t': '\t'};
+    var unescapes = {'//': '/', '//': '/', '/n': '\n', '/r': '\r', '/t': '\t'};
     function unescapeRegexReplace(str) {
       var stream = new CodeMirror.StringStream(str);
       var output = [];
       while (!stream.eol()) {
-        while (stream.peek() && stream.peek() != '\\') {
+        while (stream.peek() && stream.peek() != '/') {
           output.push(stream.next());
         }
         var matched = false;

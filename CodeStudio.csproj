@@ -63,7 +63,6 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="config.js" />
-    <Content Include="explorer.js" />
     <Content Include="module.js" />
     <Content Include="public\asset\about.txt" />
     <Content Include="public\css\normalize.css" />
@@ -84,6 +83,7 @@
     <Content Include="sample\webapp\Hello SUI Mobile.html" />
     <Content Include="sample\webapp\index.html" />
     <Content Include="src\asset\about.txt" />
+    <Content Include="src\border.jpg" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\normalize.css" />
     <Content Include="src\css\pure\base-context.css" />
@@ -108,6 +108,7 @@
     <Content Include="src\css\pure\pure-nr.css" />
     <Content Include="src\css\pure\pure.css" />
     <Content Include="src\css\pure\tables.css" />
+    <None Include="src\data\CSS3Book.json" />
     <Content Include="src\font\iconfont.css" />
     <Content Include="src\img\favicon.ico" />
     <Content Include="src\js\controllers\editor.js" />
@@ -469,8 +470,6 @@
     <Content Include="src\js\lib\requirejs-plugins\noext.js" />
     <Content Include="src\js\lib\requirejs-plugins\propertyParser.js" />
     <Content Include="src\main.js" />
-    <Content Include="src\js\models\about.txt" />
-    <Content Include="src\js\proxy\about.txt" />
     <Content Include="src\res\angular-tree-control\angular-tree-control.js" />
     <Content Include="src\res\angular-tree-control\tree-control-attribute.css" />
     <Content Include="src\res\angular-tree-control\tree-control.css" />
@@ -601,6 +600,7 @@
     <Content Include="src\js\lib\contextmenu\font\context-menu-icons.ttf" />
     <Content Include="src\js\lib\contextmenu\font\context-menu-icons.woff" />
     <Content Include="src\js\lib\contextmenu\font\context-menu-icons.woff2" />
+    <Content Include="views\tryit.ejs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReadPath.aspx.cs">
@@ -914,9 +914,6 @@
     <Content Include="src\data\CodeStudio.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="views\tryit.ejs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="src\js\lib\ace\modemap.js" />
   </ItemGroup>
   <ItemGroup>
@@ -946,6 +943,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties src_4data_4CSS3Book_1json__JSONSchema="http://json.schemastore.org/babelrc" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

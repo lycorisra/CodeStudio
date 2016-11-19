@@ -37,22 +37,22 @@ var keywords = "abort|else|new|return|abs|elsif|not|reverse|abstract|end|null|ac
             regex : "'.*?'"
         }, {
             token : "constant.numeric", // float
-            regex : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?\\b"
+            regex : "[+-]?/d+(?:(?:/./d*)?(?:[eE][+-]?/d+)?)?/b"
         }, {
             token : keywordMapper,
-            regex : "[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+            regex : "[a-zA-Z_$][a-zA-Z0-9_$]*/b"
         }, {
             token : "keyword.operator",
-            regex : "\\+|\\-|\\/|\\/\\/|%|<@>|@>|<@|&|\\^|~|<|>|<=|=>|==|!=|<>|="
+            regex : "/+|/-|//|////|%|<@>|@>|<@|&|/^|~|<|>|<=|=>|==|!=|<>|="
         }, {
             token : "paren.lparen",
-            regex : "[\\(]"
+            regex : "[/(]"
         }, {
             token : "paren.rparen",
-            regex : "[\\)]"
+            regex : "[/)]"
         }, {
             token : "text",
-            regex : "\\s+"
+            regex : "/s+"
         } ]
     };
 };

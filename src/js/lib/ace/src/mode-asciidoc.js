@@ -5,7 +5,7 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var AsciidocHighlightRules = function() {
-    var identifierRe = "[a-zA-Z\u00a1-\uffff]+\\b";
+    var identifierRe = "[a-zA-Z\u00a1-\uffff]+/b";
 
     this.$rules = {
         "start": [
@@ -57,7 +57,7 @@ var AsciidocHighlightRules = function() {
             {include: "paragraphEnd"},
             {token: "literal", regex:/\+{3,}/, next:"smallPassthrough"},
             {token: "escape", regex: /\((?:C|TM|R)\)|\.{3}|->|<-|=>|<=|&#(?:\d+|x[a-fA-F\d]+);|(?: |^)--(?=\s+\S)/},
-            {token: "escape", regex: /\\[_*'`+#]|\\{2}[_*'`+#]{2}/},
+            {token: "escape", regex: //[_*'`+#]|/{2}[_*'`+#]{2}/},
             {token: "keyword", regex: /\s\+$/},
             {token: "text", regex: identifierRe},
             {token: ["keyword", "string", "keyword"],
@@ -83,19 +83,19 @@ var AsciidocHighlightRules = function() {
 
         "listingBlock": [
             {token: "literal", regex: /^\.{4,}\s*$/, next: "dissallowDelimitedBlock"},
-            {token: "constant.numeric", regex: '<\\d+>'},
+            {token: "constant.numeric", regex: '</d+>'},
             {token: "literal", regex: '[^<]+'},
             {token: "literal", regex: '<'}
         ],
         "literalBlock": [
             {token: "literal", regex: /^-{4,}\s*$/, next: "dissallowDelimitedBlock"},
-            {token: "constant.numeric", regex: '<\\d+>'},
+            {token: "constant.numeric", regex: '</d+>'},
             {token: "literal", regex: '[^<]+'},
             {token: "literal", regex: '<'}
         ],
         "passthroughBlock": [
             {token: "literal", regex: /^\+{4,}\s*$/, next: "dissallowDelimitedBlock"},
-            {token: "literal", regex: identifierRe + "|\\d+"},
+            {token: "literal", regex: identifierRe + "|/d+"},
             {include: "macros"},
             {token: "literal", regex: "."}
         ],
@@ -103,7 +103,7 @@ var AsciidocHighlightRules = function() {
         "smallPassthrough": [
             {token: "literal", regex: /[+]{3,}/, next: "dissallowDelimitedBlock"},
             {token: "literal", regex: /^\s*$/, next: "dissallowDelimitedBlock"},
-            {token: "literal", regex: identifierRe + "|\\d+"},
+            {token: "literal", regex: identifierRe + "|/d+"},
             {include: "macros"}
         ],
 
@@ -136,9 +136,9 @@ var AsciidocHighlightRules = function() {
             {token: "string.italic", regex: quoteRule("_")},
             
             {token: "keyword.bold", regex: /\*\*[^*\s].*?\*\*/},
-            {token: "keyword.bold", regex: quoteRule("\\*")},
+            {token: "keyword.bold", regex: quoteRule("/*")},
             
-            {token: "literal", regex: quoteRule("\\+")},
+            {token: "literal", regex: quoteRule("/+")},
             {token: "literal", regex: /\+\+[^+\s].*?\+\+/},
             {token: "literal", regex: /\$\$.+?\$\$/},
             {token: "literal", regex: quoteRule("`")},
@@ -152,8 +152,8 @@ var AsciidocHighlightRules = function() {
     };
 
     function quoteRule(ch) {
-        var prefix = /\w/.test(ch) ? "\\b" : "(?:\\B|^)";
-        return prefix + ch + "[^" + ch + "].*?" + ch + "(?![\\w*])";
+        var prefix = /\w/.test(ch) ? "/b" : "(?:/B|^)";
+        return prefix + ch + "[^" + ch + "].*?" + ch + "(?![/w*])";
     }
 
     var tokenMap = {

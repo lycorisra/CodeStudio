@@ -356,7 +356,6 @@
                     // Rendering template for the current node
                     treemodelCntr.template(scope, function (clone) {
                         element.html('').append(clone);
-                        console.log(clone);
                     });
                 }
             };

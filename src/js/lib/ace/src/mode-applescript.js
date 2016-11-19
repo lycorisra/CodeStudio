@@ -48,7 +48,7 @@ var AppleScriptHighlightRules = function() {
             },
             {
                 token : "comment", // multi line comment
-                regex : "\\(\\*",
+                regex : "/(/*",
                 next : "comment"
             },
             {
@@ -57,11 +57,11 @@ var AppleScriptHighlightRules = function() {
             },
             {
                 token: "support.type",
-                regex: '\\b(POSIX file|POSIX path|(date|time) string|quoted form)\\b'
+                regex: '/b(POSIX file|POSIX path|(date|time) string|quoted form)/b'
             },
             {
                 token: "support.function",
-                regex: '\\b(clipboard info|the clipboard|info for|list (disks|folder)|' +
+                regex: '/b(clipboard info|the clipboard|info for|list (disks|folder)|' +
           'mount volume|path to|(close|open for) access|(get|set) eof|' +
           'current date|do shell script|get volume settings|random number|' +
           'set volume|system attribute|system info|time to GMT|' +
@@ -69,28 +69,28 @@ var AppleScriptHighlightRules = function() {
           'ASCII (character|number)|localized string|' +
           'choose (application|color|file|file name|' +
           'folder|from list|remote application|URL)|' +
-          'display (alert|dialog))\\b|^\\s*return\\b'
+          'display (alert|dialog))/b|^/s*return/b'
             },
             {
                 token: "constant.language",
-                regex: '\\b(text item delimiters|current application|missing value)\\b'
+                regex: '/b(text item delimiters|current application|missing value)/b'
             },
             {
                 token: "keyword",
-                regex: '\\b(apart from|aside from|instead of|out of|greater than|' +
+                regex: '/b(apart from|aside from|instead of|out of|greater than|' +
           "isn't|(doesn't|does not) (equal|come before|come after|contain)|" +
           '(greater|less) than( or equal)?|(starts?|ends|begins?) with|' +
-          'contained by|comes (before|after)|a (ref|reference))\\b'
+          'contained by|comes (before|after)|a (ref|reference))/b'
             },
             {
                 token: keywordMapper,
-                regex: "[a-zA-Z][a-zA-Z0-9_]*\\b"
+                regex: "[a-zA-Z][a-zA-Z0-9_]*/b"
             }
         ],
         "comment": [
             {
                 token: "comment", // closing comment
-                regex: "\\*\\)",
+                regex: "/*/)",
                 next: "start"
             }, {
                 defaultToken: "comment"

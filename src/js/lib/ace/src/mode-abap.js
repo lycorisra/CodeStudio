@@ -45,20 +45,20 @@ var AbapHighlightRules = function() {
             " strlen xstrlen charlen numofchar dbmaxlen lines" 
     }, "text", true, " ");
 
-    var compoundKeywords = "WITH\\W+(?:HEADER\\W+LINE|FRAME|KEY)|NO\\W+STANDARD\\W+PAGE\\W+HEADING|"+
-        "EXIT\\W+FROM\\W+STEP\\W+LOOP|BEGIN\\W+OF\\W+(?:BLOCK|LINE)|BEGIN\\W+OF|"+
-        "END\\W+OF\\W+(?:BLOCK|LINE)|END\\W+OF|NO\\W+INTERVALS|"+
-        "RESPECTING\\W+BLANKS|SEPARATED\\W+BY|USING\\W+(?:EDIT\\W+MASK)|"+
-        "WHERE\\W+(?:LINE)|RADIOBUTTON\\W+GROUP|REF\\W+TO|"+
-        "(?:PUBLIC|PRIVATE|PROTECTED)(?:\\W+SECTION)?|DELETING\\W+(?:TRAILING|LEADING)"+
-        "(?:ALL\\W+OCCURRENCES)|(?:FIRST|LAST)\\W+OCCURRENCE|INHERITING\\W+FROM|"+
+    var compoundKeywords = "WITH/W+(?:HEADER/W+LINE|FRAME|KEY)|NO/W+STANDARD/W+PAGE/W+HEADING|"+
+        "EXIT/W+FROM/W+STEP/W+LOOP|BEGIN/W+OF/W+(?:BLOCK|LINE)|BEGIN/W+OF|"+
+        "END/W+OF/W+(?:BLOCK|LINE)|END/W+OF|NO/W+INTERVALS|"+
+        "RESPECTING/W+BLANKS|SEPARATED/W+BY|USING/W+(?:EDIT/W+MASK)|"+
+        "WHERE/W+(?:LINE)|RADIOBUTTON/W+GROUP|REF/W+TO|"+
+        "(?:PUBLIC|PRIVATE|PROTECTED)(?:/W+SECTION)?|DELETING/W+(?:TRAILING|LEADING)"+
+        "(?:ALL/W+OCCURRENCES)|(?:FIRST|LAST)/W+OCCURRENCE|INHERITING/W+FROM|"+
         "LINE-COUNT|ADD-CORRESPONDING|AUTHORITY-CHECK|BREAK-POINT|CLASS-DATA|CLASS-METHODS|"+
         "CLASS-METHOD|DIVIDE-CORRESPONDING|EDITOR-CALL|END-OF-DEFINITION|END-OF-PAGE|END-OF-SELECTION|"+
         "FIELD-GROUPS|FIELD-SYMBOLS|FUNCTION-POOL|MOVE-CORRESPONDING|MULTIPLY-CORRESPONDING|NEW-LINE|"+
         "NEW-PAGE|NEW-SECTION|PRINT-CONTROL|RP-PROVIDE-FROM-LAST|SELECT-OPTIONS|SELECTION-SCREEN|"+
         "START-OF-SELECTION|SUBTRACT-CORRESPONDING|SYNTAX-CHECK|SYNTAX-TRACE|TOP-OF-PAGE|TYPE-POOL|"+
         "TYPE-POOLS|LINE-SIZE|LINE-COUNT|MESSAGE-ID|DISPLAY-MODE|READ(?:-ONLY)?|"+
-        "IS\\W+(?:NOT\\W+)?(?:ASSIGNED|BOUND|INITIAL|SUPPLIED)";
+        "IS/W+(?:NOT/W+)?(?:ASSIGNED|BOUND|INITIAL|SUPPLIED)";
      
     this.$rules = {
         "start" : [
@@ -66,15 +66,15 @@ var AbapHighlightRules = function() {
             {token : "string", regex : "'", next  : "qstring"},
             {token : "doc.comment", regex : /^\*.+/},
             {token : "comment",  regex : /".+$/},
-            {token : "invalid", regex: "\\.{2,}"},
+            {token : "invalid", regex: "/.{2,}"},
             {token : "keyword.operator", regex: /\W[\-+\%=<>*]\W|\*\*|[~:,\.&$]|->*?|=>/},
-            {token : "paren.lparen", regex : "[\\[({]"},
-            {token : "paren.rparen", regex : "[\\])}]"},
-            {token : "constant.numeric", regex: "[+-]?\\d+\\b"},
+            {token : "paren.lparen", regex : "[/[({]"},
+            {token : "paren.rparen", regex : "[/])}]"},
+            {token : "constant.numeric", regex: "[+-]?/d+/b"},
             {token : "variable.parameter", regex : /sy|pa?\d\d\d\d\|t\d\d\d\.|innnn/}, 
             {token : "keyword", regex : compoundKeywords}, 
             {token : "variable.parameter", regex : /\w+-\w+(?:-\w+)*/}, 
-            {token : keywordMapper, regex : "\\b\\w+\\b"},
+            {token : keywordMapper, regex : "/b/w+/b"},
             {caseInsensitive: true}
         ],
         "qstring" : [

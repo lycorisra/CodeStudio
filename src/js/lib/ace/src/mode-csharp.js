@@ -8,7 +8,7 @@ var DocCommentHighlightRules = function() {
     this.$rules = {
         "start" : [ {
             token : "comment.doc.tag",
-            regex : "@[\\w\\d_]+" // TODO: fix email addresses
+            regex : "@[/w/d_]+" // TODO: fix email addresses
         }, 
         DocCommentHighlightRules.getTagRule(),
         {
@@ -23,14 +23,14 @@ oop.inherits(DocCommentHighlightRules, TextHighlightRules);
 DocCommentHighlightRules.getTagRule = function(start) {
     return {
         token : "comment.doc.tag.storage.type",
-        regex : "\\b(?:TODO|FIXME|XXX|HACK)\\b"
+        regex : "/b(?:TODO|FIXME|XXX|HACK)/b"
     };
 }
 
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
         token : "comment.doc", // doc comment
-        regex : "\\/\\*(?=\\*)",
+        regex : "///*(?=/*)",
         next  : start
     };
 };
@@ -38,7 +38,7 @@ DocCommentHighlightRules.getStartRule = function(start) {
 DocCommentHighlightRules.getEndRule = function (start) {
     return {
         token : "comment.doc", // closing comment
-        regex : "\\*\\/",
+        regex : "/*//",
         next  : start
     };
 };
@@ -66,20 +66,20 @@ var CSharpHighlightRules = function() {
         "start" : [
             {
                 token : "comment",
-                regex : "\\/\\/.*$"
+                regex : "////.*$"
             },
             DocCommentHighlightRules.getStartRule("doc-start"),
             {
                 token : "comment", // multi line comment
-                regex : "\\/\\*",
+                regex : "///*",
                 next : "comment"
             }, {
                 token : "string", // character
-                regex : /'(?:.|\\(:?u[\da-fA-F]+|x[\da-fA-F]+|[tbrf'"n]))'/
+                regex : /'(?:.|/(:?u[\da-fA-F]+|x[\da-fA-F]+|[tbrf'"n]))'/
             }, {
                 token : "string", start : '"', end : '"|$', next: [
-                    {token: "constant.language.escape", regex: /\\(:?u[\da-fA-F]+|x[\da-fA-F]+|[tbrf'"n])/},
-                    {token: "invalid", regex: /\\./}
+                    {token: "constant.language.escape", regex: //(:?u[\da-fA-F]+|x[\da-fA-F]+|[tbrf'"n])/},
+                    {token: "invalid", regex: //./}
                 ]
             }, {
                 token : "string", start : '@"', end : '"', next:[
@@ -87,46 +87,46 @@ var CSharpHighlightRules = function() {
                 ]
             }, {
                 token : "string", start : /\$"/, end : '"|$', next: [
-                    {token: "constant.language.escape", regex: /\\(:?$)|{{/},
-                    {token: "constant.language.escape", regex: /\\(:?u[\da-fA-F]+|x[\da-fA-F]+|[tbrf'"n])/},
-                    {token: "invalid", regex: /\\./}
+                    {token: "constant.language.escape", regex: //(:?$)|{{/},
+                    {token: "constant.language.escape", regex: //(:?u[\da-fA-F]+|x[\da-fA-F]+|[tbrf'"n])/},
+                    {token: "invalid", regex: //./}
                 ]
             }, {
                 token : "constant.numeric", // hex
-                regex : "0[xX][0-9a-fA-F]+\\b"
+                regex : "0[xX][0-9a-fA-F]+/b"
             }, {
                 token : "constant.numeric", // float
-                regex : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?\\b"
+                regex : "[+-]?/d+(?:(?:/./d*)?(?:[eE][+-]?/d+)?)?/b"
             }, {
                 token : "constant.language.boolean",
-                regex : "(?:true|false)\\b"
+                regex : "(?:true|false)/b"
             }, {
                 token : keywordMapper,
-                regex : "[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
+                regex : "[a-zA-Z_$][a-zA-Z0-9_$]*/b"
             }, {
                 token : "keyword.operator",
-                regex : "!|\\$|%|&|\\*|\\-\\-|\\-|\\+\\+|\\+|~|===|==|=|!=|!==|<=|>=|<<=|>>=|>>>=|<>|<|>|!|&&|\\|\\||\\?\\:|\\*=|%=|\\+=|\\-=|&=|\\^=|\\b(?:in|instanceof|new|delete|typeof|void)"
+                regex : "!|/$|%|&|/*|/-/-|/-|/+/+|/+|~|===|==|=|!=|!==|<=|>=|<<=|>>=|>>>=|<>|<|>|!|&&|/|/||/?/:|/*=|%=|/+=|/-=|&=|/^=|/b(?:in|instanceof|new|delete|typeof|void)"
             }, {
                 token : "keyword",
-                regex : "^\\s*#(if|else|elif|endif|define|undef|warning|error|line|region|endregion|pragma)"
+                regex : "^/s*#(if|else|elif|endif|define|undef|warning|error|line|region|endregion|pragma)"
             }, {
                 token : "punctuation.operator",
-                regex : "\\?|\\:|\\,|\\;|\\."
+                regex : "/?|/:|/,|/;|/."
             }, {
                 token : "paren.lparen",
                 regex : "[[({]"
             }, {
                 token : "paren.rparen",
-                regex : "[\\])}]"
+                regex : "[/])}]"
             }, {
                 token : "text",
-                regex : "\\s+"
+                regex : "/s+"
             }
         ],
         "comment" : [
             {
                 token : "comment", // closing comment
-                regex : ".*?\\*\\/",
+                regex : ".*?/*//",
                 next : "start"
             }, {
                 token : "comment", // comment spanning whole line
@@ -422,7 +422,7 @@ var CstyleBehaviour = function() {
                 
                 var token = session.getTokenAt(cursor.row, cursor.column);
                 var rightToken = session.getTokenAt(cursor.row, cursor.column + 1);
-                if (leftChar == "\\" && token && /escape/.test(token.type))
+                if (leftChar == "/" && token && /escape/.test(token.type))
                     return null;
                 
                 var stringBefore = token && /string|escape/.test(token.type);
@@ -443,7 +443,7 @@ var CstyleBehaviour = function() {
                     var isWordAfter = wordRe.test(leftChar);
                     if (isWordBefore || isWordAfter)
                         return null; // before or after alphanumeric
-                    if (rightChar && !/[\s;,.})\]\\]/.test(rightChar))
+                    if (rightChar && !/[\s;,.})\]/]/.test(rightChar))
                         return null; // there is rightChar and it isn't closing
                     pair = true;
                 }

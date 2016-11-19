@@ -14,15 +14,25 @@
     </head>
     <body ng-controller="documents">
         <div class="wrapper">
-            <nav class="pure-menu pure-menu-open pure-menu-horizontal">
-                <ul>
-                    <li><a href="#" class="iconfont">&#xe600;</a></li>
-                    <li><a href="#" class="iconfont">&#xe601;</a></li>
-                </ul>
+            <nav class="pure-menu pure-g">
+				<div class="document-header">
+					<span class="document-title">{{title}}</span>
+					<span class="document-title">{{title}}</span>
+				</div>
+                <div class="toolbar-header">
+					<form method="post" id="tryitform" action="/result" target="result">
+						<div class="toolbar">
+							<a href="#" class="iconfont" ng-click="preview()">&#xe600;</a>
+							<a href="#" class="iconfont">&#xe601;</a>
+						</div> 
+						<input style="display:none" type="text" name="code" ng-model="code" ng-init="code = ''" />     
+					</form>
+                    
+                </div>
             </nav>
             <div class="sidebar">
-                <div class="action-bar">
-                    <a class="title-label" ng-click="toggleSolution()">解决资源管理器</a>
+                <div class="action-bar" ng-click="toggleSolution()">
+                    <a class="title-label">解决资源管理器</a>
                 </div>
                 <div class="explorer-viewlet" ng-class="{'show':showSolution}">
                     <div>
@@ -39,14 +49,13 @@
                     </div>
                 </div>
             </div>
-            <div class="pure-g">
-                <span class="document-title">{{title}}</span>
-                <div class="editor split-editor1">
+            <div class="code-view pure-g">
+                <div class="editor split-editor pure-u-1 pure-u-md-3-5">
                     <div id="editor" ng-click="hideSolution()"></div>
                 </div>
-                <div class="preview split-preview">
+                <div class="preview split-preview pure-u-1 pure-u-md-2-5">
                     <div id="preview">
-                        <iframe class="preview-content" src="/dillinger"></iframe>
+                        <iframe id="result" name="result" class="preview-content" src="/result"></iframe>
                     </div>
                 </div>
             </div>
@@ -56,5 +65,8 @@
         </div>
 		<script type="text/javascript" src="/js/lib/require.js" data-main="main"></script>
         <!--<script src="../js/lib/contextmenu/jquery.contextMenu.js"></script>-->
+		<script type="text/javascript">
+
+		</script>
     </body>
 </html>

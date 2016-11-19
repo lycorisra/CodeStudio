@@ -8,7 +8,7 @@ var DocCommentHighlightRules = function() {
     this.$rules = {
         "start" : [ {
             token : "comment.doc.tag",
-            regex : "@[\\w\\d_]+" // TODO: fix email addresses
+            regex : "@[/w/d_]+" // TODO: fix email addresses
         }, 
         DocCommentHighlightRules.getTagRule(),
         {
@@ -23,14 +23,14 @@ oop.inherits(DocCommentHighlightRules, TextHighlightRules);
 DocCommentHighlightRules.getTagRule = function(start) {
     return {
         token : "comment.doc.tag.storage.type",
-        regex : "\\b(?:TODO|FIXME|XXX|HACK)\\b"
+        regex : "/b(?:TODO|FIXME|XXX|HACK)/b"
     };
 }
 
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
         token : "comment.doc", // doc comment
-        regex : "\\/\\*(?=\\*)",
+        regex : "///*(?=/*)",
         next  : start
     };
 };
@@ -38,7 +38,7 @@ DocCommentHighlightRules.getStartRule = function(start) {
 DocCommentHighlightRules.getEndRule = function (start) {
     return {
         token : "comment.doc", // closing comment
-        regex : "\\*\\/",
+        regex : "/*//",
         next  : start
     };
 };
@@ -54,7 +54,7 @@ define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/
 var oop = require("../lib/oop");
 var DocCommentHighlightRules = require("./doc_comment_highlight_rules").DocCommentHighlightRules;
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
-var identifierRe = "[a-zA-Z\\$_\u00a1-\uffff][a-zA-Z\\d\\$_\u00a1-\uffff]*";
+var identifierRe = "[a-zA-Z/$_\u00a1-\uffff][a-zA-Z/d/$_\u00a1-\uffff]*";
 
 var JavaScriptHighlightRules = function(options) {
     var keywordMapper = this.createKeywordMapper({
@@ -85,7 +85,7 @@ var JavaScriptHighlightRules = function(options) {
     }, "identifier");
     var kwBeforeRe = "case|do|else|finally|in|instanceof|return|throw|try|typeof|yield|void";
 
-    var escapedRe = "\\\\(?:x[0-9a-fA-F]{2}|" + // hex
+    var escapedRe = "//(?:x[0-9a-fA-F]{2}|" + // hex
         "u[0-9a-fA-F]{4}|" + // unicode
         "u{[0-9a-fA-F]{1,6}}|" + // es6 unicode
         "[0-2][0-7]{0,2}|" + // oct
@@ -116,21 +116,21 @@ var JavaScriptHighlightRules = function(options) {
                     "storage.type", "punctuation.operator", "support.function",
                     "punctuation.operator", "entity.name.function", "text","keyword.operator"
                 ],
-                regex : "(" + identifierRe + ")(\\.)(prototype)(\\.)(" + identifierRe +")(\\s*)(=)",
+                regex : "(" + identifierRe + ")(/.)(prototype)(/.)(" + identifierRe +")(/s*)(=)",
                 next: "function_arguments"
             }, {
                 token : [
                     "storage.type", "punctuation.operator", "entity.name.function", "text",
                     "keyword.operator", "text", "storage.type", "text", "paren.lparen"
                 ],
-                regex : "(" + identifierRe + ")(\\.)(" + identifierRe +")(\\s*)(=)(\\s*)(function)(\\s*)(\\()",
+                regex : "(" + identifierRe + ")(/.)(" + identifierRe +")(/s*)(=)(/s*)(function)(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : [
                     "entity.name.function", "text", "keyword.operator", "text", "storage.type",
                     "text", "paren.lparen"
                 ],
-                regex : "(" + identifierRe +")(\\s*)(=)(\\s*)(function)(\\s*)(\\()",
+                regex : "(" + identifierRe +")(/s*)(=)(/s*)(function)(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : [
@@ -138,30 +138,30 @@ var JavaScriptHighlightRules = function(options) {
                     "keyword.operator", "text",
                     "storage.type", "text", "entity.name.function", "text", "paren.lparen"
                 ],
-                regex : "(" + identifierRe + ")(\\.)(" + identifierRe +")(\\s*)(=)(\\s*)(function)(\\s+)(\\w+)(\\s*)(\\()",
+                regex : "(" + identifierRe + ")(/.)(" + identifierRe +")(/s*)(=)(/s*)(function)(/s+)(/w+)(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : [
                     "storage.type", "text", "entity.name.function", "text", "paren.lparen"
                 ],
-                regex : "(function)(\\s+)(" + identifierRe + ")(\\s*)(\\()",
+                regex : "(function)(/s+)(" + identifierRe + ")(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : [
                     "entity.name.function", "text", "punctuation.operator",
                     "text", "storage.type", "text", "paren.lparen"
                 ],
-                regex : "(" + identifierRe + ")(\\s*)(:)(\\s*)(function)(\\s*)(\\()",
+                regex : "(" + identifierRe + ")(/s*)(:)(/s*)(function)(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : [
                     "text", "text", "storage.type", "text", "paren.lparen"
                 ],
-                regex : "(:)(\\s*)(function)(\\s*)(\\()",
+                regex : "(:)(/s*)(function)(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : "keyword",
-                regex : "(?:" + kwBeforeRe + ")\\b",
+                regex : "(?:" + kwBeforeRe + ")/b",
                 next : "start"
             }, {
                 token : ["support.constant"],
@@ -198,14 +198,14 @@ var JavaScriptHighlightRules = function(options) {
         ],
         property: [{
                 token : "text",
-                regex : "\\s+"
+                regex : "/s+"
             }, {
                 token : [
                     "storage.type", "punctuation.operator", "entity.name.function", "text",
                     "keyword.operator", "text",
                     "storage.type", "text", "entity.name.function", "text", "paren.lparen"
                 ],
-                regex : "(" + identifierRe + ")(\\.)(" + identifierRe +")(\\s*)(=)(\\s*)(function)(?:(\\s+)(\\w+))?(\\s*)(\\()",
+                regex : "(" + identifierRe + ")(/.)(" + identifierRe +")(/s*)(=)(/s*)(function)(?:(/s+)(/w+))?(/s*)(/()",
                 next: "function_arguments"
             }, {
                 token : "punctuation.operator",
@@ -233,11 +233,11 @@ var JavaScriptHighlightRules = function(options) {
             comments("start"),
             {
                 token: "string.regexp",
-                regex: "\\/",
+                regex: "//",
                 next: "regex"
             }, {
                 token : "text",
-                regex : "\\s+|^$",
+                regex : "/s+|^$",
                 next : "start"
             }, {
                 token: "empty",
@@ -248,7 +248,7 @@ var JavaScriptHighlightRules = function(options) {
         "regex": [
             {
                 token: "regexp.keyword.operator",
-                regex: "\\\\(?:u[\\da-fA-F]{4}|x[\\da-fA-F]{2}|.)"
+                regex: "//(?:u[/da-fA-F]{4}|x[/da-fA-F]{2}|.)"
             }, {
                 token: "string.regexp",
                 regex: "/[sxngimy]*",
@@ -277,7 +277,7 @@ var JavaScriptHighlightRules = function(options) {
         "regex_character_class": [
             {
                 token: "regexp.charclass.keyword.operator",
-                regex: "\\\\(?:u[\\da-fA-F]{4}|x[\\da-fA-F]{2}|.)"
+                regex: "//(?:u[/da-fA-F]{4}|x[/da-fA-F]{2}|.)"
             }, {
                 token: "constant.language.escape",
                 regex: "]",
@@ -315,7 +315,7 @@ var JavaScriptHighlightRules = function(options) {
                 regex : escapedRe
             }, {
                 token : "string",
-                regex : "\\\\$",
+                regex : "//$",
                 next  : "qqstring"
             }, {
                 token : "string",
@@ -331,7 +331,7 @@ var JavaScriptHighlightRules = function(options) {
                 regex : escapedRe
             }, {
                 token : "string",
-                regex : "\\\\$",
+                regex : "//$",
                 next  : "qstring"
             }, {
                 token : "string",
@@ -392,7 +392,7 @@ var JavaScriptHighlightRules = function(options) {
 oop.inherits(JavaScriptHighlightRules, TextHighlightRules);
 
 function JSX() {
-    var tagRegex = identifierRe.replace("\\d", "\\d\\-");
+    var tagRegex = identifierRe.replace("/d", "/d/-");
     var jsxTag = {
         onMatch : function(val, state, stack) {
             var offset = val.charAt(1) == "/" ? 2 : 1;
@@ -463,7 +463,7 @@ function JSX() {
         regex : "="
     }, {
         token : "text.tag-whitespace.xml",
-        regex : "\\s+"
+        regex : "/s+"
     }, {
         token : "string.attribute-value.xml",
         regex : "'",
@@ -487,7 +487,7 @@ function JSX() {
     ];
     this.$rules.reference = [{
         token : "constant.language.escape.reference.xml",
-        regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:\\.-]+;)"
+        regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:/.-]+;)"
     }];
 }
 
@@ -498,12 +498,12 @@ function comments(next) {
             regex : /\/\*/,
             next: [
                 DocCommentHighlightRules.getTagRule(),
-                {token : "comment", regex : "\\*\\/", next : next || "pop"},
+                {token : "comment", regex : "/*//", next : next || "pop"},
                 {defaultToken : "comment", caseInsensitive: true}
             ]
         }, {
             token : "comment",
-            regex : "\\/\\/",
+            regex : "////",
             next: [
                 DocCommentHighlightRules.getTagRule(),
                 {token : "comment", regex : "$|^", next : next || "pop"},
@@ -792,7 +792,7 @@ var CstyleBehaviour = function() {
                 
                 var token = session.getTokenAt(cursor.row, cursor.column);
                 var rightToken = session.getTokenAt(cursor.row, cursor.column + 1);
-                if (leftChar == "\\" && token && /escape/.test(token.type))
+                if (leftChar == "/" && token && /escape/.test(token.type))
                     return null;
                 
                 var stringBefore = token && /string|escape/.test(token.type);
@@ -813,7 +813,7 @@ var CstyleBehaviour = function() {
                     var isWordAfter = wordRe.test(leftChar);
                     if (isWordBefore || isWordAfter)
                         return null; // before or after alphanumeric
-                    if (rightChar && !/[\s;,.})\]\\]/.test(rightChar))
+                    if (rightChar && !/[\s;,.})\]/]/.test(rightChar))
                         return null; // there is rightChar and it isn't closing
                     pair = true;
                 }
@@ -1151,9 +1151,9 @@ var supportConstant = exports.supportConstant = "absolute|after-edge|after|all-s
 var supportConstantColor = exports.supportConstantColor = "aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|purple|red|silver|teal|white|yellow";
 var supportConstantFonts = exports.supportConstantFonts = "arial|century|comic|courier|cursive|fantasy|garamond|georgia|helvetica|impact|lucida|symbol|system|tahoma|times|trebuchet|utopia|verdana|webdings|sans-serif|serif|monospace";
 
-var numRe = exports.numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
-var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-letter|first-line|moz-selection|selection)\\b";
-var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
+var numRe = exports.numRe = "/-?(?:(?:[0-9]+)|(?:[0-9]*/.[0-9]+))";
+var pseudoElements = exports.pseudoElements = "(/:+)/b(after|before|first-letter|first-line|moz-selection|selection)/b";
+var pseudoClasses  = exports.pseudoClasses =  "(:)/b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)/b";
 
 var CssHighlightRules = function() {
 
@@ -1168,11 +1168,11 @@ var CssHighlightRules = function() {
     this.$rules = {
         "start" : [{
             token : "comment", // multi line comment
-            regex : "\\/\\*",
+            regex : "///*",
             push : "comment"
         }, {
             token: "paren.lparen",
-            regex: "\\{",
+            regex: "/{",
             push:  "ruleset"
         }, {
             token: "string",
@@ -1183,7 +1183,7 @@ var CssHighlightRules = function() {
             regex: "#[a-z0-9-_]+"
         }, {
             token: "variable",
-            regex: "\\.[a-z0-9-_]+"
+            regex: "/.[a-z0-9-_]+"
         }, {
             token: "string",
             regex: ":[a-z0-9-_]+"
@@ -1196,22 +1196,22 @@ var CssHighlightRules = function() {
 
         "media" : [{
             token : "comment", // multi line comment
-            regex : "\\/\\*",
+            regex : "///*",
             push : "comment"
         }, {
             token: "paren.lparen",
-            regex: "\\{",
+            regex: "/{",
             push:  "ruleset"
         }, {
             token: "string",
-            regex: "\\}",
+            regex: "/}",
             next:  "pop"
         }, {
             token: "keyword",
             regex: "#[a-z0-9-_]+"
         }, {
             token: "variable",
-            regex: "\\.[a-z0-9-_]+"
+            regex: "/.[a-z0-9-_]+"
         }, {
             token: "string",
             regex: ":[a-z0-9-_]+"
@@ -1224,7 +1224,7 @@ var CssHighlightRules = function() {
 
         "comment" : [{
             token : "comment",
-            regex : "\\*\\/",
+            regex : "/*//",
             next : "pop"
         }, {
             defaultToken : "comment"
@@ -1233,18 +1233,18 @@ var CssHighlightRules = function() {
         "ruleset" : [
         {
             token : "paren.rparen",
-            regex : "\\}",
+            regex : "/}",
             next:   "pop"
         }, {
             token : "comment", // multi line comment
-            regex : "\\/\\*",
+            regex : "///*",
             push : "comment"
         }, {
             token : "string", // single line
-            regex : '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
+            regex : '["](?:(?://.)|(?:[^"//]))*?["]'
         }, {
             token : "string", // single line
-            regex : "['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']"
+            regex : "['](?:(?://.)|(?:[^'//]))*?[']"
         }, {
             token : ["constant.numeric", "keyword"],
             regex : "(" + numRe + ")(ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vm|vw|%)"
@@ -1265,10 +1265,10 @@ var CssHighlightRules = function() {
             regex : pseudoClasses
         }, {
             token : ["support.function", "string", "support.function"],
-            regex : "(url\\()(.*)(\\))"
+            regex : "(url/()(.*)(/))"
         }, {
             token : keywordMapper,
-            regex : "\\-?[a-zA-Z_][a-zA-Z0-9_\\-]*"
+            regex : "/-?[a-zA-Z_][a-zA-Z0-9_/-]*"
         }, {
             caseInsensitive: true
         }]
@@ -1622,19 +1622,19 @@ var XmlHighlightRules = function(normalize) {
 
     this.$rules = {
         start : [
-            {token : "string.cdata.xml", regex : "<\\!\\[CDATA\\[", next : "cdata"},
+            {token : "string.cdata.xml", regex : "</!/[CDATA/[", next : "cdata"},
             {
                 token : ["punctuation.xml-decl.xml", "keyword.xml-decl.xml"],
-                regex : "(<\\?)(xml)(?=[\\s])", next : "xml_decl", caseInsensitive: true
+                regex : "(</?)(xml)(?=[/s])", next : "xml_decl", caseInsensitive: true
             },
             {
                 token : ["punctuation.instruction.xml", "keyword.instruction.xml"],
-                regex : "(<\\?)(" + tagRegex + ")", next : "processing_instruction"
+                regex : "(</?)(" + tagRegex + ")", next : "processing_instruction"
             },
-            {token : "comment.xml", regex : "<\\!--", next : "comment"},
+            {token : "comment.xml", regex : "</!--", next : "comment"},
             {
                 token : ["xml-pe.doctype.xml", "xml-pe.doctype.xml"],
-                regex : "(<\\!)(DOCTYPE)(?=[\\s])", next : "doctype", caseInsensitive: true
+                regex : "(</!)(DOCTYPE)(?=[/s])", next : "doctype", caseInsensitive: true
             },
             {include : "tag"},
             {token : "text.end-tag-open.xml", regex: "</"},
@@ -1655,12 +1655,12 @@ var XmlHighlightRules = function(normalize) {
             include: "string"
         }, {
             token : "punctuation.xml-decl.xml",
-            regex : "\\?>",
+            regex : "/?>",
             next : "start"
         }],
 
         processing_instruction : [
-            {token : "punctuation.instruction.xml", regex : "\\?>", next : "start"},
+            {token : "punctuation.instruction.xml", regex : "/?>", next : "start"},
             {defaultToken : "instruction.xml"}
         ],
 
@@ -1669,22 +1669,22 @@ var XmlHighlightRules = function(normalize) {
             {include : "string"},
             {token : "xml-pe.doctype.xml", regex : ">", next : "start"},
             {token : "xml-pe.xml", regex : "[-_a-zA-Z0-9:]+"},
-            {token : "punctuation.int-subset", regex : "\\[", push : "int_subset"}
+            {token : "punctuation.int-subset", regex : "/[", push : "int_subset"}
         ],
 
         int_subset : [{
             token : "text.xml",
-            regex : "\\s+"
+            regex : "/s+"
         }, {
             token: "punctuation.int-subset.xml",
             regex: "]",
             next: "pop"
         }, {
             token : ["punctuation.markup-decl.xml", "keyword.markup-decl.xml"],
-            regex : "(<\\!)(" + tagRegex + ")",
+            regex : "(</!)(" + tagRegex + ")",
             push : [{
                 token : "text",
-                regex : "\\s+"
+                regex : "/s+"
             },
             {
                 token : "punctuation.markup-decl.xml",
@@ -1695,9 +1695,9 @@ var XmlHighlightRules = function(normalize) {
         }],
 
         cdata : [
-            {token : "string.cdata.xml", regex : "\\]\\]>", next : "start"},
-            {token : "text.xml", regex : "\\s+"},
-            {token : "text.xml", regex : "(?:[^\\]]|\\](?!\\]>))+"}
+            {token : "string.cdata.xml", regex : "/]/]>", next : "start"},
+            {token : "text.xml", regex : "/s+"},
+            {token : "text.xml", regex : "(?:[^/]]|/](?!/]>))+"}
         ],
 
         comment : [
@@ -1707,12 +1707,12 @@ var XmlHighlightRules = function(normalize) {
 
         reference : [{
             token : "constant.language.escape.reference.xml",
-            regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:\\.-]+;)"
+            regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:/.-]+;)"
         }],
 
         attr_reference : [{
             token : "constant.language.escape.reference.attribute-value.xml",
-            regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:\\.-]+;)"
+            regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:/.-]+;)"
         }],
 
         tag : [{
@@ -1725,10 +1725,10 @@ var XmlHighlightRules = function(normalize) {
         }],
 
         tag_whitespace : [
-            {token : "text.tag-whitespace.xml", regex : "\\s+"}
+            {token : "text.tag-whitespace.xml", regex : "/s+"}
         ],
         whitespace : [
-            {token : "text.whitespace.xml", regex : "\\s+"}
+            {token : "text.whitespace.xml", regex : "/s+"}
         ],
         string: [{
             token : "string.xml",
@@ -1787,7 +1787,7 @@ var XmlHighlightRules = function(normalize) {
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
-            regex : "(<)(" + tag + "(?=\\s|>|$))",
+            regex : "(<)(" + tag + "(?=/s|>|$))",
             next: [
                 {include : "attributes"},
                 {token : "meta.tag.punctuation.tag-close.xml", regex : "/?>", next : prefix + "start"}
@@ -1805,14 +1805,14 @@ var XmlHighlightRules = function(normalize) {
 
         this.embedRules(HighlightRules, prefix, [{
             token: ["meta.tag.punctuation.end-tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
-            regex : "(</)(" + tag + "(?=\\s|>|$))",
+            regex : "(</)(" + tag + "(?=/s|>|$))",
             next: tag + "-end"
         }, {
             token: "string.cdata.xml",
-            regex : "<\\!\\[CDATA\\["
+            regex : "</!/[CDATA/["
         }, {
             token: "string.cdata.xml",
-            regex : "\\]\\]>"
+            regex : "/]/]>"
         }]);
     };
 
@@ -1868,7 +1868,7 @@ var HtmlHighlightRules = function() {
                 include: "tag_whitespace"
             }, {
                 token : "string.unquoted.attribute-value.html",
-                regex : "[^<>='\"`\\s]+",
+                regex : "[^<>='\"`/s]+",
                 next : "pop"
             }, {
                 token : "empty",

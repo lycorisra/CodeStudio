@@ -10,7 +10,7 @@ define("ace/mode/abc_highlight_rules",["require","exports","module","ace/lib/oop
             start: [
                 {
                     token: ['zupfnoter.information.comment.line.percentage', 'information.keyword', 'in formation.keyword.embedded'],
-                    regex: '(%%%%)(hn\\.[a-z]*)(.*)',
+                    regex: '(%%%%)(hn/.[a-z]*)(.*)',
                     comment: 'Instruction Comment'
                 },
                 {
@@ -27,56 +27,56 @@ define("ace/mode/abc_highlight_rules",["require","exports","module","ace/lib/oop
 
                 {
                     token: 'barline.keyword.operator',
-                    regex: '[\\[:]*[|:][|\\]:]*(?:\\[?[0-9]+)?|\\[[0-9]+',
+                    regex: '[/[:]*[|:][|/]:]*(?:/[?[0-9]+)?|/[[0-9]+',
                     comment: 'Bar lines'
                 },
                 {
                     token: ['information.keyword.embedded', 'information.argument.string.unquoted'],
-                    regex: '(\\[[A-Za-z]:)([^\\]]*\\])',
+                    regex: '(/[[A-Za-z]:)([^/]]*/])',
                     comment: 'embedded Header lines'
                 },
                 {
                     token: ['information.keyword', 'information.argument.string.unquoted'],
-                    regex: '^([A-Za-z]:)([^%\\\\]*)',
+                    regex: '^([A-Za-z]:)([^%//]*)',
                     comment: 'Header lines'
                 },
                 {
                     token: ['text', 'entity.name.function', 'string.unquoted', 'text'],
-                    regex: '(\\[)([A-Z]:)(.*?)(\\])',
+                    regex: '(/[)([A-Z]:)(.*?)(/])',
                     comment: 'Inline fields'
                 },
                 {
                     token: ['accent.constant.language', 'pitch.constant.numeric', 'duration.constant.numeric'],
-                    regex: '([\\^=_]*)([A-Ga-gz][,\']*)([0-9]*/*[><0-9]*)',
+                    regex: '([/^=_]*)([A-Ga-gz][,\']*)([0-9]*/*[><0-9]*)',
                     comment: 'Notes'
                 },
                 {
                     token: 'zupfnoter.jumptarget.string.quoted',
-                    regex: '[\\"!]\\^\\:.*?[\\"!]',
+                    regex: '[/"!]/^/:.*?[/"!]',
                     comment: 'Zupfnoter jumptarget'
                 }, {
                     token: 'zupfnoter.goto.string.quoted',
-                    regex: '[\\"!]\\^\\@.*?[\\"!]',
+                    regex: '[/"!]/^/@.*?[/"!]',
                     comment: 'Zupfnoter goto'
                 },
                 {
                     token: 'zupfnoter.annotation.string.quoted',
-                    regex: '[\\"!]\\^\\!.*?[\\"!]',
+                    regex: '[/"!]/^/!.*?[/"!]',
                     comment: 'Zupfnoter annoation'
                 },
                 {
                     token: 'zupfnoter.annotationref.string.quoted',
-                    regex: '[\\"!]\\^\\#.*?[\\"!]',
+                    regex: '[/"!]/^/#.*?[/"!]',
                     comment: 'Zupfnoter annotation reference'
                 },
                 {
                     token: 'chordname.string.quoted',
-                    regex: '[\\"!]\\^.*?[\\"!]',
+                    regex: '[/"!]/^.*?[/"!]',
                     comment: 'abc chord'
                 },
                 {
                     token: 'string.quoted',
-                    regex: '[\\"!].*?[\\"!]',
+                    regex: '[/"!].*?[/"!]',
                     comment: 'abc annotation'
                 }
 

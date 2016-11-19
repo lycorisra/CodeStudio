@@ -42,11 +42,11 @@ var CirruHighlightRules = function() {
             next: 'line'
         }, {
             token: 'constant.character.escape',
-            regex: /\\/,
+            regex: ///,
             next: 'escape'
         }, {
             token: 'string.quoted.double',
-            regex: /[^\\\"]+/
+            regex: /[^/\"]+/
         }],
         escape: [{
             token: 'constant.character.escape',

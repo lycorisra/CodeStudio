@@ -4,7 +4,7 @@ define("ace/ext/modelist",["require","exports","module"], function(require, expo
 var modes = [];
 function getModeForPath(path) {
     var mode = modesByName.text;
-    var fileName = path.split(/[\/\\]/).pop();
+    var fileName = path.split(/[\//]/).pop();
     for (var i = 0; i < modes.length; i++) {
         if (modes[i].supportsFile(fileName)) {
             mode = modes[i];
@@ -22,10 +22,10 @@ var Mode = function(name, caption, extensions) {
     var re;
     if (/\^/.test(extensions)) {
         re = extensions.replace(/\|(\^)?/g, function(a, b){
-            return "$|" + (b ? "^" : "^.*\\.");
+            return "$|" + (b ? "^" : "^.*/.");
         }) + "$";
     } else {
-        re = "^.*\\.(" + extensions + ")$";
+        re = "^.*/.(" + extensions + ")$";
     }
 
     this.extRe = new RegExp(re, "gi");

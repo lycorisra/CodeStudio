@@ -8,7 +8,7 @@ var DocCommentHighlightRules = function() {
     this.$rules = {
         "start" : [ {
             token : "comment.doc.tag",
-            regex : "@[\\w\\d_]+" // TODO: fix email addresses
+            regex : "@[/w/d_]+" // TODO: fix email addresses
         }, 
         DocCommentHighlightRules.getTagRule(),
         {
@@ -23,14 +23,14 @@ oop.inherits(DocCommentHighlightRules, TextHighlightRules);
 DocCommentHighlightRules.getTagRule = function(start) {
     return {
         token : "comment.doc.tag.storage.type",
-        regex : "\\b(?:TODO|FIXME|XXX|HACK)\\b"
+        regex : "/b(?:TODO|FIXME|XXX|HACK)/b"
     };
 }
 
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
         token : "comment.doc", // doc comment
-        regex : "\\/\\*(?=\\*)",
+        regex : "///*(?=/*)",
         next  : start
     };
 };
@@ -38,7 +38,7 @@ DocCommentHighlightRules.getStartRule = function(start) {
 DocCommentHighlightRules.getEndRule = function (start) {
     return {
         token : "comment.doc", // closing comment
-        regex : "\\*\\/",
+        regex : "/*//",
         next  : start
     };
 };
@@ -54,7 +54,7 @@ define("ace/mode/c_cpp_highlight_rules",["require","exports","module","ace/lib/o
 var oop = require("../lib/oop");
 var DocCommentHighlightRules = require("./doc_comment_highlight_rules").DocCommentHighlightRules;
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
-var cFunctions = exports.cFunctions = "\\b(?:hypot(?:f|l)?|s(?:scanf|ystem|nprintf|ca(?:nf|lb(?:n(?:f|l)?|ln(?:f|l)?))|i(?:n(?:h(?:f|l)?|f|l)?|gn(?:al|bit))|tr(?:s(?:tr|pn)|nc(?:py|at|mp)|c(?:spn|hr|oll|py|at|mp)|to(?:imax|d|u(?:l(?:l)?|max)|k|f|l(?:d|l)?)|error|pbrk|ftime|len|rchr|xfrm)|printf|et(?:jmp|vbuf|locale|buf)|qrt(?:f|l)?|w(?:scanf|printf)|rand)|n(?:e(?:arbyint(?:f|l)?|xt(?:toward(?:f|l)?|after(?:f|l)?))|an(?:f|l)?)|c(?:s(?:in(?:h(?:f|l)?|f|l)?|qrt(?:f|l)?)|cos(?:h(?:f)?|f|l)?|imag(?:f|l)?|t(?:ime|an(?:h(?:f|l)?|f|l)?)|o(?:s(?:h(?:f|l)?|f|l)?|nj(?:f|l)?|pysign(?:f|l)?)|p(?:ow(?:f|l)?|roj(?:f|l)?)|e(?:il(?:f|l)?|xp(?:f|l)?)|l(?:o(?:ck|g(?:f|l)?)|earerr)|a(?:sin(?:h(?:f|l)?|f|l)?|cos(?:h(?:f|l)?|f|l)?|tan(?:h(?:f|l)?|f|l)?|lloc|rg(?:f|l)?|bs(?:f|l)?)|real(?:f|l)?|brt(?:f|l)?)|t(?:ime|o(?:upper|lower)|an(?:h(?:f|l)?|f|l)?|runc(?:f|l)?|gamma(?:f|l)?|mp(?:nam|file))|i(?:s(?:space|n(?:ormal|an)|cntrl|inf|digit|u(?:nordered|pper)|p(?:unct|rint)|finite|w(?:space|c(?:ntrl|type)|digit|upper|p(?:unct|rint)|lower|al(?:num|pha)|graph|xdigit|blank)|l(?:ower|ess(?:equal|greater)?)|al(?:num|pha)|gr(?:eater(?:equal)?|aph)|xdigit|blank)|logb(?:f|l)?|max(?:div|abs))|di(?:v|fftime)|_Exit|unget(?:c|wc)|p(?:ow(?:f|l)?|ut(?:s|c(?:har)?|wc(?:har)?)|error|rintf)|e(?:rf(?:c(?:f|l)?|f|l)?|x(?:it|p(?:2(?:f|l)?|f|l|m1(?:f|l)?)?))|v(?:s(?:scanf|nprintf|canf|printf|w(?:scanf|printf))|printf|f(?:scanf|printf|w(?:scanf|printf))|w(?:scanf|printf)|a_(?:start|copy|end|arg))|qsort|f(?:s(?:canf|e(?:tpos|ek))|close|tell|open|dim(?:f|l)?|p(?:classify|ut(?:s|c|w(?:s|c))|rintf)|e(?:holdexcept|set(?:e(?:nv|xceptflag)|round)|clearexcept|testexcept|of|updateenv|r(?:aiseexcept|ror)|get(?:e(?:nv|xceptflag)|round))|flush|w(?:scanf|ide|printf|rite)|loor(?:f|l)?|abs(?:f|l)?|get(?:s|c|pos|w(?:s|c))|re(?:open|e|ad|xp(?:f|l)?)|m(?:in(?:f|l)?|od(?:f|l)?|a(?:f|l|x(?:f|l)?)?))|l(?:d(?:iv|exp(?:f|l)?)|o(?:ngjmp|cal(?:time|econv)|g(?:1(?:p(?:f|l)?|0(?:f|l)?)|2(?:f|l)?|f|l|b(?:f|l)?)?)|abs|l(?:div|abs|r(?:int(?:f|l)?|ound(?:f|l)?))|r(?:int(?:f|l)?|ound(?:f|l)?)|gamma(?:f|l)?)|w(?:scanf|c(?:s(?:s(?:tr|pn)|nc(?:py|at|mp)|c(?:spn|hr|oll|py|at|mp)|to(?:imax|d|u(?:l(?:l)?|max)|k|f|l(?:d|l)?|mbs)|pbrk|ftime|len|r(?:chr|tombs)|xfrm)|to(?:b|mb)|rtomb)|printf|mem(?:set|c(?:hr|py|mp)|move))|a(?:s(?:sert|ctime|in(?:h(?:f|l)?|f|l)?)|cos(?:h(?:f|l)?|f|l)?|t(?:o(?:i|f|l(?:l)?)|exit|an(?:h(?:f|l)?|2(?:f|l)?|f|l)?)|b(?:s|ort))|g(?:et(?:s|c(?:har)?|env|wc(?:har)?)|mtime)|r(?:int(?:f|l)?|ound(?:f|l)?|e(?:name|alloc|wind|m(?:ove|quo(?:f|l)?|ainder(?:f|l)?))|a(?:nd|ise))|b(?:search|towc)|m(?:odf(?:f|l)?|em(?:set|c(?:hr|py|mp)|move)|ktime|alloc|b(?:s(?:init|towcs|rtowcs)|towc|len|r(?:towc|len))))\\b"
+var cFunctions = exports.cFunctions = "/b(?:hypot(?:f|l)?|s(?:scanf|ystem|nprintf|ca(?:nf|lb(?:n(?:f|l)?|ln(?:f|l)?))|i(?:n(?:h(?:f|l)?|f|l)?|gn(?:al|bit))|tr(?:s(?:tr|pn)|nc(?:py|at|mp)|c(?:spn|hr|oll|py|at|mp)|to(?:imax|d|u(?:l(?:l)?|max)|k|f|l(?:d|l)?)|error|pbrk|ftime|len|rchr|xfrm)|printf|et(?:jmp|vbuf|locale|buf)|qrt(?:f|l)?|w(?:scanf|printf)|rand)|n(?:e(?:arbyint(?:f|l)?|xt(?:toward(?:f|l)?|after(?:f|l)?))|an(?:f|l)?)|c(?:s(?:in(?:h(?:f|l)?|f|l)?|qrt(?:f|l)?)|cos(?:h(?:f)?|f|l)?|imag(?:f|l)?|t(?:ime|an(?:h(?:f|l)?|f|l)?)|o(?:s(?:h(?:f|l)?|f|l)?|nj(?:f|l)?|pysign(?:f|l)?)|p(?:ow(?:f|l)?|roj(?:f|l)?)|e(?:il(?:f|l)?|xp(?:f|l)?)|l(?:o(?:ck|g(?:f|l)?)|earerr)|a(?:sin(?:h(?:f|l)?|f|l)?|cos(?:h(?:f|l)?|f|l)?|tan(?:h(?:f|l)?|f|l)?|lloc|rg(?:f|l)?|bs(?:f|l)?)|real(?:f|l)?|brt(?:f|l)?)|t(?:ime|o(?:upper|lower)|an(?:h(?:f|l)?|f|l)?|runc(?:f|l)?|gamma(?:f|l)?|mp(?:nam|file))|i(?:s(?:space|n(?:ormal|an)|cntrl|inf|digit|u(?:nordered|pper)|p(?:unct|rint)|finite|w(?:space|c(?:ntrl|type)|digit|upper|p(?:unct|rint)|lower|al(?:num|pha)|graph|xdigit|blank)|l(?:ower|ess(?:equal|greater)?)|al(?:num|pha)|gr(?:eater(?:equal)?|aph)|xdigit|blank)|logb(?:f|l)?|max(?:div|abs))|di(?:v|fftime)|_Exit|unget(?:c|wc)|p(?:ow(?:f|l)?|ut(?:s|c(?:har)?|wc(?:har)?)|error|rintf)|e(?:rf(?:c(?:f|l)?|f|l)?|x(?:it|p(?:2(?:f|l)?|f|l|m1(?:f|l)?)?))|v(?:s(?:scanf|nprintf|canf|printf|w(?:scanf|printf))|printf|f(?:scanf|printf|w(?:scanf|printf))|w(?:scanf|printf)|a_(?:start|copy|end|arg))|qsort|f(?:s(?:canf|e(?:tpos|ek))|close|tell|open|dim(?:f|l)?|p(?:classify|ut(?:s|c|w(?:s|c))|rintf)|e(?:holdexcept|set(?:e(?:nv|xceptflag)|round)|clearexcept|testexcept|of|updateenv|r(?:aiseexcept|ror)|get(?:e(?:nv|xceptflag)|round))|flush|w(?:scanf|ide|printf|rite)|loor(?:f|l)?|abs(?:f|l)?|get(?:s|c|pos|w(?:s|c))|re(?:open|e|ad|xp(?:f|l)?)|m(?:in(?:f|l)?|od(?:f|l)?|a(?:f|l|x(?:f|l)?)?))|l(?:d(?:iv|exp(?:f|l)?)|o(?:ngjmp|cal(?:time|econv)|g(?:1(?:p(?:f|l)?|0(?:f|l)?)|2(?:f|l)?|f|l|b(?:f|l)?)?)|abs|l(?:div|abs|r(?:int(?:f|l)?|ound(?:f|l)?))|r(?:int(?:f|l)?|ound(?:f|l)?)|gamma(?:f|l)?)|w(?:scanf|c(?:s(?:s(?:tr|pn)|nc(?:py|at|mp)|c(?:spn|hr|oll|py|at|mp)|to(?:imax|d|u(?:l(?:l)?|max)|k|f|l(?:d|l)?|mbs)|pbrk|ftime|len|r(?:chr|tombs)|xfrm)|to(?:b|mb)|rtomb)|printf|mem(?:set|c(?:hr|py|mp)|move))|a(?:s(?:sert|ctime|in(?:h(?:f|l)?|f|l)?)|cos(?:h(?:f|l)?|f|l)?|t(?:o(?:i|f|l(?:l)?)|exit|an(?:h(?:f|l)?|2(?:f|l)?|f|l)?)|b(?:s|ort))|g(?:et(?:s|c(?:har)?|env|wc(?:har)?)|mtime)|r(?:int(?:f|l)?|ound(?:f|l)?|e(?:name|alloc|wind|m(?:ove|quo(?:f|l)?|ainder(?:f|l)?))|a(?:nd|ise))|b(?:search|towc)|m(?:odf(?:f|l)?|em(?:set|c(?:hr|py|mp)|move)|ktime|alloc|b(?:s(?:init|towcs|rtowcs)|towc|len|r(?:towc|len))))/b"
 
 var c_cppHighlightRules = function() {
 
@@ -93,8 +93,8 @@ var c_cppHighlightRules = function() {
         "constant.language": builtinConstants
     }, "identifier");
 
-    var identifierRe = "[a-zA-Z\\$_\u00a1-\uffff][a-zA-Z\d\\$_\u00a1-\uffff]*\\b";
-    var escapeRe = /\\(?:['"?\\abfnrtv]|[0-7]{1,3}|x[a-fA-F\d]{2}|u[a-fA-F\d]{4}U[a-fA-F\d]{8}|.)/.source;
+    var identifierRe = "[a-zA-Z/$_\u00a1-\uffff][a-zA-Z\d/$_\u00a1-\uffff]*/b";
+    var escapeRe = //(?:['"?/abfnrtv]|[0-7]{1,3}|x[a-fA-F\d]{2}|u[a-fA-F\d]{4}U[a-fA-F\d]{8}|.)/.source;
 
     this.$rules = { 
         "start" : [
@@ -110,7 +110,7 @@ var c_cppHighlightRules = function() {
             DocCommentHighlightRules.getStartRule("doc-start"),
             {
                 token : "comment", // multi line comment
-                regex : "\\/\\*",
+                regex : "///*",
                 next : "comment"
             }, {
                 token : "string", // character
@@ -120,33 +120,33 @@ var c_cppHighlightRules = function() {
                 regex : '"', 
                 stateName: "qqstring",
                 next: [
-                    { token: "string", regex: /\\\s*$/, next: "qqstring" },
+                    { token: "string", regex: //\s*$/, next: "qqstring" },
                     { token: "constant.language.escape", regex: escapeRe },
-                    { token: "constant.language.escape", regex: /%[^'"\\]/ },
+                    { token: "constant.language.escape", regex: /%[^'"/]/ },
                     { token: "string.end", regex: '"|$', next: "start" },
                     { defaultToken: "string"}
                 ]
             }, {
                 token : "string.start",
-                regex : 'R"\\(', 
+                regex : 'R"/(', 
                 stateName: "rawString",
                 next: [
-                    { token: "string.end", regex: '\\)"', next: "start" },
+                    { token: "string.end", regex: '/)"', next: "start" },
                     { defaultToken: "string"}
                 ]
             }, {
                 token : "constant.numeric", // hex
-                regex : "0[xX][0-9a-fA-F]+(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b"
+                regex : "0[xX][0-9a-fA-F]+(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?/b"
             }, {
                 token : "constant.numeric", // float
-                regex : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b"
+                regex : "[+-]?/d+(?:(?:/./d*)?(?:[eE][+-]?/d+)?)?(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?/b"
             }, {
                 token : "keyword", // pre-compiler directives
-                regex : "#\\s*(?:include|import|pragma|line|define|undef)\\b",
+                regex : "#/s*(?:include|import|pragma|line|define|undef)/b",
                 next  : "directive"
             }, {
                 token : "keyword", // special case pre-compiler directive
-                regex : "#\\s*(?:endif|if|ifdef|else|elif|ifndef)\\b"
+                regex : "#/s*(?:endif|if|ifdef|else|elif|ifndef)/b"
             }, {
                 token : "support.function.C99.c",
                 regex : cFunctions
@@ -158,22 +158,22 @@ var c_cppHighlightRules = function() {
                 regex : /--|\+\+|<<=|>>=|>>>=|<>|&&|\|\||\?:|[*%\/+\-&\^|~!<>=]=?/
             }, {
               token : "punctuation.operator",
-              regex : "\\?|\\:|\\,|\\;|\\."
+              regex : "/?|/:|/,|/;|/."
             }, {
                 token : "paren.lparen",
                 regex : "[[({]"
             }, {
                 token : "paren.rparen",
-                regex : "[\\])}]"
+                regex : "[/])}]"
             }, {
                 token : "text",
-                regex : "\\s+"
+                regex : "/s+"
             }
         ],
         "comment" : [
             {
                 token : "comment", // closing comment
-                regex : ".*?\\*\\/",
+                regex : ".*?/*//",
                 next : "start"
             }, {
                 token : "comment", // comment spanning whole line
@@ -183,7 +183,7 @@ var c_cppHighlightRules = function() {
         "singleLineComment" : [
             {
                 token : "comment",
-                regex : /\\$/,
+                regex : //$/,
                 next : "singleLineComment"
             }, {
                 token : "comment",
@@ -196,30 +196,30 @@ var c_cppHighlightRules = function() {
         "directive" : [
             {
                 token : "constant.other.multiline",
-                regex : /\\/
+                regex : ///
             },
             {
                 token : "constant.other.multiline",
-                regex : /.*\\/
+                regex : /.*//
             },
             {
                 token : "constant.other",
-                regex : "\\s*<.+?>",
+                regex : "/s*<.+?>",
                 next : "start"
             },
             {
                 token : "constant.other", // single line
-                regex : '\\s*["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]',
+                regex : '/s*["](?:(?://.)|(?:[^"//]))*?["]',
                 next : "start"
             }, 
             {
                 token : "constant.other", // single line
-                regex : "\\s*['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']",
+                regex : "/s*['](?:(?://.)|(?:[^'//]))*?[']",
                 next : "start"
             },
             {
                 token : "constant.other",
-                regex : /[^\\\/]+/,
+                regex : /[^/\/]+/,
                 next : "start"
             }
         ]
@@ -512,7 +512,7 @@ var CstyleBehaviour = function() {
                 
                 var token = session.getTokenAt(cursor.row, cursor.column);
                 var rightToken = session.getTokenAt(cursor.row, cursor.column + 1);
-                if (leftChar == "\\" && token && /escape/.test(token.type))
+                if (leftChar == "/" && token && /escape/.test(token.type))
                     return null;
                 
                 var stringBefore = token && /string|escape/.test(token.type);
@@ -533,7 +533,7 @@ var CstyleBehaviour = function() {
                     var isWordAfter = wordRe.test(leftChar);
                     if (isWordBefore || isWordAfter)
                         return null; // before or after alphanumeric
-                    if (rightChar && !/[\s;,.})\]\\]/.test(rightChar))
+                    if (rightChar && !/[\s;,.})\]/]/.test(rightChar))
                         return null; // there is rightChar and it isn't closing
                     pair = true;
                 }

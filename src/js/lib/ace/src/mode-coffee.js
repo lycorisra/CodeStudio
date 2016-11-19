@@ -7,7 +7,7 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
     oop.inherits(CoffeeHighlightRules, TextHighlightRules);
 
     function CoffeeHighlightRules() {
-        var identifier = "[$A-Za-z_\\x7f-\\uffff][$\\w\\x7f-\\uffff]*";
+        var identifier = "[$A-Za-z_/x7f-/uffff][$/w/x7f-/uffff]*";
 
         var keywords = (
             "this|throw|then|try|typeof|super|switch|return|break|by|continue|" +
@@ -57,13 +57,13 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
             regex: /(?:(\()((?:"[^")]*?"|'[^')]*?'|\/[^\/)]*?\/|[^()\"'\/])*?)(\))(\s*))?([\-=]>)/.source
         };
 
-        var stringEscape = /\\(?:x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)/;
+        var stringEscape = //(?:x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)/;
 
         this.$rules = {
             start : [
                 {
                     token : "constant.numeric",
-                    regex : "(?:0x[\\da-fA-F]+|(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:[eE][+-]?\\d+)?)"
+                    regex : "(?:0x[/da-fA-F]+|(?:/d+(?:/./d+)?|/./d+)(?:[eE][+-]?/d+)?)"
                 }, {
                     stateName: "qdoc",
                     token : "string", regex : "'''", next : [
@@ -124,7 +124,7 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
                     next : "heregex"
                 }, {
                     token : "string.regex",
-                    regex : /(?:\/(?![\s=])[^[\/\n\\]*(?:(?:\\[\s\S]|\[[^\]\n\\]*(?:\\[\s\S][^\]\n\\]*)*])[^[\/\n\\]*)*\/)(?:[imgy]{0,4})(?!\w)/
+                    regex : /(?:\/(?![\s=])[^[\/\n/]*(?:(?:/[\s\S]|\[[^\]\n/]*(?:/[\s\S][^\]\n/]*)*])[^[\/\n/]*)*\/)(?:[imgy]{0,4})(?!\w)/
                 }, {
                     token : "comment",
                     regex : "###(?!#)",
@@ -134,17 +134,17 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
                     regex : "#.*"
                 }, {
                     token : ["punctuation.operator", "text", "identifier"],
-                    regex : "(\\.)(\\s*)(" + illegal + ")"
+                    regex : "(/.)(/s*)(" + illegal + ")"
                 }, {
                     token : "punctuation.operator",
-                    regex : "\\.{1,3}"
+                    regex : "/.{1,3}"
                 }, {
                     token : ["keyword", "text", "language.support.class",
                      "text", "keyword", "text", "language.support.class"],
-                    regex : "(class)(\\s+)(" + identifier + ")(?:(\\s+)(extends)(\\s+)(" + identifier + "))?"
+                    regex : "(class)(/s+)(" + identifier + ")(?:(/s+)(extends)(/s+)(" + identifier + "))?"
                 }, {
                     token : ["entity.name.function", "text", "keyword.operator", "text"].concat(functionRule.token),
-                    regex : "(" + identifier + ")(\\s*)([=:])(\\s*)" + functionRule.regex
+                    regex : "(" + identifier + ")(/s*)([=:])(/s*)" + functionRule.regex
                 }, 
                 functionRule, 
                 {
@@ -155,22 +155,22 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
                     regex : identifier
                 }, {
                     token : "punctuation.operator",
-                    regex : "\\,|\\."
+                    regex : "/,|/."
                 }, {
                     token : "storage.type",
-                    regex : "[\\-=]>"
+                    regex : "[/-=]>"
                 }, {
                     token : "keyword.operator",
-                    regex : "(?:[-+*/%<>&|^!?=]=|>>>=?|\\-\\-|\\+\\+|::|&&=|\\|\\|=|<<=|>>=|\\?\\.|\\.{2,3}|[!*+-=><])"
+                    regex : "(?:[-+*/%<>&|^!?=]=|>>>=?|/-/-|/+/+|::|&&=|/|/|=|<<=|>>=|/?/.|/.{2,3}|[!*+-=><])"
                 }, {
                     token : "paren.lparen",
                     regex : "[({[]"
                 }, {
                     token : "paren.rparen",
-                    regex : "[\\]})]"
+                    regex : "[/]})]"
                 }, {
                     token : "text",
-                    regex : "\\s+"
+                    regex : "/s+"
                 }],
 
 
@@ -180,10 +180,10 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
                 next : "start"
             }, {
                 token : "comment.regex",
-                regex : "\\s+(?:#.*)?"
+                regex : "/s+(?:#.*)?"
             }, {
                 token : "string.regex",
-                regex : "\\S+"
+                regex : "/S+"
             }],
 
             comment : [{

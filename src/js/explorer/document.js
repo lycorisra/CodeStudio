@@ -112,9 +112,66 @@ var fs = require('fs'),
          });
      });
 */
+; (function (undefined) {
+    function FileTree(basepath) {
+        this.basepath = basepath;
+        this.nodes = [];
+    };
+    FileTree.prototype.load = function () {
+        var root = {
+            name: this.basepath,
+            icon: 'root'
+        };
+        _readdir(this.basepath, root, 1);
+    }
+    function _readdir(dir, parent, level) {
 
+    };
+    function readdir(dir, callback) {
+        var array = [];
+        dir = /$/.test(dir) ? dir : dir + '/';
+        (function dir(dirpath, fn) {
+            var items = fs.readdirSync(dirpath);
+            async(items, function (item, next) {
+                var curPath = dirpath + item,
+                    info = fs.statSync(curPath);
+
+                if (info.isDirectory()) {
+                    dir(curPath + '/', function () { next(); });
+                }
+                else {
+                    array.push(curPath);
+                    callback && callback(curPath);
+                    next();
+                }
+            }, function (error) {
+                !error && fn && fn();
+            });
+        })(dir);
+        return array;
+    }
+    function async(array, callback, error) {
+        if (Object.prototype.toString.call(array) !== '[object Array]') {
+            return error(new Error('第一个参数必须为数组'));
+        }
+        if (array.length === 0)
+            return error(null);
+
+        (function walk(i) {
+            callback(array[i], function () {
+                walk(i++);
+            });
+            if (i >= array.length) {
+                return error(null);
+            }
+        })(0);
+    };
+})();
 var fileSystem = {
-    getFiles: function (dir,filter) {
+    readdir: function (dir, filter) {
+        //var 
+    },
+    getFiles: function (dir, filter) {
         var self = this,
             array = [];
 

@@ -3539,8 +3539,8 @@ var optionsProvider = {
 };
 
 function warn(message) {
-    if (typeof console != "undefined" && console.warn)
-        console.warn.apply(console, arguments);
+    //if (typeof console != "undefined" && console.warn)
+    //    console.warn.apply(console, arguments);
 }
 
 function reportError(msg, data) {
@@ -6332,15 +6332,15 @@ var Document = function(textOrLines) {
         return lines;
     };
     this.insertLines = function(row, lines) {
-        console.warn("Use of document.insertLines is deprecated. Use the insertFullLines method instead.");
+        //console.warn("Use of document.insertLines is deprecated. Use the insertFullLines method instead.");
         return this.insertFullLines(row, lines);
     };
     this.removeLines = function(firstRow, lastRow) {
-        console.warn("Use of document.removeLines is deprecated. Use the removeFullLines method instead.");
+        //console.warn("Use of document.removeLines is deprecated. Use the removeFullLines method instead.");
         return this.removeFullLines(firstRow, lastRow);
     };
     this.insertNewLine = function(position) {
-        console.warn("Use of document.insertNewLine is deprecated. Use insertMergedLines(position, [\'\', \'\']) instead.");
+        //console.warn("Use of document.insertNewLine is deprecated. Use insertMergedLines(position, [\'\', \'\']) instead.");
         return this.insertMergedLines(position, ["", ""]);
     };
     this.insert = function(position, text) {
@@ -13286,14 +13286,14 @@ var Gutter = function(parentEl) {
     };
 
     this.addGutterDecoration = function(row, className){
-        if (window.console)
-            console.warn && console.warn("deprecated use session.addGutterDecoration");
+        //if (window.console)
+        //    console.warn && console.warn("deprecated use session.addGutterDecoration");
         this.session.addGutterDecoration(row, className);
     };
 
     this.removeGutterDecoration = function(row, className){
-        if (window.console)
-            console.warn && console.warn("deprecated use session.removeGutterDecoration");
+        //if (window.console)
+        //    console.warn && console.warn("deprecated use session.removeGutterDecoration");
         this.session.removeGutterDecoration(row, className);
     };
 
@@ -14755,7 +14755,7 @@ var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var editorCss = ".ace_editor {\
 position: relative;\
 overflow: hidden;\
-font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;\
+font: 14px/20px 'Consolas','Courier New', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;\
 direction: ltr;\
 }\
 .ace_scroller {\
@@ -15020,6 +15020,7 @@ letter-spacing: normal;\
 pointer-events: none;\
 }\
 .ace_folding-enabled > .ace_gutter-cell {\
+padding: 2px 0;\
 padding-right: 13px;\
 }\
 .ace_fold-widget {\
@@ -15108,6 +15109,9 @@ background-color: rgba(255, 255, 0,0.2);\
 position: absolute;\
 z-index: 8;\
 }\
+//.ace_line_group {\
+//    padding: 2px;\
+//}\
 .ace_br1 {border-top-left-radius    : 3px;}\
 .ace_br2 {border-top-right-radius   : 3px;}\
 .ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}\

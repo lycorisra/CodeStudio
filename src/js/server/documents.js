@@ -7,7 +7,7 @@ exports.readFile = function (req, res) {
     var filename = req.query.doc;
     fs.exists(filename, function (exists) {
         if (exists) {
-            fs.readFile(filename, { flag: 'r+', encoding: 'utf8' }, function (err, data) {
+            fs.readFile(filename, { flag: 'r+', encoding: 'utf-8' }, function (err, data) {
                 if (!err) {
                     res.write(data);
                     res.end();
