@@ -198,6 +198,19 @@ var fileSystem = {
             array = list;
         }
         return array;
+    },
+    writeFile: function (file, content, fininsh, error) {
+        var stream = fs.createWriteStream(file, { flags: 'w', encoding: 'utf8', mode: '0666' });
+        stream.on('fininsh', function () {
+            fininsh && fininsh();
+        });
+        stream.on('error', function (error) {
+            error && error(error);
+            //console.log('write file error - %s',error.message)
+        });
+        stream.writeFile(content, 'utf8', function () {
+        });
+        stream.end();
     }
 };
 module.exports = fileSystem;

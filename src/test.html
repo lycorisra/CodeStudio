@@ -1,0 +1,97 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>测试页面</title>
+	<style type="text/css">
+	    * {
+	        padding:0;
+            margin:0;
+        }
+	    html,body{
+	        height:100%;
+	    }
+        .main{
+            position: relative;
+            width:90%;
+            height:80%;
+            margin:auto;
+            overflow:hidden;
+        }
+        .main section{
+            position: absolute;
+            width:100%;
+            height:100%;
+            left:100%;
+            box-sizing:border-box;
+            
+            transition: all 0.5s;
+        }
+        .main .div1{
+            background-color:red;
+        }
+        .main .div2{
+            background-color:green;
+        }
+        .main .div3{
+            background-color:blue;
+        }
+        .main .div4{
+            background-color:yellow;
+        }
+        ul li{
+            list-style:none;
+            display:inline-block;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        ul li.current{
+            width:15px;
+            height:15px;
+            border:1px solid #ddd;
+            text-align:center;
+            border-radius:50%;
+            background-color:#ddd;
+        }
+	</style>
+	<script type="text/javascript" src="js/client/lib/jquery-2.1.3.js"></script>
+</head>
+<body>
+    <div class="main">
+        <ul class="nav">
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <section class="div1">第一个容器 </section>
+        <section class="div2">第二个容器 </section>
+        <section class="div3">第三个容器 </section>
+        <section class="div4">第四个容器 </section>
+    </div>
+    
+        <script type="text/javascript">
+            var $navs = $(".nav li"),
+                pages = $('.main section');
+            
+            for (var i = 0; i < pages.length; i++) {
+                var $page = $(pages[i]);
+                $page.css({ 'left': i * 100 + '%' });
+            }
+            $navs.click(function () {
+                var $el = $(this),
+                    $pre = $('.nav li.current'),
+                    index = $navs.index($el),
+                    preindex = $navs.index($pre),
+                    step = index - preindex;
+
+                $el.addClass('current').siblings().removeClass('current');
+                for (var i = 0; i < pages.length; i++) {
+                    var $page = $(pages[i]);
+                    var left = parseInt($page[0].style.left) - step * 100 + '%';
+                    $page.css({ 'left': left });
+                }
+            })
+        </script>
+</body>
+</html>

@@ -3,9 +3,6 @@
         session = editor.getSession();
 
     var items = data.pathtree.children;
-    //for (var i = 0; i < items.length; i++) {
-    //    items[i].name
-    //}
 
     editor.setTheme('ace/theme/chrome');
     session.setUseWrapMode(true);
@@ -22,7 +19,7 @@
 	        '\t<title>测试页面</title>\n',
 	        '\t<style type="text/css">\n',
 	        '\r\t</style>\n',
-	        '\t<script type="text/javascript" src="js/lib/jquery-2.1.3.js"></script>\n',
+	        '\t<script type="text/javascript" src="js/client/lib/jquery-2.1.3.js"></script>\n',
         '</head>\n',
         '<body>\n\r',
         '</body>\n',
@@ -111,7 +108,10 @@
             var form = document.getElementById('tryitform');
             form.action = '/result?x=' + Math.random();
             $(form).submit();
+        };
+        $scope.save = function () {
+            var code = encodeURI(session.getValue());
+
         }
-        //$scope.init();
     });
 });

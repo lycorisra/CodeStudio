@@ -1,16 +1,15 @@
 require.config({
     //baseUrl: 'js/',
     paths: {
-        jquery: 'js/lib/jquery-2.1.3',
-        angular: 'js/lib/angular',
-        ace: 'js/lib/ace/src/',
-        text: 'js/lib/requirejs-plugins/text',
-        json: 'js/lib/requirejs-plugins/json',
+        jquery: 'js/client/lib/jquery-2.1.3',
+        angular: 'js/client/lib/angular',
+        ace: 'js/client/lib/ace/src/',
+        text: 'js/client/lib/requirejs-plugins/text',
+        json: 'js/client/lib/requirejs-plugins/json',
         'tree-control': 'res/angular-tree-control/angular-tree-control',
-        contextmenu: 'js/lib/contextmenu/jquery.contextMenu',
 
-        modemap: 'js/lib/ace/modemap',
-        documents: 'js/controllers/documents'
+        modemap: 'js/client/lib/ace/modemap',
+        documents: 'js/client/documents'
     },
     shim: {
         'angular': { exports: 'angular' }

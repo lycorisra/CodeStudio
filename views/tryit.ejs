@@ -10,7 +10,7 @@
         <link type="text/css" href="/css/pure/menus.css" rel="stylesheet">
         <link type="text/css" href="/css/pure/grids-responsive.css" rel="stylesheet">
         <link type="text/css" href="/res/angular-tree-control/tree-control-attribute.css" rel="stylesheet">
-        <link href="../js/lib/contextmenu/jquery.contextMenu.css" rel="stylesheet" />
+     
     </head>
     <body ng-controller="documents">
         <div class="wrapper">
@@ -38,6 +38,8 @@
                     <div>
                         <h3 class="explorer-title">解决资源管理器</h3>
                         <header class="explorer-bar">
+                            <i class="iconfont addfile" title="新建解决方案">&#xe634;</i>
+                            <i class="iconfont addfold" title="保存文件">&#xe63d;</i>
                             <i class="iconfont addfile" title="新建文件">&#xe612;</i>
                             <i class="iconfont addfold" title="新建文件夹">&#xe610;</i>
                             <i class="iconfont refresh" title="重新加载">&#xe611;</i>
@@ -63,8 +65,7 @@
                 <span class="path">{{curPath}}</span>
             </footer>
         </div>
-		<script type="text/javascript" src="/js/lib/require.js" data-main="main"></script>
-        <!--<script src="../js/lib/contextmenu/jquery.contextMenu.js"></script>-->
+		<script type="text/javascript" src="/js/client/lib/require.js" data-main="main"></script>
 		<script type="text/javascript">
 
 		</script>
