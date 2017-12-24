@@ -4,6 +4,7 @@ require.config({
         jquery: 'js/lib/jquery-2.1.3',
         angular: 'js/lib/angular',
         ace: 'js/lib/ace/src/',
+        ace1: 'js/lib/ace/src/',
         text: 'js/lib/requirejs-plugins/text',
         json: 'js/lib/requirejs-plugins/json',
         'tree-control': 'res/angular-tree-control/angular-tree-control',

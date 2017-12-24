@@ -7,7 +7,7 @@ var cfg = require('./config'),
     bodyParser = require('body-parser'),
     serveStatic = require('serve-static'),
     fs = require('fs'),
-    md = require('./src/res/dillinger/js/plugins/core/markdown-it.js').md,
+    // md = require('./src/res/dillinger/js/plugins/core/markdown-it.js').md,
     path = require('path'),
     routes = require('./src/routes');
 
@@ -46,15 +46,15 @@ app.locals.env = process.env.NODE_ENV;
 function _getFullHtml(name, str, style) {
     var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + name + '</title><style>' + ((style) ? style : '');
     html += '</style></head><body id="preview">\n';
-    html += md.render(str) + '\n</body></html>';
+    // html += md.render(str) + '\n</body></html>';
     return html;
 }
 var fetchHtml = function (req, res) {
     //req.on('data', function (data) {
-    //    console.log("·þÎñÆ÷½ÓÊÕµ½µÄÊý¾Ý£º¡¡" + decodeURIComponent(data));
+    //    console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½" + decodeURIComponent(data));
     //});
     //req.on("end", function () {
-    //    console.log('¿Í»§¶ËÇëÇóÊý¾ÝÈ«²¿½ÓÊÕÍê±Ï');
+    //    console.log('ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
     //});
     var unmd = req.body.unmd,
         json_response ={
@@ -83,7 +83,7 @@ var fetchHtml = function (req, res) {
 }
 app.post('/factory/fetch_html', fetchHtml)
 // At startup time so sync is ok.
-app.locals.readme = fs.readFileSync(path.resolve(__dirname, './README.md'), 'utf-8');
+// app.locals.readme = fs.readFileSync(path.resolve(__dirname, './README.md'), 'utf-8');
 
 
 app.get('/', routes.index);
