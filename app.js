@@ -51,10 +51,10 @@ function _getFullHtml(name, str, style) {
 }
 var fetchHtml = function (req, res) {
     //req.on('data', function (data) {
-    //    console.log("���������յ������ݣ���" + decodeURIComponent(data));
+    //    console.log("????????????????????" + decodeURIComponent(data));
     //});
     //req.on("end", function () {
-    //    console.log('�ͻ�����������ȫ���������');
+    //    console.log('???????????????????????');
     //});
     var unmd = req.body.unmd,
         json_response ={

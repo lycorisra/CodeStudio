@@ -1,4 +1,4 @@
-﻿define(['jquery','angular', 'contextmenu'], function ($,angular, contextmenu) {
+﻿define(['jquery','angular'], function ($,angular) {
     'use strict';
 
     function createPath(startScope) {
