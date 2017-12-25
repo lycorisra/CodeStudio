@@ -24,7 +24,8 @@ function _getFullHtml(name, str, style) {
     return html;
 }
 
-app.get('/', routes.index);
+routes.initRoutes(app);
+
 app.get('/tryit', function (req, res) {
     return res.render(tryit, {});
 });

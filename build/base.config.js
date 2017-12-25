@@ -4,24 +4,18 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const url = require('url')
-const expose = require('./expose');
+
 const publicPath = '../public/'
 const rootPath = __dirname.replace('build', ''); // 得到根目录，这种方式有漏洞
 
 var config = require('./default');
-
+function resolve(dir) {
+    return path.join(__dirname, '..', dir)
+}
 var templates = {
-    index: {
-        template: 'html-loader!views/home.ejs',
-        filename: path.resolve(__dirname, '../views/home.ejs')
-    },
-    template2: {
-        template: 'html-loader!views/templates2.ejs',
-        filename: path.resolve(__dirname, '../views/templates2.ejs')
-    },
-    design2: {
-        template: 'html-loader!views/design-v2.ejs',
-        filename: path.resolve(__dirname, '../views/design-v2.ejs')
+    tool: {
+        template: 'html-loader!views/tools/tryit1.ejs',
+        filename: path.resolve(__dirname, '../views/tools/tryit2.ejs')
     }
 };
 
@@ -43,6 +37,13 @@ module.exports = (page, options = {}) => {
     var opt = {
         entry: page.entry,
         output: Object.assign({}, config.output, { chunkFilename: key + '/js/[id].design.component.js' }),
+        resolve: {
+            extensions: ['.js', '.vue', '.json'],
+            alias: {
+                'vue$': 'vue/dist/vue.esm.js',
+                '@': resolve('src'),
+            }
+        },
         devtool: config.devtool || 'inline-source-map',
         module: {
             rules: [
@@ -66,6 +67,10 @@ module.exports = (page, options = {}) => {
                     })
                 },
                 {
+                    test: /\.vue$/,
+                    loader: 'vue-loader'
+                },
+                {
                     test: /favicon\.png$/,
                     use: [
                         {
@@ -87,18 +92,13 @@ module.exports = (page, options = {}) => {
                             }
                         }
                     ]
-                },
-                ...expose
+                }
             ]
         },
         resolve: {
             alias: {
                 'views': path.resolve(__dirname, publicPath + 'views'),
-                'js': path.resolve(__dirname, publicPath + 'js'),
-                'icoms': path.resolve(__dirname, publicPath + 'icoms'),
-                'stackblur': path.resolve(__dirname, publicPath + 'js/lib/StackBlur.js'),
-                'rgbcolor': path.resolve(__dirname, publicPath + 'js/lib/rgbcolor.js'),
-                    'jquery': path.resolve(__dirname, publicPath + 'js/lib/jquery.js')
+                'tools': path.resolve(__dirname, publicPath + 'tools')
             }
         },
         resolveLoader: {
@@ -132,8 +132,7 @@ module.exports = (page, options = {}) => {
                 DEBUG: Boolean(options.dev),
                 VERSION: '1.0.0',
                 'process.env.NODE_ENV': JSON.stringify('production')
-            }),
-            // ...config.plugins
+            })
         ]
     };
     if (templates[key]) {
@@ -152,34 +151,16 @@ module.exports = (page, options = {}) => {
 }
 
 
-const cheerio = require("cheerio");
 function HtmlResourceWebpackPlugin(options) {
     this.publicPath = options.publicPath;
 }
 
 HtmlResourceWebpackPlugin.prototype.apply = function (compiler) {
-    // var publicPath = this.publicPath;
-    // if (publicPath === '/') {
-    //     publicPath = 'http://test-static.egpic.cn';
-    // }
     compiler.plugin('compilation', function (compilation) {
         compilation.plugin('html-webpack-plugin-before-html-processing', function (htmlPluginData, callback) {
             var html = htmlPluginData.html,
                 index = html.indexOf('</head>'),
                 header = html.substr(0, index);
-
-            var $ = cheerio.load(html);
-            // $('[data-mark="webpackinsert"]').remove();
-
-            $('link[href^="' + publicPath + '"]').remove();
-            $('script[src^="' + publicPath + '"]').remove();
-
-
-            // $('link[href^="' + publicPath + '"]:not([data-mark])').attr('data-mark', 'webpackinsert');
-            // $('script[src^="' + publicPath + '"]:not([data-mark])').attr('data-mark', 'webpackinsert');
-
-            // var linkReg = new RegExp('<link\\s+.*\\s?(href=\"\/?' + publicPath + '.*\/css\/.*\").*>', 'ig');
-            // var scriptReg = new RegExp('<script\\s+.*\\s?(src=\"\/?' + publicPath + '.*\/js\/.*\").*><\/script>', 'ig');
 
             var linkReg = /<link\s+.*\s?(href=\"?\/?(dist)?(http:\/\/)?(dist)?(test-)?(static\.egpic\.cn)?\/.*\/css\/.*\"?).*>/ig;
             var scriptReg = /<script\s+.*\s?(src=\"?\/?(dist)?(http:\/\/)?(test-)?(static\.egpic\.cn)?\/.*\/js\/.*\"?).*><\/script>/ig;

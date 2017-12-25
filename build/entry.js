@@ -21,11 +21,6 @@ const vendor = {
         'js/lib/fontfaceobserver.js',
 
         // 非模块化的业务js文件暂时放在这里配置，以下文件将会打包进vendor.js文件中
-        // 'icoms/login/main.js',
-        // 'icoms/loginState/main.js',
-        // 'icoms/payCommodity/main.js',
-        // 'icoms/payComplete/main.js',
-        // 'js/lib/jquery-ui.min.js',
         'views/design-v2/left-coms/background/colorp.js',
         'views/design-v2/header-coms/color/jscolor.js'
     ]
@@ -33,28 +28,9 @@ const vendor = {
 
 module.exports = [
     {
-        name: 'lib',
+        name: 'tool',
         entry: {
-            'lib': vendor.lib
-        }
-    },
-    // {
-    //     name: 'index',
-    //     entry: {
-    //         'index/js/main': 'views/home/main.js',
-    //     }
-    // },
-    // {
-    //     name: 'template2',
-    //     entry: {
-    //         'template2/js/main': 'views/templates2/main.js',
-    //     }
-    // },
-    {
-        name: 'design2',
-        entry: {
-            'design2/js/main': 'views/design-v2/main.js',
-            'design2/js/vendor': vendor.design2
+            'tool/tryit': 'tools/tryit'
         }
     }
 ]

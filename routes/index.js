@@ -2,7 +2,7 @@ var path = require('path');
 
 var routes = {
     index: function (req, res) {
-        return res.render('index', {});
+        return res.render('tools/tryit2', {});
     },
     // Show the home page
     dillinger: function (req, res) {
@@ -21,8 +21,7 @@ var routes = {
         return res.render(view, config);
     },
     tryit: function (req, res) {
-        var view = 'tryit';
-        return res.render(view, {});
+        return res.render('tools/tryit', {});
     },
     document: function (req, res) {
 
@@ -41,7 +40,6 @@ var routes = {
         res.write(code);
         res.end();
     },
-    // Show the not implemented yet page
     not_implemented: function (req, res) {
         res.render('not-implemented')
     }
@@ -52,7 +50,4 @@ exports.initRoutes = function (app) {
     app.get('/document', routes.document);
     app.get('/result', routes.result_get);
     app.post('/result', routes.result_post);
-
-    app.get('/dillinger', routes.dillinger);
-    app.post('/factory/fetch_html', doc.fetchHtml);
 }

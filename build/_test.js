@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../public/dist'),
         filename: '[name].js',
-        publicPath: 'http://test-static.egpic.cn/'
+        publicPath: 'dist/'
     },
     ali_oss: {
         region: 'oss-cn-beijing',
