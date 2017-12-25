@@ -1,0 +1,196 @@
+const path = require('path')
+const webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const url = require('url')
+const expose = require('./expose');
+const publicPath = '../public/'
+const rootPath = __dirname.replace('build', ''); // 得到根目录，这种方式有漏洞
+
+var config = require('./default');
+
+var templates = {
+    index: {
+        template: 'html-loader!views/home.ejs',
+        filename: path.resolve(__dirname, '../views/home.ejs')
+    },
+    template2: {
+        template: 'html-loader!views/templates2.ejs',
+        filename: path.resolve(__dirname, '../views/templates2.ejs')
+    },
+    design2: {
+        template: 'html-loader!views/design-v2.ejs',
+        filename: path.resolve(__dirname, '../views/design-v2.ejs')
+    }
+};
+
+module.exports = (page, options = {}) => {
+
+    const key = page.name;
+    const configName = options.config || config.env || 'develop';
+    if (configName && configName != 'default') {
+        var rewriteConfigSrc = './_' + configName;
+        var rewriteConfig = require(rewriteConfigSrc);
+
+        for (var name in rewriteConfig) {
+            config[name] = rewriteConfig[name];
+        }
+    }
+    if (configName == 'develop') {
+        config.output.path = '/';
+    }
+    var opt = {
+        entry: page.entry,
+        output: Object.assign({}, config.output, { chunkFilename: key + '/js/[id].design.component.js' }),
+        devtool: config.devtool || 'inline-source-map',
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    use: ['babel-loader']
+                },
+                {
+                    test: /\.css$/,
+                    exclude: /node_modules/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: "style-loader",
+                        use: [{
+                            loader: 'css-loader',
+                            options: {
+                                url: true,
+                                root: path.resolve(rootPath, 'public')
+                            }
+                        }]
+                    })
+                },
+                {
+                    test: /favicon\.png$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].[hash].[ext]'
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 500,
+                                name: key + '/images/[hash:8].[name].[ext]'
+                            }
+                        }
+                    ]
+                },
+                ...expose
+            ]
+        },
+        resolve: {
+            alias: {
+                'views': path.resolve(__dirname, publicPath + 'views'),
+                'js': path.resolve(__dirname, publicPath + 'js'),
+                'icoms': path.resolve(__dirname, publicPath + 'icoms'),
+                'stackblur': path.resolve(__dirname, publicPath + 'js/lib/StackBlur.js'),
+                'rgbcolor': path.resolve(__dirname, publicPath + 'js/lib/rgbcolor.js'),
+                    'jquery': path.resolve(__dirname, publicPath + 'js/lib/jquery.js')
+            }
+        },
+        resolveLoader: {
+            alias: {
+                'text': 'raw-loader',
+                'css': 'style-loader'
+            },
+        },
+        plugins: [
+            // 因为这里会删除整个dist文件夹，使得dist权限被重置，导致打包失败，所以暂时不要清空内容
+            // new CleanWebpackPlugin(['dist'], {
+            //     // 设置根目录
+            //     root: __dirname.replace('build', 'public'),
+            //     verbose: true, // 开启在控制台输出信息
+            //     dry: false,     // 启用删除文件
+            //     exclude: [ 'lib.js','lib.min.js' ],
+            // }),
+
+            new webpack.BannerPlugin('bundled at ' + new Date().toLocaleString()),
+            new HtmlResourceWebpackPlugin({ publicPath: config.output.publicPath }),
+            new ExtractTextPlugin({
+                filename: (getPath) => {
+                    var filename = getPath(key + '/css/[name].css').replace('/' + key + '/js/', '/');
+                    return filename;
+                },
+                allChunks: true
+            }),
+            new webpack.HashedModuleIdsPlugin(),
+            // new webpack.HotModuleReplacementPlugin(),
+            new webpack.DefinePlugin({
+                DEBUG: Boolean(options.dev),
+                VERSION: '1.0.0',
+                'process.env.NODE_ENV': JSON.stringify('production')
+            }),
+            // ...config.plugins
+        ]
+    };
+    if (templates[key]) {
+        var filename = templates[key].filename;
+        filename = configName == 'develop' ? filename.substr(filename.indexOf('views')).replace(/\\/ig, '/') : filename;
+        console.log('key', filename)
+        opt.plugins.push(new HtmlWebpackPlugin({
+            inject: 'head',
+            minify: false,
+            hash: true,
+            template: templates[key].template,
+            filename: filename
+        }))
+    };
+    return opt;
+}
+
+
+const cheerio = require("cheerio");
+function HtmlResourceWebpackPlugin(options) {
+    this.publicPath = options.publicPath;
+}
+
+HtmlResourceWebpackPlugin.prototype.apply = function (compiler) {
+    // var publicPath = this.publicPath;
+    // if (publicPath === '/') {
+    //     publicPath = 'http://test-static.egpic.cn';
+    // }
+    compiler.plugin('compilation', function (compilation) {
+        compilation.plugin('html-webpack-plugin-before-html-processing', function (htmlPluginData, callback) {
+            var html = htmlPluginData.html,
+                index = html.indexOf('</head>'),
+                header = html.substr(0, index);
+
+            var $ = cheerio.load(html);
+            // $('[data-mark="webpackinsert"]').remove();
+
+            $('link[href^="' + publicPath + '"]').remove();
+            $('script[src^="' + publicPath + '"]').remove();
+
+
+            // $('link[href^="' + publicPath + '"]:not([data-mark])').attr('data-mark', 'webpackinsert');
+            // $('script[src^="' + publicPath + '"]:not([data-mark])').attr('data-mark', 'webpackinsert');
+
+            // var linkReg = new RegExp('<link\\s+.*\\s?(href=\"\/?' + publicPath + '.*\/css\/.*\").*>', 'ig');
+            // var scriptReg = new RegExp('<script\\s+.*\\s?(src=\"\/?' + publicPath + '.*\/js\/.*\").*><\/script>', 'ig');
+
+            var linkReg = /<link\s+.*\s?(href=\"?\/?(dist)?(http:\/\/)?(dist)?(test-)?(static\.egpic\.cn)?\/.*\/css\/.*\"?).*>/ig;
+            var scriptReg = /<script\s+.*\s?(src=\"?\/?(dist)?(http:\/\/)?(test-)?(static\.egpic\.cn)?\/.*\/js\/.*\"?).*><\/script>/ig;
+
+            header = header.replace(scriptReg, '');
+            header = header.replace(linkReg, '');
+            html = header + html.substr(index);
+
+            htmlPluginData.html = html;
+            callback(null, htmlPluginData);
+        });
+    });
+
+};
