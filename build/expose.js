@@ -24,41 +24,5 @@ module.exports = [
                 options: 'ejs'
             }
         ]
-    },
-    {
-        test: require.resolve('../public/js/lib/md5.min.js'),
-        use: [
-            {
-                loader: 'expose-loader',
-                options: 'md5'
-            }
-        ]
-    },
-    {
-        test: require.resolve('../public/js/lib/rgbcolor.js'),
-        use: [
-            {
-                loader: 'expose-loader',
-                options: 'RGBColor'
-            }
-        ]
-    },
-    {
-        test: require.resolve('../public/js/lib/canvg.min.js'),
-        use: [
-            {
-                loader: 'expose-loader',
-                options: 'canvg'
-            }
-        ]
-    },
-    {
-        test: require.resolve('../public/js/lib/fontfaceobserver.js'),
-        use: [
-            {
-                loader: 'expose-loader',
-                options: 'FontFaceObserver'
-            }
-        ]
     }
 ]

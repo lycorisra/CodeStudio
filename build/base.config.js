@@ -14,8 +14,8 @@ function resolve(dir) {
 }
 var templates = {
     tool: {
-        template: 'html-loader!views/tools/tryit1.ejs',
-        filename: path.resolve(__dirname, '../views/tools/tryit2.ejs')
+        template: 'html-loader!views/tools/tryit.ejs',
+        filename: path.resolve(__dirname, '../views/tools/tryit.ejs')
     }
 };
 
@@ -69,6 +69,10 @@ module.exports = (page, options = {}) => {
                 {
                     test: /\.vue$/,
                     loader: 'vue-loader'
+                },
+                {
+                    test: /\.json/,
+                    loader: 'json-loader'
                 },
                 {
                     test: /favicon\.png$/,
@@ -140,7 +144,7 @@ module.exports = (page, options = {}) => {
         filename = configName == 'develop' ? filename.substr(filename.indexOf('views')).replace(/\\/ig, '/') : filename;
         console.log('key', filename)
         opt.plugins.push(new HtmlWebpackPlugin({
-            inject: 'head',
+            inject: 'body', // bundle.js必须放在body后面，否则无法挂载Vue实例
             minify: false,
             hash: true,
             template: templates[key].template,

@@ -37,14 +37,6 @@ function _getFullHtml(name, str, style) {
 
 routes.initRoutes(app);
 
-app.get('/tryit', function (req, res) {
-    return res.render(tryit, {});
-});
-app.get('/document', function (req, res) {
-    var doc = require('./src/js/server/documents');
-    doc.readFile(req, res);
-});
-
 app.use(WebpackDevMiddleware(compiler, {
     publicPath: '/',
     stats: { colors: true }
@@ -59,17 +51,3 @@ server.on('error', function (error) {
 server.on('listening', function () {
     console.log('Listening on ' + port)
 });
-function rendView(url, req, res, next) {
-    http.get(url, function (response) {
-        var html = '';
-        response.on('data', function (data) {
-            html += data;
-        });
-        response.on('end', function (data) {
-            var body = ejs.compile(html, {
-                filename: path.join(__dirname, '../views/design3.ejs')
-            })({ });
-            res.status(200).send(body)
-        })
-    })
-}; 

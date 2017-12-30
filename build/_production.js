@@ -5,22 +5,15 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../public/dist'),
         filename:'[name].min.js',
-        publicPath: 'http://static.egpic.cn/'
+        publicPath: 'http://cdn.cn/'
     },
     plugins: [
         new HtmlWebpackPlugin({
             inject: 'head',
             minify: false,
             hash: true,
-            template: 'html-loader!views/design-v2.ejs',
-            filename: path.resolve(__dirname, '../views/design-v2.ejs')
+            template: 'html-loader!views/tryit.ejs',
+            filename: path.resolve(__dirname, '../views/tryit.ejs')
         })
-    ],
-    ali_oss:{
-        region:'oss-cn-beijing',
-        bucket:'yitustaticprod',
-        accessKeyId:'LTAI03NjybgNVELh',
-        accessKeySecret:'pMg61Fp5PFGFoViWArAdqmfxtgcQ2E',
-        host:'yitustaticprod.oss-cn-beijing.aliyuncs.com'
-    }
+    ]
 }

@@ -1,65 +1,15 @@
 <!DOCTYPE html>
-<html lang="ch">
-    <head>
-        <title>try it</title>
-        <meta charset="UTF-8">
-		<link type="text/css" href="/asset/font/iconfont.css" rel="stylesheet">
-        <link type="text/css" href="/asset/css/normalize.css" rel="stylesheet">
-        <link type="text/css" href="/asset/css/main.css" rel="stylesheet">
-        <link type="text/css" href="/asset/css/pure/base.css" rel="stylesheet">
-        <link type="text/css" href="/asset/css/pure/menus.css" rel="stylesheet">
-        <link type="text/css" href="/asset/css/pure/grids-responsive.css" rel="stylesheet">
-    </head>
-    <body ng-controller="documents">
-        <div class="wrapper">
-            <nav class="pure-menu pure-g">
-				<div class="document-header">
-					<span class="document-title">{{title}}</span>
-					<span class="document-title">{{title}}</span>
-				</div>
-                <div class="toolbar-header">
-					<form method="post" id="tryitform" action="/result" target="result">
-						<div class="toolbar">
-							<a href="#" class="iconfont" ng-click="preview()">&#xe600;</a>
-							<a href="#" class="iconfont">&#xe601;</a>
-						</div> 
-						<input style="display:none" type="text" name="code" ng-model="code" ng-init="code = ''" />     
-					</form>
-                    
-                </div>
-            </nav>
-            <div class="sidebar">
-                <div class="action-bar" ng-click="toggleSolution()">
-                    <a class="title-label">解决资源管理器</a>
-                </div>
-                <div class="explorer-viewlet" ng-class="{'show':showSolution}">
-                    <div>
-                        <h3 class="explorer-title">解决资源管理器</h3>
-                        <header class="explorer-bar">
-                            <i class="iconfont addfile" title="新建文件">&#xe612;</i>
-                            <i class="iconfont addfold" title="新建文件夹">&#xe610;</i>
-                            <i class="iconfont refresh" title="重新加载">&#xe611;</i>
-                        </header>
-						<div treecontrol class="tree-classic"
-						     tree-model="dataForTheTree"
-						     options="treeOptions"
-						     on-select="afterSelect(node)">{{node.name}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="code-view pure-g">
-                <div class="editor split-editor pure-u-1 pure-u-md-3-5">
-                    <div id="editor" ng-click="hideSolution()"></div>
-                </div>
-                <div class="preview split-preview pure-u-1 pure-u-md-2-5">
-                    <div id="preview">
-                        <iframe id="result" name="result" class="preview-content" src="/result"></iframe>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <span class="path">{{curPath}}</span>
-            </footer>
-        </div>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tryit</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
 </html>

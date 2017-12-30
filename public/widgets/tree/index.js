@@ -1,15 +1,12 @@
-import Select from './src/select';
-import Option from './src/option';
+import vueZtree from './src/vue-ztree';
 
 /* istanbul ignore next */
 export default function (Vue) {
-	Vue.component(Select.name, Select);
-	Vue.component(Option.name, Option);
+	Vue.component(vueZtree.name, vueZtree);
 };
 
 const components = {
-	ElSelect: Select,
-	ElOption: Option
+	vueZtree: vueZtree
 }
 const install = function (Vue, option) {
 	Object.keys(components).forEach((key) => {
@@ -22,5 +19,4 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 module.exports = Object.assign(components, { install });   // eslint-disable-line no-undef
-
 

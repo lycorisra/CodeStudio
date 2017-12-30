@@ -1,27 +1,16 @@
 var path = require('path');
+var http = require('http');
+var ejs = require('ejs');
+
+var host = 'http://localhost:' + 3005;
 
 var routes = {
-    index: function (req, res) {
-        return res.render('tools/tryit2', {});
-    },
-    // Show the home page
-    dillinger: function (req, res) {
-        var view = './dillinger/index',
-            config = {
-                isDropboxAuth: false,
-                isGithubAuth: false,
-                isEvernoteAuth: false,
-                isGoogleDriveAuth: false,
-                isOneDriveAuth: false,
-                isDropboxConfigured: false,
-                isGithubConfigured: false,
-                isGoogleDriveConfigured: false,
-                isOneDriveConfigured: false
-            };
-        return res.render(view, config);
+    index: function (req, res, next) {
+        var url = host + '/views/tools/tryit.ejs';
+        rendView(url, req, res, next);
     },
     tryit: function (req, res) {
-        return res.render('tools/tryit', {});
+        return res.render('tryit', {});
     },
     document: function (req, res) {
 
@@ -51,3 +40,18 @@ exports.initRoutes = function (app) {
     app.get('/result', routes.result_get);
     app.post('/result', routes.result_post);
 }
+
+function rendView(url, req, res, next) {
+    http.get(url, function (response) {
+        var html = '';
+        response.on('data', function (data) {
+            html += data;
+        });
+        response.on('end', function (data) {
+            var body = ejs.compile(html, {
+                filename: path.join(__dirname, '../views/tools/tryit.ejs')
+            })({});
+            res.status(200).send(body)
+        })
+    })
+}; 
