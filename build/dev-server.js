@@ -9,6 +9,12 @@ var WebpackHotMiddleware = require('webpack-hot-middleware')
 var webpackConfig = require('../webpack.config')
 var routes = require('../routes');
 
+var directory = 'F:/webfrontend/CodeStudio';
+var solution = require('../server/solution')
+solution.readProject(directory);
+var tree= solution.tree();
+return false;
+
 var configs = webpackConfig();
 
 var compiler = webpack(configs);

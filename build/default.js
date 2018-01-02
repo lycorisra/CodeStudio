@@ -21,22 +21,6 @@ module.exports = {
             chunks: ['index', 'common'],
             template: 'html-loader!views/home.ejs',
             filename: path.resolve(__dirname, '../views/_home.ejs')
-        }),
-        new HtmlWebpackPlugin({
-            inject: 'head',
-            minify: false,
-            hash: true,
-            chunks: ['template2', 'common'],
-            template: 'html-loader!views/templates2.ejs',
-            filename: path.resolve(__dirname, '../views/_templates2.ejs')
-        }),
-        new HtmlWebpackPlugin({
-            inject: 'head',
-            minify: false,
-            hash: true,
-            chunks: ['design2', 'common'],
-            template: 'html-loader!views/design-v2.ejs',
-            filename: path.resolve(__dirname, '../views/_design-v2.ejs')
         })
     ]
 };

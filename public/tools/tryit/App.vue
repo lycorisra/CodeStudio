@@ -13,8 +13,8 @@ import department from "../../asset/data/department.json";
 export default {
   name: "app",
   data() {
-    var data = CodeStudio.pathtree.children;
-    var data = department;
+    var data = CodeStudio;
+    // var data = department;
     return {
       nodes: data
     };
