@@ -2,7 +2,7 @@ var path = require('path');
 var http = require('http');
 var ejs = require('ejs');
 
-var host = 'http://localhost:' + 3005;
+var host = 'http://localhost:' + 3006;
 
 var routes = {
     index: function (req, res, next) {

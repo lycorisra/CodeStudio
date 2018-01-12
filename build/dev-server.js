@@ -9,17 +9,21 @@ var WebpackHotMiddleware = require('webpack-hot-middleware')
 var webpackConfig = require('../webpack.config')
 var routes = require('../routes');
 
-var directory = 'F:/webfrontend/CodeStudio';
+var directory = 'F://webfrontend//CodeStudio';
 var solution = require('../server/solution')
-solution.readProject(directory);
-var tree= solution.tree();
+// solution.read(directory).then(tree => {
+
+//     console.log(tree);
+// });
+solution.read(directory);
+// var tree = solution.tree();
 return false;
 
 var configs = webpackConfig();
 
 var compiler = webpack(configs);
 
-var port = 3005;
+var port = 3006;
 
 var bodyParser = require('body-parser');
 

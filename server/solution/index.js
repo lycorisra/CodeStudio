@@ -3,8 +3,100 @@ var path = require('path');
 
 var files = [];
 var tree = {};
-var directory = 'F:\webfrontend\CodeStudio';
+var _directory = 'F:\webfrontend\CodeStudio';
 
+/**
+ * 获取目录stat信息
+ * @param {*} dir 
+ */
+function stat(dir) {
+    return new Promise((resolve, reject) => {
+        fs.stat(dir, (err, stat) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(stat);
+        });
+    });
+}
+/**
+ * 读取文件内容
+ * @param {*} file 
+ */
+function readfile(file) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, 'utf8', (error, data) => {
+            error && reject(error);
+
+            resolve(data);
+        })
+    })
+};
+/**
+ * 读取目录结构
+ * @param {*} dir 
+ */
+function readdir(dir) {
+    return new Promise((resolve, reject) => {
+        fs.readdir(dir, (err, files) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(files);
+        });
+    });
+}
+/**
+ * 列出目录结构
+ * @param {*} dir 
+ */
+function lsdir(dir, parent, level) {
+    return stat(dir).then(stat => {
+        var node = readdirinfo(dir, level, _directory);
+        parent.children.push(node);
+
+        if (stat.isDirectory()) {
+            return readdir(dir).then(list => {
+                Promise.all(list.map(item => {
+                    lsdir(path.resolve(dir, item), node, parent.level + 1);
+                }))
+            }).then(subtree => [].concat(...subtree));
+        }
+        else {
+            return new Promise((resolve, reject) => {
+                node.icon = dir.split('.')[1];
+                resolve(node);
+            })
+        }
+    });
+}
+function readdirinfo(dir, parent, level, absolute_path) {
+    dir = dir.replace(/\\/g, '/');
+    var filename = dir.replace(absolute_path, '');
+
+    var node = createnode(dir, level, absolute_path);
+
+    return node;
+}
+function createnode(path, level, absolute_path) {
+    path = path.replace(/\\/g, '/');
+    var filename = path.replace(absolute_path, '');
+    var node = {
+        title: filename,
+        level: level,
+        path: path,
+        icon: 'directory',
+
+        expand: false,
+        disabled: false,
+        disableCheckbox: true,
+        selected: false,
+
+        children: []
+    }
+
+    return node;
+}
 function readFilesSync(directory, node, level) {
     var _files = fs.readdirSync(directory);
 
@@ -18,12 +110,18 @@ function readFilesSync(directory, node, level) {
             level: level,
             path: fullfile.replace(directory, ''),
             icon: items[1] || 'directory',
+
+            expand: false,
+            disabled: false,
+            disableCheckbox: true,
+            selected: false,
+
             children: []
         }
         node.children.push(item);
 
         if (stat.isFile()) {
-            files.push(fullfile.replace(/\\/g, '/')); // 路径格式转化为“xxx/xxx”，否则上传到阿里云后不识别
+            files.push(fullfile.replace(/\\/g, '/'));
         }
         else if (stat.isDirectory()) {
             readFilesSync(path.join(directory, filename), item, level + 1);
@@ -31,20 +129,31 @@ function readFilesSync(directory, node, level) {
     });
 };
 
+module.exports = {
+    read: function (dir) {
+        var node = createnode(dir, 1, _directory);
 
-module.exports.readProject = (directory) => {
-    var level = 1;
-    var root = {
-        title: 'root',
-        level: level,
-        path: '/',
-        icon: 'directory',
-        children: []
-    };
-    readFilesSync(directory, root, level);
+        lsdir(dir, node).then(tree => {
 
-    tree = root;
+            console.log(tree);
+        });
+        // return new Promise((resolve, reject) => {
+        //     lsdir(dir, node);
+
+        //     resolve(node);
+        // });
+
+    },
+    save: (file, content) => {
+        return new Promise((resolve, reject) => {
+            fs.writeFile(file, content, (error) => {
+                error && reject(error);
+
+                resolve(file);
+            })
+        })
+    }
 }
-module.exports.tree = () => {
-    return tree;
-}
+// module.exports.tree = () => {
+//     return tree;
+// }
