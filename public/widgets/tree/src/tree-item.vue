@@ -33,8 +33,9 @@ export default {
     },
     nodeClick(node) {
       var isLeaf = (node.children && node.children.length === 0) || !node.children;
-      if (!isLeaf) 
-      node.expand = !node.expand;
+      if (!isLeaf){
+    	node.expand = !node.expand;
+      }
       node.selected = !node.selected;
     }
   },

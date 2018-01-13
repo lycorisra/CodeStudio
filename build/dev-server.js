@@ -12,8 +12,9 @@ var routes = require('../routes');
 var directory = 'F:/webfrontend/CodeStudio';
 var solution = require('../server/solution')
 solution.readProject(directory);
-var tree= solution.tree();
+var tree = solution.writeFile('solution.json');
 return false;
+
 
 var configs = webpackConfig();
 

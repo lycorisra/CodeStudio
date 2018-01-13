@@ -6,6 +6,7 @@ var tree = {};
 var directory = 'F:\webfrontend\CodeStudio';
 
 function readFilesSync(directory, node, level) {
+    directory = directory.replace(/\\/g, '/');
     var _files = fs.readdirSync(directory);
 
     _files.forEach(function (filename, a, b) {
@@ -16,6 +17,7 @@ function readFilesSync(directory, node, level) {
         var item = {
             title: filename,
             level: level,
+            expand: false,
             path: fullfile.replace(directory, ''),
             icon: items[1] || 'directory',
             children: []
@@ -47,4 +49,13 @@ module.exports.readProject = (directory) => {
 }
 module.exports.tree = () => {
     return tree;
+}
+module.exports.writeFile = (filename) => {
+    var json = JSON.stringify(tree);
+    fs.writeFile(filename, json, (error) => {
+        if (error) {
+            throw error;
+        }
+        console.log('写入文件成功')
+    })
 }
