@@ -1,41 +1,20 @@
 <style>
-* {
-  padding: 0;
-  margin: 0;
-}
-body {
-  user-select: none;
-  font-family: Verdana, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #555;
-}
-ul,
-ol,
-li {
-  list-style: none;
-  line-height: 22px;
-  text-align: left;
-  cursor: pointer;
-}
 .vtree {
   width: 300px;
-  border: 1px solid #ddd;
   margin: auto;
 }
 .vtree .nodeitem {
-  /* text-overflow: ellipsis; */
   word-wrap: break-word;
-  /* word-break: break-all; */
   white-space: nowrap;
-  /* width: 200px; */
   overflow: hidden;
 }
 .nodes li .nodeitem:hover {
-  background-color: #ddd;
+  background-color: #3F3F46;
 }
 .nodeitem.node-selected {
+  color: #fff;
   font-weight: bold;
-  background-color: #fbe4c8;
+  background-color: #007ACC;
 }
 .level1 {
   text-indent: 0.5rem;
@@ -61,77 +40,88 @@ li {
 </style>
 
 <template>
-	<!--（ztree－🌲）-->
 	<div class="vtree" v-cloak>
 		<div class="treename"></div>
 		<ul class="nodes">
-            <li>s</li>
 			<ztree-item v-for="node in nodes" :node.sync="node" :trees.sync='nodes' :key="node.name"></ztree-item>
 		</ul>
 	</div>
 </template>
 
 <script>
-import ztreeItem from "./tree-item.vue";
-export default {
-  props: {
-    // 树数据
-    nodes: {
-      type: Array,
-      twoWay: true
-    },
-    // 是否展开
-    isOpen: {
-      type: Boolean,
-      twoWay: true,
-      default: false
-    }
-  },
-  watch: {
-    nodes: {
-      handler: function() {},
-      deep: true
-    }
-  },
-  methods: {},
-  components: {
-    ztreeItem: ztreeItem,
-    // 组件
-    ztreeItem1: {
-      name: "ztreeItem",
-      props: {
-        node: {
-          twoWay: true
+    import Emittter from '../../../utils/emitter';
+    import ztreeItem from "./tree-item.vue";
+    export default {
+		name: 'Tree',
+		componentName: 'Tree',
+        mixins: [Emittter],
+        props: {
+            // 树数据
+            nodes: {
+                type: Array,
+                twoWay: true
+            },
+            // 是否展开
+            isOpen: {
+                type: Boolean,
+                twoWay: true,
+                default: false
+            }
         },
-        trees: {
-          type: Array,
-          twoWay: true,
-          default: []
-        }
-      },
-      methods: {
-        open(m) {
-          m.isFolder = !m.isFolder;
+        watch: {
+            nodes: {
+                handler: function() {},
+                deep: true
+            }
         },
-        nodeClick(node) {
-          var isLeaf =
-            (node.children && node.children.length === 0) || !node.children;
-          if (!isLeaf) node.expand = !node.expand;
-          node.selected = !node.selected;
-          // this.$set(node, 'toggle', !isLeaf && expand);
+		methods: {
+			selectNode(node) {
+				console.log(node);
+			}
+		},
+		created() {
+            this.$on('selectNode', this.selectNode);
+		},
+        components: {
+            ztreeItem: ztreeItem,
+            // 组件
+            ztreeItem1: {
+				name: "ztreeItem",
+				props: {
+					node: {
+					twoWay: true
+					},
+					trees: {
+					type: Array,
+					twoWay: true,
+					default: []
+					}
+				},
+				methods: {
+					open(m) {
+						m.isFolder = !m.isFolder;
+					},
+					nodeClick(node) {
+						console.log('aaa');
+						var isLeaf = (node.children && node.children.length === 0) || !node.children;
+						(!isLeaf) && (node.expand = !node.expand);
+						node.selected = !node.selected;
+						
+						this.dispatch('treeNode', 'selectNode', this);
+						// this.$set(node, 'toggle', !isLeaf && expand);
+					}
+				},
+				computed: {},
+				template: `<li :class="['level' + node.level]">
+							<div class="nodeitem" :class="{'node-selected':node.selected}" @click="nodeClick(node)">
+								<i :class="['iconfont', node.icon]"></i>
+								<span>{{ node.title }}</span>
+							</div>
+							<ul v-if='node.expand'>
+								<ztree-item v-for="node in node.children" :node.sync="node" :trees.sync='trees'></ztree-item>
+							</ul>
+						</li>`
+				}
         }
-      },
-      computed: {},
-      template: `<li :class="['level' + node.level]">
-				<div class="nodeitem" :class="{'node-selected':node.selected}" @click="nodeClick(node)">
-					<i :class="['iconfont', node.icon]"></i>
-					<span>{{ node.title }}</span>
-				</div>
-				<ul v-if='node.expand'>
-					<ztree-item v-for="node in node.children" :node.sync="node" :trees.sync='trees'></ztree-item>
-				</ul>
-            </li>`
-    }
-  }
-};
+    };
 </script>

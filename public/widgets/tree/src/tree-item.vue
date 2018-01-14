@@ -1,5 +1,4 @@
 <template>
-<!-- <li class="aaa" @click="nodeClick(null)">ss</li> -->
   <li :class="['level' + node.level]">
     <div class="nodeitem" :class="{'node-selected':node.selected}" @click="nodeClick(node)">
         <i :class="['iconfont', node.icon]"></i>
@@ -12,33 +11,37 @@
 </template>
 
 <script>
-export default {
-  name: "ztreeItem",
-  props: {
-    node: {
-      twoWay: true
-    },
-    trees: {
-      type: Array,
-      twoWay: true,
-      default: []
-    }
-  },
-  mounted() {
-    var node = this.node;
-  },
-  methods: {
-    open(m) {
-      m.isFolder = !m.isFolder;
-    },
-    nodeClick(node) {
-      var isLeaf = (node.children && node.children.length === 0) || !node.children;
-      if (!isLeaf){
-    	node.expand = !node.expand;
-      }
-      node.selected = !node.selected;
-    }
-  },
-  computed: {}
-};
+    import Emittter from '../../../utils/emitter';
+	export default {
+		name: "ztreeItem",
+		mixins: [Emittter],
+		customOption: 'hello',
+		props: {
+			node: {
+				twoWay: true
+			},
+			trees: {
+				type: Array,
+				twoWay: true,
+				default: []
+			}
+		},
+		mounted() {
+			var node = this.node;
+		},
+		methods: {
+			open(m) {
+				m.isFolder = !m.isFolder;
+			},
+			nodeClick(node) {
+				var isLeaf = (node.children && node.children.length === 0) || !node.children;
+				(!isLeaf) && (node.expand = !node.expand);
+				node.selected = !node.selected;
+				
+				this.dispatch('Tree', 'selectNode', this);
+				// this.$set(node, 'toggle', !isLeaf && expand);
+			}
+		},
+		computed: {}
+	};
 </script>

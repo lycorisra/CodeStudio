@@ -1,4 +1,3 @@
-
 var path = require('path')
 var http = require('http');
 var ejs = require('ejs');
@@ -9,18 +8,19 @@ var WebpackHotMiddleware = require('webpack-hot-middleware')
 var webpackConfig = require('../webpack.config')
 var routes = require('../routes');
 
-var directory = 'F:/webfrontend/CodeStudio';
+var directory = 'F://webfrontend//CodeStudio';
+
 var solution = require('../server/solution')
-solution.readProject(directory);
-var tree = solution.writeFile('solution.json');
-return false;
+
+// solution.save(directory);
+// return false;
 
 
 var configs = webpackConfig();
 
 var compiler = webpack(configs);
 
-var port = 3005;
+var port = 3006;
 
 var bodyParser = require('body-parser');
 

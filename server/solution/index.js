@@ -1,61 +1,74 @@
 var fs = require('fs');
 var path = require('path');
+var utils = require('../utils.js');
+var { stats, readdir, readfile, writefile, getfilename } = utils;
+// import { stats, readdir, readfile, writefile } from '../utils.js';
 
-var files = [];
-var tree = {};
-var directory = 'F:\webfrontend\CodeStudio';
-
-function readFilesSync(directory, node, level) {
-    directory = directory.replace(/\\/g, '/');
-    var _files = fs.readdirSync(directory);
-
-    _files.forEach(function (filename, a, b) {
-        var fullfile = path.join(directory, filename).replace(/\\/g, '/');
-        var items = fullfile.split('.');
-        var stat = fs.statSync(fullfile);
-
-        var item = {
-            title: filename,
-            level: level,
-            expand: false,
-            path: fullfile.replace(directory, ''),
-            icon: items[1] || 'directory',
-            children: []
+var _directory = 'F:/webfrontend/CodeStudio';
+/**
+ * 列出目录结构
+ * @param {*} dir 
+ */
+function lsdir(dir, parent) {
+    return stats(dir).then(stat => {
+        if (dir.indexOf('README.md') > -1) {
+            console.log(stat);
         }
-        node.children.push(item);
 
-        if (stat.isFile()) {
-            files.push(fullfile.replace(/\\/g, '/')); // 路径格式转化为“xxx/xxx”，否则上传到阿里云后不识别
+        if (stat.isDirectory()) {
+            return readdir(dir).then(list => {
+                list = list.filter((item, index) => {
+                    return item !== 'node_modules' && item !== '.git';
+                })
+                return Promise.all(list.map(item => {
+                    var _dir = path.resolve(dir, item);
+                    var node = createnode(_dir, parent.level + 1, _directory);
+                    return lsdir(_dir, node, parent.level + 1);
+                }))
+            }).then(children => {
+                var array = children ? [].concat(...children) : [];
+                parent.children = children;
+                return parent;
+                // return Promise.resolve(parent);
+            });
         }
-        else if (stat.isDirectory()) {
-            readFilesSync(path.join(directory, filename), item, level + 1);
+        else {
+            var index = dir.lastIndexOf('.');
+            parent.icon = dir.substr(index + 1);
+            return parent;
         }
-    });
-};
-
-
-module.exports.readProject = (directory) => {
-    var level = 1;
-    var root = {
-        title: 'root',
-        level: level,
-        path: '/',
-        icon: 'directory',
-        children: []
-    };
-    readFilesSync(directory, root, level);
-
-    tree = root;
-}
-module.exports.tree = () => {
-    return tree;
-}
-module.exports.writeFile = (filename) => {
-    var json = JSON.stringify(tree);
-    fs.writeFile(filename, json, (error) => {
-        if (error) {
-            throw error;
-        }
-        console.log('写入文件成功')
     })
+}
+function createnode(path, level, absolute_path) {
+    path = path.replace(/\\/g, '/').replace(/\/\//g, '/');
+    var node = {
+        title: getfilename(path),
+        level: level,
+        path: path.replace(absolute_path, ''),
+        icon: 'directory',
+
+        expand: false,
+        disabled: false,
+        disableCheckbox: true,
+        selected: false,
+
+        children: []
+    }
+
+    return node;
+}
+
+module.exports = {
+    read: function (dir) {
+
+
+    },
+    save: (dir) => {
+        var node = createnode(dir, 1, _directory);
+
+        lsdir(dir, node).then(tree => {
+            var _path = path.resolve(__dirname, '../../public/data');
+            writefile(path.join(_path, 'CodeStudio.json'), JSON.stringify(tree));
+        });
+    }
 }
