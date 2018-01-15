@@ -9,12 +9,12 @@
   overflow: hidden;
 }
 .nodes li .nodeitem:hover {
-  background-color: #3F3F46;
+  background-color: #3f3f46;
 }
 .nodeitem.node-selected {
   color: #fff;
   font-weight: bold;
-  background-color: #007ACC;
+  background-color: #007acc;
 }
 .level1 {
   text-indent: 0.5rem;
@@ -49,79 +49,57 @@
 </template>
 
 <script>
-    import Emittter from '../../../utils/emitter';
-    import ztreeItem from "./tree-item.vue";
-    export default {
-		name: 'Tree',
-		componentName: 'Tree',
-        mixins: [Emittter],
-        props: {
-            // 树数据
-            nodes: {
-                type: Array,
-                twoWay: true
-            },
-            // 是否展开
-            isOpen: {
-                type: Boolean,
-                twoWay: true,
-                default: false
-            }
-        },
-        watch: {
-            nodes: {
-                handler: function() {},
-                deep: true
-            }
-        },
-		methods: {
-			selectNode(node) {
-				console.log(node);
-			}
-		},
-		created() {
-            this.$on('selectNode', this.selectNode);
-		},
-        components: {
-            ztreeItem: ztreeItem,
-            // 组件
-            ztreeItem1: {
-				name: "ztreeItem",
-				props: {
-					node: {
-					twoWay: true
-					},
-					trees: {
-					type: Array,
-					twoWay: true,
-					default: []
-					}
-				},
-				methods: {
-					open(m) {
-						m.isFolder = !m.isFolder;
-					},
-					nodeClick(node) {
-						console.log('aaa');
-						var isLeaf = (node.children && node.children.length === 0) || !node.children;
-						(!isLeaf) && (node.expand = !node.expand);
-						node.selected = !node.selected;
-						
-						this.dispatch('treeNode', 'selectNode', this);
-						// this.$set(node, 'toggle', !isLeaf && expand);
-					}
-				},
-				computed: {},
-				template: `<li :class="['level' + node.level]">
-							<div class="nodeitem" :class="{'node-selected':node.selected}" @click="nodeClick(node)">
-								<i :class="['iconfont', node.icon]"></i>
-								<span>{{ node.title }}</span>
-							</div>
-							<ul v-if='node.expand'>
-								<ztree-item v-for="node in node.children" :node.sync="node" :trees.sync='trees'></ztree-item>
-							</ul>
-						</li>`
-				}
-        }
+import Emittter from "../../../utils/emitter";
+import ztreeItem from "./tree-item.vue";
+export default {
+  name: "Tree",
+  componentName: "Tree",
+  mixins: [Emittter],
+  props: {
+    // 树数据
+    nodes: {
+      type: Array,
+      twoWay: true
+    },
+    // 是否展开
+    isOpen: {
+      type: Boolean,
+      twoWay: true,
+      default: false
+    }
+  },
+  data() {
+    return {
+      selectedNodes: []
     };
+  },
+  watch: {
+    nodes: {
+      handler: function() {},
+      deep: true
+    }
+  },
+  methods: {
+    selectNode(selectedNode) {
+      var exists = false;
+      for (var i = 0, node; (node = this.selectedNodes[i]); i++) {
+        if (node.path === selectedNode.path) {
+          exists = true;
+          node.selected = true;
+        } else {
+          node.selected = false;
+        }
+      }
+      if (!exists) {
+        this.selectedNodes.push(selectedNode);
+      }
+    }
+  },
+  created() {
+    this.$on("selectNode", this.selectNode);
+  },
+  components: {
+    ztreeItem: ztreeItem
+  }
+};
 </script>

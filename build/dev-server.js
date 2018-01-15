@@ -12,8 +12,8 @@ var directory = 'F://webfrontend//CodeStudio';
 
 var solution = require('../server/solution')
 
-// solution.save(directory);
-// return false;
+solution.save(directory);
+return false;
 
 
 var configs = webpackConfig();

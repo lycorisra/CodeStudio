@@ -27,6 +27,13 @@ function lsdir(dir, parent) {
                 }))
             }).then(children => {
                 var array = children ? [].concat(...children) : [];
+                // 对children进行排序，目录在前面，文件在后面
+                children.sort((a, b) => {
+                    var order_a = (a.icon === 'directory' ? '_' : '') + a.title,
+                        order_b = (b.icon === 'directory' ? '_' : '') + b.title;
+
+                    return order_a.localeCompare(order_b);
+                })
                 parent.children = children;
                 return parent;
                 // return Promise.resolve(parent);

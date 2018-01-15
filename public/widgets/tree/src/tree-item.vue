@@ -1,7 +1,7 @@
 <template>
   <li :class="['level' + node.level]">
     <div class="nodeitem" :class="{'node-selected':node.selected}" @click="nodeClick(node)">
-        <i :class="['iconfont', node.icon]"></i>
+        <i :class="['iconfont', 'icon-' + node.icon]"></i>
         <span>{{ node.title || node.name }}</span>
     </div>
     <ul v-if='node.expand'>
@@ -38,7 +38,7 @@
 				(!isLeaf) && (node.expand = !node.expand);
 				node.selected = !node.selected;
 				
-				this.dispatch('Tree', 'selectNode', this);
+				this.dispatch('Tree', 'selectNode', node);
 				// this.$set(node, 'toggle', !isLeaf && expand);
 			}
 		},
