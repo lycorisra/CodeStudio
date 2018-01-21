@@ -16,17 +16,17 @@
             </div>
         </nav>
         <div class="sidebar">
-            <div class="action-bar" @click="toggleSolution()">
-                <a class="title-label iconfont icon-wenjianjia"></a>
+            <div class="action-bar">
+                <a class="title-label iconfont icon-wenjianjia" @click="toggleSolution()"></a>
             </div>
-            <div class="explorer-viewlet">
+            <div class="explorer-viewlet" v-show="toggle">
                 <h3 class="title">解决资源管理器</h3>
                 <!-- <header class="explorer-bar">
                     <i class="addfile" title="新建文件">新建文件</i>
                     <i class="iconfont addfold" title="新建文件夹">新建文件夹</i>
                     <i class="iconfont refresh" title="重新加载">重新加载</i>
                 </header> -->
-                <Tree :datasource.sync="nodes" class="explorer"/>
+                <Tree class="explorer" :datasource.sync="nodes" :onNodeSelected="onNodeSelected"/>
             </div>
         </div>
         <div class="code-view workbench">
@@ -48,76 +48,112 @@
 <script>
 import Tree from "../../widgets/tree/app.vue";
 import CodeStudio from "../../data/CodeStudio.json";
+import { init, setValue } from "../../editor";
+import { get, post } from "../../utils/httpHelper.js";
 
 export default {
   name: "app",
   data() {
     return {
-      nodes: [CodeStudio]
+      nodes: [CodeStudio],
+      toggle: false
     };
   },
   components: { Tree },
   mounted: function() {
-    console.log(this.nodes);
+    init();
+  },
+  methods: {
+    toggleSolution: function() {
+      this.toggle = !this.toggle;
+    },
+    onNodeSelected: node => {
+      if (node.icon === 'directory') {
+        return false;
+      }
+      var data = {
+        title: node.title,
+        path: node.path
+      };
+      get("/document", data).then(data => {
+        setValue(data, node.icon);
+      });
+    }
   }
 };
 </script>
 
 <style>
-.header {
-    height: 40px;
-    line-height: 40px;
-    margin-left: 50px;
-    background-color: #252526;
+.ace_gutter-cell {
+    line-height: 20px;
+    padding: 0!important;
+    text-align: center;
+    background-repeat: no-repeat;
 }
-.sidebar  {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 50px;
-    padding: 20px 0;
-    background-color: #333;
+div#app {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.header {
+  position: absolute;
+  left: 50px;
+  right: 0;
+  height: 40px;
+  line-height: 40px;
+  background-color: #252526;
+}
+.sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: auto;
+  /* margin-top: 40px; */
+  background-color: #333;
+}
+.sidebar .action-bar {
+  width: 50px;
+  padding-top: 15px;
+  text-align: center;
 }
 .sidebar .action-bar .title-label {
-    color: #ADADAD;
-    font-size: 20px;
+  color: #adadad;
+  font-size: 20px;
 }
 .sidebar .action-bar .title-label:hover {
-    color: #fff;
+  color: #fff;
 }
 .sidebar .explorer-viewlet {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-start;
-    position: absolute;
-    left: 50px;
-    top: 0;
-    bottom: 0;
-    width: 300px;
-    /* cursor: ew-resize; */
-    background-color: #252526;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 300px;
+  margin-top: 40px;
+  /* cursor: ew-resize; */
+  background-color: #252526;
 }
 .sidebar .explorer-viewlet .title {
-    height: 40px;
-    line-height: 40px;
-    color: #fff;
-    font-size: 13px;
-    letter-spacing: 1px;
-    padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding-left: 10px;
+  background-color: #383838;
 }
 .sidebar .explorer-viewlet .explorer {
-    overflow: auto;
-    flex-grow: 1;
-    color: #adadad;
+    height: 100%;
+  overflow: auto;
+  flex-grow: 1;
+  color: #adadad;
 }
 .workbench {
-    margin: 40px 10px 30px 50px;
-    padding: 20px 30px;
-    background-color:#fff;
+  overflow: auto;
+  flex-grow: 1;
+  margin-top: 40px;
+  background-color: #fff;
 }
 </style>

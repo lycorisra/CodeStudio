@@ -3,7 +3,7 @@
     "level": 1,
     "path": "",
     "icon": "directory",
-    "expand": false,
+    "expand": true,
     "disabled": false,
     "disableCheckbox": true,
     "selected": false,

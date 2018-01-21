@@ -43,7 +43,7 @@
 	<div class="vtree" v-cloak>
 		<div class="treename"></div>
 		<ul class="nodes">
-			<ztree-item v-for="node in nodes" :node.sync="node" :trees.sync='nodes' :key="node.name"></ztree-item>
+			<ztree-item v-for="node in nodes" :node.sync="node" :trees.sync='nodes' :key="node.name" :onNodeSelected="onNodeSelected"></ztree-item>
 		</ul>
 	</div>
 </template>
@@ -66,7 +66,8 @@ export default {
       type: Boolean,
       twoWay: true,
       default: false
-    }
+    },
+    onNodeSelected: null
   },
   data() {
     return {

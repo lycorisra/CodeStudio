@@ -8,12 +8,10 @@ var WebpackHotMiddleware = require('webpack-hot-middleware')
 var webpackConfig = require('../webpack.config')
 var routes = require('../routes');
 
-var directory = 'F://webfrontend//CodeStudio';
-
-var solution = require('../server/solution')
-
-solution.save(directory);
-return false;
+// var directory = 'F://webfrontend//CodeStudio';
+// var solution = require('../server/solution')
+// solution.save(directory);
+// return false;
 
 
 var configs = webpackConfig();

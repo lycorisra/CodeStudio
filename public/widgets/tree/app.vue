@@ -1,5 +1,5 @@
 <template>
-	<vue-ztree :nodes.sync='datasource' :is-open='true'></vue-ztree>
+	<vue-ztree :nodes.sync='datasource' :is-open='true' :onNodeSelected="onNodeSelected"></vue-ztree>
 </template>
 
 <script>
@@ -15,15 +15,16 @@
         },
         data() {
             return {
-            ztreeDataSource: null
+                ztreeDataSource: null
             };
         },
         props: {
             datasource: {
-            type: Array,
-            twoWay: true,
-            default: []
-            }
+                type: Array,
+                twoWay: true,
+                default: []
+            },
+            onNodeSelected: null
         },
         methods: {
             

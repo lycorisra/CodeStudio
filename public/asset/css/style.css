@@ -13,7 +13,7 @@
   
   /*滚动条宽度*/
   ::-webkit-scrollbar {
-      width: 15px;
+      width: 10px;
   }
   
   /* 轨道样式 */
@@ -21,8 +21,8 @@
   
   /* Handle样式 */
   ::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.2);
+      /* border-radius: 10px; */
+      background: rgba(0, 0, 0, 0.5);
   }
   
   /*当前窗口未激活的情况下*/
@@ -32,7 +32,7 @@
   
   /*hover到滚动条上*/
   ::-webkit-scrollbar-thumb:vertical:hover {
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.6);
   }
   
   /*滚动条按下*/

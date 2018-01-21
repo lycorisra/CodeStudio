@@ -2,6 +2,9 @@ var path = require('path');
 var http = require('http');
 var ejs = require('ejs');
 
+var config = require('../configs/default.js');
+var { readdoc, savedoc } = require('../server/document');
+
 var host = 'http://localhost:' + 3006;
 
 var routes = {
@@ -13,7 +16,13 @@ var routes = {
         return res.render('tryit', {});
     },
     document: function (req, res) {
+        var _path = req.query.path,
+            file = path.join(config.basePath, _path);
 
+        readdoc(file).then(data => {
+            res.write(data);
+            res.end();
+        });
     },
     result_get: function (req, res) {
         res.write('');

@@ -7,6 +7,7 @@
         "doc": "docs"
     },
     "dependencies": {
+        "ace": "^1.3.0",
         "body-parser": "^1.18.2",
         "ejs": "^2.5.7",
         "express": "^4.16.2",
