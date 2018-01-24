@@ -1,10 +1,9 @@
 var fs = require('fs');
 var path = require('path');
-var utils = require('../utils.js');
-var { stats, readdir, readfile, writefile, getfilename } = utils;
-// import { stats, readdir, readfile, writefile } from '../utils.js';
+var config = require('../../configs/default.js');
+var { stats, readdir, readfile, writefile, getfilename } = require('../utils.js');
 
-var _directory = 'F:/webfrontend/CodeStudio';
+var _directory = config.basePath;
 /**
  * 列出目录结构
  * @param {*} dir 

@@ -42,11 +42,13 @@
         <footer>
             <span class="path">{{curPath}}</span>
         </footer>
+        <Tooltip :msg="toolTitle" v-if="tooltip"/>
 	</div>
 </template>
 
 <script>
-import Tree from "../../widgets/tree/app.vue";
+import Tree from "../../widgets/tree/App.vue";
+import Tooltip from "../../widgets/tooltip/App.vue";
 import CodeStudio from "../../data/CodeStudio.json";
 import { init, setValue } from "../../editor";
 import { get, post } from "../../utils/httpHelper.js";
@@ -56,10 +58,12 @@ export default {
   data() {
     return {
       nodes: [CodeStudio],
-      toggle: false
+      toggle: false,
+      tooltip: false,
+      toolTitle: ""
     };
   },
-  components: { Tree },
+  components: { Tree, Tooltip },
   mounted: function() {
     init();
   },
@@ -67,16 +71,23 @@ export default {
     toggleSolution: function() {
       this.toggle = !this.toggle;
     },
-    onNodeSelected: node => {
-      if (node.icon === 'directory') {
+    onNodeSelected: function(node) {
+      if (node.icon === "directory") {
         return false;
       }
-      var data = {
-        title: node.title,
-        path: node.path
-      };
+      var vm = this,
+        data = {
+          title: node.title,
+          path: node.path
+        };
       get("/document", data).then(data => {
-        setValue(data, node.icon);
+        var status = data.status;
+        if (status) {
+          setValue(data.content, node.icon);
+        } else {
+          vm.tooltip = true;
+          vm.toolTitle = data.msg;
+        }
       });
     }
   }
@@ -85,10 +96,10 @@ export default {
 
 <style>
 .ace_gutter-cell {
-    line-height: 20px;
-    padding: 0!important;
-    text-align: center;
-    background-repeat: no-repeat;
+  line-height: 20px;
+  padding: 0 !important;
+  text-align: center;
+  background-repeat: no-repeat;
 }
 div#app {
   display: flex;
@@ -98,6 +109,7 @@ div#app {
 }
 .header {
   position: absolute;
+  top: 0;
   left: 50px;
   right: 0;
   height: 40px;
@@ -145,7 +157,7 @@ div#app {
   background-color: #383838;
 }
 .sidebar .explorer-viewlet .explorer {
-    height: 100%;
+  height: 100%;
   overflow: auto;
   flex-grow: 1;
   color: #adadad;
@@ -155,5 +167,11 @@ div#app {
   flex-grow: 1;
   margin-top: 40px;
   background-color: #fff;
+}
+.workbench .editor {
+  height: 100%;
+}
+.workbench .editor #editor {
+  height: 100% !important;
 }
 </style>
