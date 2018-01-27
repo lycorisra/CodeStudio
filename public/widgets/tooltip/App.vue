@@ -1,5 +1,5 @@
 <template>
-	<div class="tooltip" v-if="show">
+	<div class="tooltip">
         <p class="message">
             <span class="label left">信息</span>
             <span class="text">{{msg}}</span>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     close: function() {
-      this.show = false;
+      this.$parent.close();
     }
   }
 };
