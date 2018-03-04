@@ -13,6 +13,10 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 var templates = {
+    index: {
+        template: 'html-loader!views/home/index.ejs',
+        filename: path.resolve(__dirname, '../views/home/index.ejs')
+    },
     tool: {
         template: 'html-loader!views/tools/tryit.ejs',
         filename: path.resolve(__dirname, '../views/tools/tryit.ejs')
@@ -36,7 +40,7 @@ module.exports = (page, options = {}) => {
     }
     var opt = {
         entry: page.entry,
-        output: Object.assign({}, config.output, { chunkFilename: key + '/js/[id].design.component.js' }),
+        output: Object.assign({}, config.output, { chunkFilename: key + '/js/[id].min.js' }),
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias: {
@@ -101,6 +105,7 @@ module.exports = (page, options = {}) => {
         },
         resolve: {
             alias: {
+                'public': path.resolve(__dirname, publicPath),
                 'views': path.resolve(__dirname, publicPath + 'views'),
                 'tools': path.resolve(__dirname, publicPath + 'tools')
             }
@@ -139,18 +144,28 @@ module.exports = (page, options = {}) => {
             })
         ]
     };
-    if (templates[key]) {
-        var filename = templates[key].filename;
-        filename = configName == 'develop' ? filename.substr(filename.indexOf('views')).replace(/\\/ig, '/') : filename;
-        console.log('key', filename)
+    if (page.template) {
+        var filename = configName == 'develop' ? page.filename.substr(page.filename.indexOf('views')).replace(/\\/ig, '/') : page.filename;
         opt.plugins.push(new HtmlWebpackPlugin({
             inject: 'body', // bundle.js必须放在body后面，否则无法挂载Vue实例
             minify: false,
             hash: true,
-            template: templates[key].template,
+            template: page.template,
             filename: filename
         }))
-    };
+    }
+    // if (templates[key]) {
+    //     var filename = templates[key].filename;
+    //     filename = configName == 'develop' ? filename.substr(filename.indexOf('views')).replace(/\\/ig, '/') : filename;
+    //     console.log('key', filename)
+    //     opt.plugins.push(new HtmlWebpackPlugin({
+    //         inject: 'body', // bundle.js必须放在body后面，否则无法挂载Vue实例
+    //         minify: false,
+    //         hash: true,
+    //         template: templates[key].template,
+    //         filename: filename
+    //     }))
+    // };
     return opt;
 }
 

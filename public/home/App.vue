@@ -18,7 +18,7 @@
         <div class="sidebar">
             <div class="action-bar">
                 <a class="title-label iconfont icon-wenjianjia" @click="toggleSolution()"></a>
-                <a class="title-label iconfont icon-Codepen" @click="toggleSolution()"></a>
+                <a class="title-label iconfont icon-Codepen" href="/tryit"></a>
             </div>
             <div class="explorer-viewlet" v-show="toggle">
                 <h3 class="title">解决资源管理器</h3>
@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import Tree from "../../widgets/tree/App.vue";
-import Tooltip from "../../widgets/tooltip/App.vue";
-import Notice from "../../widgets/tooltip/Notice.vue";
-import CodeStudio from "../../data/CodeStudio.json";
-import { init, setValue } from "../../editor";
-import { get, post } from "../../utils/httpHelper.js";
+import Tree from "../widgets/tree/App.vue";
+import Tooltip from "../widgets/tooltip/App.vue";
+import Notice from "../widgets/tooltip/Notice.vue";
+import CodeStudio from "../data/CodeStudio.json";
+import { init, setValue } from "../editor";
+import { get, post } from "../utils/httpHelper.js";
 
 export default {
   name: "app",

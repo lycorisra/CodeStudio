@@ -1,26 +1,34 @@
 <template>
-	<App class="tooltip" :msg="msg" v-if="show"></App>
+	<App class="tooltip" :msg="msg" v-show="!isclose"></App>
 </template>
 
 <script>
-import App from './App.vue'
+import App from "./App.vue";
 export default {
   name: "Tooltip",
+  components: { App },
   data() {
     return {
-      show: true
+      isclose: true
     };
   },
   props: {
+    show: true,
     msg: {
       type: String,
       twoWay: true,
       default: ""
     }
   },
+  watch: {
+    show: function(val, oldVal) {
+      this.isclose = !this.show;
+      console.log("new: %s, old: %s", val, oldVal);
+    }
+  },
   methods: {
     close: function() {
-      this.show = false;
+      this.isclose = true;
     }
   }
 };
